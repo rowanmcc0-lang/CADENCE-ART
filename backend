@@ -3,28 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cadence — Art for Social Change</title>
+  <title>Cadence — Vermont Art</title>
   <style>
     :root {
-      --black: #0f0f0f;
-      --white: #f5f2ed;
-      --cream: #ede8df;
-      --accent: #c8441a;
-      --mid: #6b6560;
-      --serif: 'Georgia', 'Times New Roman', serif;
-      --sans: 'Helvetica Neue', 'Arial', sans-serif;
+      --forest:   #2b3d34;
+      --pine:     #3d5c4a;
+      --sage:     #7a9e82;
+      --mist:     #a8bfb0;
+      --sky:      #5b829a;
+      --water:    #7aafc2;
+      --stone:    #8c887e;
+      --linen:    #f0ece2;
+      --cream:    #f7f4ee;
+      --parchment:#e8e2d6;
+      --serif:    'Georgia', 'Times New Roman', serif;
+      --sans:     'Helvetica Neue', 'Arial', sans-serif;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--white);
-      color: var(--black);
+      background: var(--cream);
+      color: var(--forest);
       font-family: var(--sans);
       font-size: 16px;
-      line-height: 1.6;
+      line-height: 1.65;
     }
 
     /* ── NAV ── */
@@ -35,18 +39,19 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.25rem 2rem;
-      background: var(--white);
-      border-bottom: 1px solid #ddd;
+      padding: 1.2rem 2rem;
+      background: rgba(247,244,238,0.95);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--parchment);
     }
 
     .nav-logo {
       font-family: var(--serif);
-      font-size: 1.1rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--black);
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--forest);
       text-decoration: none;
+      letter-spacing: 0.02em;
     }
 
     .nav-links {
@@ -56,58 +61,80 @@
     }
 
     .nav-links a {
-      font-size: 0.78rem;
-      letter-spacing: 0.12em;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--black);
+      color: var(--stone);
       text-decoration: none;
       transition: color 0.2s;
     }
 
-    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover { color: var(--pine); }
 
     /* ── HERO ── */
     #hero {
       min-height: 100vh;
-      display: grid;
-      grid-template-rows: 1fr auto;
-      padding: 8rem 2rem 4rem;
-      border-bottom: 1px solid #ddd;
-    }
-
-    .hero-content {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      max-width: 860px;
+      padding: 9rem 2rem 5rem;
+      background: var(--forest);
+      color: var(--linen);
+      position: relative;
+      overflow: hidden;
     }
 
-    .hero-eyebrow {
+    /* subtle organic texture overlay */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 80%, rgba(91,130,154,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(122,158,130,0.15) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    .hero-inner { position: relative; max-width: 820px; }
+
+    .hero-place {
       font-size: 0.72rem;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1.5rem;
+      color: var(--mist);
+      margin-bottom: 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
     }
 
-    .hero-title {
+    .hero-place::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: var(--sage);
+    }
+
+    h1 {
       font-family: var(--serif);
-      font-size: clamp(2.8rem, 7vw, 5.5rem);
-      line-height: 1.05;
+      font-size: clamp(2.6rem, 6.5vw, 5rem);
       font-weight: normal;
-      margin-bottom: 2rem;
+      line-height: 1.1;
+      margin-bottom: 1.75rem;
+      color: var(--linen);
     }
 
-    .hero-title em {
+    h1 em {
       font-style: italic;
-      color: var(--accent);
+      color: var(--water);
     }
 
     .hero-sub {
-      font-size: 1rem;
-      color: var(--mid);
-      max-width: 520px;
-      line-height: 1.7;
+      font-size: 1.05rem;
+      color: var(--mist);
+      max-width: 500px;
+      line-height: 1.75;
       margin-bottom: 2.5rem;
     }
 
@@ -119,808 +146,843 @@
 
     .btn {
       display: inline-block;
-      padding: 0.85rem 2rem;
+      padding: 0.85rem 1.75rem;
       font-size: 0.78rem;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       text-decoration: none;
-      border: 1.5px solid var(--black);
-      color: var(--black);
-      transition: all 0.2s;
-      cursor: pointer;
+      border: 1.5px solid var(--mist);
+      color: var(--linen);
       background: transparent;
+      transition: all 0.25s;
+      cursor: pointer;
       font-family: var(--sans);
     }
 
-    .btn:hover, .btn-primary {
-      background: var(--black);
-      color: var(--white);
+    .btn:hover {
+      background: var(--linen);
+      color: var(--forest);
+      border-color: var(--linen);
     }
 
-    .btn-primary:hover {
-      background: var(--accent);
-      border-color: var(--accent);
+    .btn-solid {
+      background: var(--sage);
+      border-color: var(--sage);
+      color: var(--forest);
     }
 
-    .hero-scroll {
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--mid);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding-top: 2rem;
+    .btn-solid:hover {
+      background: var(--mist);
+      border-color: var(--mist);
     }
 
-    .hero-scroll::before {
-      content: '';
-      display: block;
-      width: 40px;
-      height: 1px;
-      background: var(--mid);
-    }
-
-    /* ── SECTION SHARED ── */
+    /* ── SECTIONS ── */
     section {
-      padding: 5rem 2rem;
-      border-bottom: 1px solid #ddd;
+      padding: 5.5rem 2rem;
     }
 
-    .section-label {
+    .section-tag {
       font-size: 0.7rem;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--mid);
-      margin-bottom: 3rem;
+      color: var(--sage);
+      margin-bottom: 1.25rem;
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 0.75rem;
     }
 
-    .section-label::after {
+    .section-tag::after {
       content: '';
-      flex: 1;
+      display: block;
+      width: 36px;
       height: 1px;
-      background: #ddd;
-      max-width: 80px;
+      background: var(--mist);
     }
 
-    .section-title {
+    h2 {
       font-family: var(--serif);
-      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-size: clamp(1.7rem, 3.5vw, 2.75rem);
       font-weight: normal;
       line-height: 1.2;
-      max-width: 700px;
-      margin-bottom: 1.5rem;
+      max-width: 640px;
+      margin-bottom: 1.25rem;
+      color: var(--forest);
     }
 
-    .section-body {
-      color: var(--mid);
-      max-width: 560px;
-      line-height: 1.75;
+    .body-text {
+      color: var(--stone);
+      max-width: 520px;
+      line-height: 1.8;
       font-size: 0.97rem;
     }
 
-    /* ── MANIFESTO / ABOUT ── */
+    /* ── WHAT WE ARE ── */
     #about {
-      background: var(--black);
-      color: var(--white);
+      background: var(--pine);
+      color: var(--linen);
+      border-top: 3px solid var(--sage);
     }
 
-    #about .section-label { color: var(--accent); }
-    #about .section-label::after { background: #333; }
-    #about .section-title { color: var(--white); }
-    #about .section-body { color: #aaa; }
+    #about h2 { color: var(--linen); }
+    #about .section-tag { color: var(--water); }
+    #about .section-tag::after { background: rgba(255,255,255,0.2); }
+    #about .body-text { color: var(--mist); }
 
-    .manifesto-grid {
+    .values-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 2.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 0;
       margin-top: 3.5rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
     }
 
-    .manifesto-item {
-      border-top: 1px solid #333;
-      padding-top: 1.5rem;
+    .value {
+      padding: 2rem 1.5rem 2rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
     }
 
-    .manifesto-item h3 {
+    .value-mark {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--sage);
+      margin-bottom: 1rem;
+    }
+
+    .value h3 {
       font-family: var(--serif);
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: normal;
-      margin-bottom: 0.75rem;
-      color: var(--white);
+      color: var(--linen);
+      margin-bottom: 0.5rem;
     }
 
-    .manifesto-item p {
-      font-size: 0.88rem;
-      color: #888;
+    .value p {
+      font-size: 0.85rem;
+      color: var(--mist);
       line-height: 1.7;
     }
 
     /* ── HOW IT WORKS ── */
-    #how-it-works { background: var(--cream); }
-
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
+    #how {
+      background: var(--linen);
     }
 
+    .how-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-top: 3.5rem;
+    }
+
+    .how-group h3 {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--sky);
+      margin-bottom: 1.75rem;
+    }
+
+    .steps { display: flex; flex-direction: column; gap: 1.5rem; }
+
     .step {
-      padding: 2rem 1.5rem;
-      background: var(--white);
-      border: 1px solid #ddd;
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
     }
 
     .step-num {
-      font-size: 0.68rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1rem;
-    }
-
-    .step h3 {
       font-family: var(--serif);
-      font-size: 1.15rem;
-      font-weight: normal;
-      margin-bottom: 0.75rem;
+      font-size: 1.5rem;
+      font-style: italic;
+      color: var(--mist);
+      line-height: 1;
+      flex-shrink: 0;
+      width: 2rem;
     }
 
-    .step p {
-      font-size: 0.88rem;
-      color: var(--mid);
-      line-height: 1.7;
+    .step-text h4 {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--forest);
+      margin-bottom: 0.3rem;
     }
 
-    /* ── FEATURED DROP ── */
+    .step-text p {
+      font-size: 0.85rem;
+      color: var(--stone);
+      line-height: 1.65;
+    }
+
+    /* ── DROP ── */
     #drop {
-      background: var(--white);
+      background: var(--cream);
+      border-top: 1px solid var(--parchment);
     }
 
-    .drop-header {
+    .drop-top {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 1.5rem;
       margin-bottom: 3rem;
     }
 
-    .drop-badge {
+    .drop-tag {
       display: inline-block;
-      background: var(--accent);
-      color: var(--white);
+      background: var(--sky);
+      color: var(--cream);
       font-size: 0.65rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      padding: 0.4rem 0.8rem;
-      margin-bottom: 1rem;
+      padding: 0.35rem 0.75rem;
+      margin-bottom: 0.75rem;
     }
 
-    .drop-grid {
+    .art-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1.5px;
-      background: #ddd;
+      gap: 1.5rem;
     }
 
     .art-card {
-      background: var(--white);
-      position: relative;
-      overflow: hidden;
+      background: var(--linen);
+      border: 1px solid var(--parchment);
+      transition: transform 0.2s, box-shadow 0.2s;
       cursor: pointer;
     }
 
-    .art-card-image {
+    .art-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(43,61,52,0.1);
+    }
+
+    .art-img {
       width: 100%;
       aspect-ratio: 4/5;
-      background: var(--cream);
+      background: linear-gradient(160deg, var(--parchment) 0%, var(--mist) 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
     }
 
-    .art-card-image .placeholder-text {
+    .art-img span {
       font-family: var(--serif);
+      font-style: italic;
       font-size: 0.85rem;
-      color: var(--mid);
-      letter-spacing: 0.05em;
-      text-align: center;
-      padding: 2rem;
+      color: var(--stone);
       opacity: 0.5;
     }
 
-    .art-card-info {
-      padding: 1.25rem 1.25rem 1.5rem;
-    }
+    .art-info { padding: 1.2rem; }
 
-    .art-card-artist {
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
+    .art-info .artist {
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--mid);
-      margin-bottom: 0.4rem;
+      color: var(--stone);
+      margin-bottom: 0.35rem;
     }
 
-    .art-card-title {
+    .art-info .title {
       font-family: var(--serif);
       font-size: 1rem;
       font-weight: normal;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
     }
 
-    .art-card-price {
-      font-size: 0.82rem;
-      color: var(--mid);
-    }
+    .art-info .price { font-size: 0.85rem; color: var(--stone); }
 
-    .art-card-edition {
-      font-size: 0.7rem;
-      color: var(--accent);
-      letter-spacing: 0.1em;
+    .art-info .edition {
+      font-size: 0.68rem;
+      color: var(--sky);
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      margin-top: 0.25rem;
+      margin-top: 0.2rem;
     }
 
-    /* ── ARTIST PROFILES ── */
-    #artists { background: var(--cream); }
+    /* ── ARTISTS ── */
+    #artists { background: var(--parchment); }
 
     .artist-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
       gap: 2rem;
       margin-top: 3rem;
     }
 
-    .artist-card {
-      text-decoration: none;
-      color: var(--black);
-    }
+    .artist-card { text-decoration: none; color: var(--forest); }
 
-    .artist-avatar {
+    .artist-photo {
       width: 100%;
       aspect-ratio: 1;
-      background: var(--mid);
-      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--pine) 0%, var(--sky) 100%);
+      margin-bottom: 0.9rem;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .artist-avatar span {
+    .artist-photo span {
       font-family: var(--serif);
-      font-size: 1.5rem;
-      color: var(--white);
-      opacity: 0.5;
+      font-size: 1.4rem;
+      font-style: italic;
+      color: rgba(255,255,255,0.45);
     }
 
     .artist-card h3 {
       font-family: var(--serif);
       font-size: 1rem;
       font-weight: normal;
-      margin-bottom: 0.3rem;
-    }
-
-    .artist-card p {
-      font-size: 0.78rem;
-      color: var(--mid);
       margin-bottom: 0.25rem;
     }
 
+    .artist-card .location {
+      font-size: 0.78rem;
+      color: var(--stone);
+    }
+
     .artist-card .medium {
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--sage);
+      margin-top: 0.2rem;
     }
 
-    /* ── ECONOMICS (TRANSPARENCY) ── */
-    #economics {
-      background: var(--black);
-      color: var(--white);
+    /* ── MONEY ── */
+    #money {
+      background: var(--forest);
+      color: var(--linen);
     }
 
-    #economics .section-label { color: var(--accent); }
-    #economics .section-label::after { background: #333; }
-    #economics .section-title { color: var(--white); }
+    #money h2 { color: var(--linen); max-width: 520px; }
+    #money .section-tag { color: var(--water); }
+    #money .section-tag::after { background: rgba(255,255,255,0.15); }
+    #money .body-text {
+      color: var(--mist);
+      margin-top: 1rem;
+      margin-bottom: 3.5rem;
+    }
 
-    .economics-grid {
+    .money-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1.5px;
-      background: #222;
-      margin-top: 3rem;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1px;
+      background: rgba(255,255,255,0.08);
     }
 
-    .econ-stat {
-      background: var(--black);
+    .money-stat {
+      background: var(--forest);
       padding: 2.5rem 2rem;
     }
 
-    .econ-number {
+    .money-num {
       font-family: var(--serif);
       font-size: 3rem;
-      color: var(--accent);
+      font-style: italic;
+      color: var(--water);
       line-height: 1;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.5rem;
     }
 
-    .econ-label {
-      font-size: 0.78rem;
-      color: #888;
+    .money-label {
+      font-size: 0.8rem;
+      color: var(--mist);
       line-height: 1.5;
     }
 
-    .economics-note {
-      margin-top: 2.5rem;
-      font-size: 0.85rem;
-      color: #666;
-      max-width: 560px;
-      line-height: 1.7;
+    /* ── APPLY ── */
+    #apply {
+      background: var(--linen);
     }
 
-    /* ── FOR ARTISTS CTA ── */
-    #join {
-      background: var(--cream);
-    }
-
-    .join-inner {
+    .apply-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
+      gap: 5rem;
+      align-items: start;
     }
 
-    .join-form {
+    .criteria {
+      margin-top: 2.5rem;
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 1.25rem;
     }
 
-    .join-form input, .join-form textarea, .join-form select {
+    .criterion {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .cmark {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--sage);
+      margin-top: 0.55rem;
+      flex-shrink: 0;
+    }
+
+    .criterion p {
+      font-size: 0.9rem;
+      color: var(--stone);
+      line-height: 1.65;
+    }
+
+    .criterion strong {
+      display: block;
+      color: var(--forest);
+      font-size: 0.88rem;
+      margin-bottom: 0.2rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    form input,
+    form textarea,
+    form select {
       width: 100%;
-      padding: 0.9rem 1rem;
-      border: 1px solid #ccc;
-      background: var(--white);
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--parchment);
+      background: var(--cream);
       font-family: var(--sans);
       font-size: 0.9rem;
+      color: var(--forest);
       outline: none;
       appearance: none;
-      color: var(--black);
+      transition: border-color 0.2s;
     }
 
-    .join-form input:focus, .join-form textarea:focus {
-      border-color: var(--black);
+    form input:focus,
+    form textarea:focus,
+    form select:focus {
+      border-color: var(--sage);
     }
 
-    .join-form textarea {
-      height: 100px;
-      resize: vertical;
-    }
+    form textarea { height: 110px; resize: vertical; }
 
-    .join-note {
+    .form-note {
       font-size: 0.75rem;
-      color: var(--mid);
-      margin-top: 0.5rem;
+      color: var(--stone);
+      line-height: 1.5;
     }
 
-    /* ── EMAIL SIGNUP ── */
+    .submit-btn {
+      padding: 0.9rem 1.75rem;
+      background: var(--pine);
+      color: var(--linen);
+      border: none;
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-align: center;
+    }
+
+    .submit-btn:hover { background: var(--forest); }
+
+    /* ── EMAIL STRIP ── */
     #notify {
-      background: var(--accent);
-      color: var(--white);
+      background: var(--sky);
       padding: 4rem 2rem;
     }
 
-    #notify .section-title {
-      color: var(--white);
+    #notify h2 {
+      color: var(--cream);
       margin-bottom: 0.75rem;
     }
 
-    #notify .section-body {
+    #notify .section-tag { color: rgba(255,255,255,0.65); }
+    #notify .section-tag::after { background: rgba(255,255,255,0.2); }
+
+    #notify .body-text {
       color: rgba(255,255,255,0.75);
       margin-bottom: 2rem;
     }
 
-    .signup-row {
+    .email-row {
       display: flex;
-      gap: 0;
-      max-width: 480px;
+      max-width: 440px;
     }
 
-    .signup-row input {
+    .email-row input {
       flex: 1;
       padding: 0.9rem 1rem;
       border: none;
       background: rgba(255,255,255,0.15);
-      color: var(--white);
+      color: var(--cream);
       font-family: var(--sans);
       font-size: 0.9rem;
       outline: none;
     }
 
-    .signup-row input::placeholder { color: rgba(255,255,255,0.5); }
+    .email-row input::placeholder { color: rgba(255,255,255,0.5); }
 
-    .signup-row button {
-      padding: 0.9rem 1.5rem;
-      background: var(--black);
-      color: var(--white);
+    .email-row button {
+      padding: 0.9rem 1.4rem;
+      background: var(--forest);
+      color: var(--linen);
       border: none;
       font-size: 0.75rem;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       cursor: pointer;
       font-family: var(--sans);
       white-space: nowrap;
+      transition: background 0.2s;
     }
+
+    .email-row button:hover { background: var(--pine); }
 
     /* ── FOOTER ── */
     footer {
-      padding: 3rem 2rem;
-      background: var(--black);
-      color: #555;
+      background: var(--forest);
+      padding: 2.5rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       gap: 1rem;
+      border-top: 2px solid var(--pine);
     }
 
     .footer-logo {
       font-family: var(--serif);
-      font-size: 1rem;
-      color: var(--white);
-      letter-spacing: 0.08em;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--linen);
     }
 
     .footer-links {
+      list-style: none;
       display: flex;
       gap: 2rem;
-      list-style: none;
     }
 
     .footer-links a {
       font-size: 0.75rem;
-      color: #555;
-      text-decoration: none;
       letter-spacing: 0.1em;
       text-transform: uppercase;
+      color: var(--mist);
+      text-decoration: none;
+      transition: color 0.2s;
     }
 
-    .footer-links a:hover { color: var(--white); }
+    .footer-links a:hover { color: var(--linen); }
 
     .footer-copy {
-      font-size: 0.72rem;
-      color: #444;
       width: 100%;
-    }
-
-    /* ── PILLARS ── */
-    .pillars {
-      display: flex;
-      gap: 0;
-      border: 1px solid #ddd;
-      margin-top: 3rem;
-      flex-wrap: wrap;
-    }
-
-    .pillar {
-      flex: 1;
-      min-width: 180px;
-      padding: 2rem 1.5rem;
-      border-right: 1px solid #ddd;
-    }
-
-    .pillar:last-child { border-right: none; }
-
-    .pillar-icon {
-      font-size: 0.7rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1rem;
-    }
-
-    .pillar h3 {
-      font-family: var(--serif);
-      font-size: 1.1rem;
-      font-weight: normal;
-      margin-bottom: 0.75rem;
-    }
-
-    .pillar p {
-      font-size: 0.83rem;
-      color: var(--mid);
-      line-height: 1.65;
+      font-size: 0.72rem;
+      color: rgba(168,191,176,0.45);
+      margin-top: 0.5rem;
     }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 700px) {
+    @media (max-width: 720px) {
       nav { padding: 1rem 1.25rem; }
-      .nav-links { gap: 1rem; }
+      .nav-links { gap: 1.2rem; }
       section { padding: 4rem 1.25rem; }
-      #hero { padding: 6rem 1.25rem 3rem; }
-      .join-inner { grid-template-columns: 1fr; }
-      .signup-row { flex-direction: column; }
-      footer { flex-direction: column; }
+      #hero { padding: 7rem 1.25rem 4rem; }
+      .how-cols { grid-template-columns: 1fr; gap: 2.5rem; }
+      .apply-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .email-row { flex-direction: column; }
+      footer { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
 <body>
 
-<!-- ─────────────── NAV ─────────────── -->
+<!-- NAV -->
 <nav>
   <a class="nav-logo" href="#">Cadence</a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#drop">Current Drop</a></li>
     <li><a href="#artists">Artists</a></li>
-    <li><a href="#join">Join</a></li>
+    <li><a href="#apply">Apply</a></li>
   </ul>
 </nav>
 
-<!-- ─────────────── HERO ─────────────── -->
+<!-- HERO -->
 <section id="hero">
-  <div class="hero-content">
-    <p class="hero-eyebrow">Vermont — Est. 2025</p>
-    <h1 class="hero-title">
-      Economic infrastructure<br>for <em>artists</em> who<br>make change.
-    </h1>
+  <div class="hero-inner">
+    <p class="hero-place">Vermont</p>
+    <h1>Art made by hand.<br><em>Sold with care.</em></h1>
     <p class="hero-sub">
-      A cooperative-style art platform where early-career, justice-oriented artists get paid fairly — without the business headache. We handle the sales, shipping, and taxes. You keep making the work.
+      Cadence is a small platform for Vermont artists who are serious about their work. We take care of the selling so you can keep making things.
     </p>
     <div class="hero-cta">
-      <a class="btn btn-primary" href="#drop">See the Current Drop</a>
-      <a class="btn" href="#join">Apply as an Artist</a>
+      <a class="btn btn-solid" href="#drop">See the Current Drop</a>
+      <a class="btn" href="#apply">Apply as an Artist</a>
     </div>
   </div>
-  <div class="hero-scroll">Scroll to explore</div>
 </section>
 
-<!-- ─────────────── ABOUT ─────────────── -->
+<!-- ABOUT -->
 <section id="about">
-  <p class="section-label">What we are</p>
-  <h2 class="section-title">Not a gallery. Not Etsy. Something built for artists first.</h2>
-  <p class="section-body">
-    We're a shared storefront, not a competitive marketplace. Artists here are selected, not just signed up. We treat your work with the seriousness it deserves — and build economic structures that actually work in your favor.
+  <p class="section-tag">What we are</p>
+  <h2>Not a gallery. Not Etsy. A place that actually works for artists.</h2>
+  <p class="body-text">
+    We're a shared storefront — a small, curated group of Vermont artists selling together. You get real pricing support, no hidden fees, and a platform that doesn't make you compete with ten thousand other sellers for attention.
   </p>
 
-  <div class="manifesto-grid">
-    <div class="manifesto-item">
-      <h3>No listing fees.<br>No pay-to-play.</h3>
-      <p>You never pay to be visible here. Visibility is earned through quality, not advertising spend.</p>
+  <div class="values-grid">
+    <div class="value">
+      <div class="value-mark"></div>
+      <h3>No listing fees. Ever.</h3>
+      <p>You don't pay to be here. We only make money when you do.</p>
     </div>
-    <div class="manifesto-item">
-      <h3>Transparent margins.</h3>
-      <p>We show you exactly what we take and what you earn. No surprises. Artists know their numbers.</p>
+    <div class="value">
+      <div class="value-mark"></div>
+      <h3>Open books.</h3>
+      <p>You always know exactly what we take and what you keep. No fine print.</p>
     </div>
-    <div class="manifesto-item">
+    <div class="value">
+      <div class="value-mark"></div>
       <h3>Human-made only.</h3>
-      <p>No AI-generated work. Every piece on this platform was made by a person, in a community, with intention.</p>
+      <p>No AI art. Every piece here came from someone's hands and time.</p>
     </div>
-    <div class="manifesto-item">
-      <h3>You own your work.</h3>
-      <p>Full creative control, always. You have veto power over every decision about your art on this platform.</p>
+    <div class="value">
+      <div class="value-mark"></div>
+      <h3>Your work stays yours.</h3>
+      <p>You keep full ownership. You can pull your work anytime, no questions asked.</p>
     </div>
-    <div class="manifesto-item">
-      <h3>Local supply chains.</h3>
-      <p>We partner with union and worker-owned print shops. Sustainable, regional, accountable.</p>
+    <div class="value">
+      <div class="value-mark"></div>
+      <h3>Fair prices, held firm.</h3>
+      <p>We set minimum price floors together. No race to the bottom.</p>
     </div>
-    <div class="manifesto-item">
-      <h3>Art for social change.</h3>
-      <p>We specifically support artists with a community, justice, or political lens. This isn't incidental — it's the point.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ─────────────── HOW IT WORKS ─────────────── -->
-<section id="how-it-works">
-  <p class="section-label">How it works</p>
-  <h2 class="section-title">You make it. We sell it. You get paid.</h2>
-  <p class="section-body">Simple enough to start now. Robust enough to build a real income from.</p>
-
-  <div style="margin-top:3rem;">
-    <p style="font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--mid);margin-bottom:1.5rem;">For artists</p>
-    <div class="steps-grid">
-      <div class="step">
-        <p class="step-num">01</p>
-        <h3>Apply & get selected</h3>
-        <p>Tell us about your work and practice. We review every application by hand.</p>
-      </div>
-      <div class="step">
-        <p class="step-num">02</p>
-        <h3>We set you up</h3>
-        <p>We handle pricing strategy, your artist profile, and all the technical listing work.</p>
-      </div>
-      <div class="step">
-        <p class="step-num">03</p>
-        <h3>Your work goes live</h3>
-        <p>Either in a curated drop or the permanent storefront. We market it across all our channels.</p>
-      </div>
-      <div class="step">
-        <p class="step-num">04</p>
-        <h3>You get paid</h3>
-        <p>Monthly payouts, one tax form at year end. We handle fulfillment, shipping, and customer service.</p>
-      </div>
-    </div>
-  </div>
-
-  <div style="margin-top:3rem;">
-    <p style="font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--mid);margin-bottom:1.5rem;">For buyers</p>
-    <div class="steps-grid">
-      <div class="step">
-        <p class="step-num">01</p>
-        <h3>Discover curated work</h3>
-        <p>Every artist here was selected. You're not wading through a sea of dropshipped prints.</p>
-      </div>
-      <div class="step">
-        <p class="step-num">02</p>
-        <h3>Know what you're buying</h3>
-        <p>Artist profiles tell you who made it, where, and why. Full provenance, no mystery.</p>
-      </div>
-      <div class="step">
-        <p class="step-num">03</p>
-        <h3>Support something real</h3>
-        <p>The majority of your purchase goes directly to the artist. We're transparent about what that split is.</p>
-      </div>
+    <div class="value">
+      <div class="value-mark"></div>
+      <h3>Rooted in community.</h3>
+      <p>We work with local printers and focus on artists who are embedded in Vermont life.</p>
     </div>
   </div>
 </section>
 
-<!-- ─────────────── CURRENT DROP ─────────────── -->
+<!-- HOW IT WORKS -->
+<section id="how">
+  <p class="section-tag">How it works</p>
+  <h2>You make the work. We handle the rest.</h2>
+  <p class="body-text">Simple enough to get started quickly. Solid enough to build real income over time.</p>
+
+  <div class="how-cols">
+    <div class="how-group">
+      <h3>For artists</h3>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">1</span>
+          <div class="step-text">
+            <h4>Apply and get selected</h4>
+            <p>We read every application ourselves. We're looking for strong work and a real connection to community.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <div class="step-text">
+            <h4>We set up your profile</h4>
+            <p>We help you price your work, write your listing copy, and get everything looking right.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <div class="step-text">
+            <h4>Your work goes live</h4>
+            <p>Either in a curated drop or the ongoing storefront. We market it across all our channels.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">4</span>
+          <div class="step-text">
+            <h4>You get paid monthly</h4>
+            <p>One clean payment, one tax form at year end. We deal with shipping and customer questions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="how-group">
+      <h3>For buyers</h3>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">1</span>
+          <div class="step-text">
+            <h4>Browse work you can trust</h4>
+            <p>Every artist here was personally selected. You're not digging through a marketplace of thousands.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <div class="step-text">
+            <h4>Know who made it</h4>
+            <p>Artist profiles tell you the person behind the work — where they're from, what they make, why it matters.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <div class="step-text">
+            <h4>Buy knowing where your money goes</h4>
+            <p>We're public about what artists earn from every sale. Most of it goes to them, and we'll always tell you exactly how much.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CURRENT DROP -->
 <section id="drop">
-  <div class="drop-header">
+  <div class="drop-top">
     <div>
-      <p class="drop-badge">Now Available</p>
-      <p class="section-label">Curated Drop No. 1</p>
-      <h2 class="section-title">Land & Labor</h2>
-      <p class="section-body" style="margin-top:1rem;">
-        Five Vermont artists whose work is rooted in place — land, food systems, community infrastructure, and the labor that holds it all together. Limited edition prints. Numbered runs. Ships within 2 weeks.
+      <span class="drop-tag">Open Now</span>
+      <p class="section-tag">Drop No. 1</p>
+      <h2>Land & Labor</h2>
+      <p class="body-text" style="margin-top:0.75rem;">
+        Five Vermont artists making work about where they live — the land, the seasons, the people holding things together. Limited edition prints. Numbered runs. Ships within two weeks.
       </p>
     </div>
-    <a class="btn btn-primary" href="#notify" style="flex-shrink:0;">Get Early Access</a>
+    <a class="btn" style="border-color:var(--sky);color:var(--sky);flex-shrink:0;" href="#notify">Get Early Access</a>
   </div>
 
-  <div class="drop-grid">
-    <!-- Placeholder art cards — replace with real artist work -->
+  <div class="art-grid">
     <div class="art-card">
-      <div class="art-card-image">
-        <p class="placeholder-text">Artist work<br>goes here</p>
-      </div>
-      <div class="art-card-info">
-        <p class="art-card-artist">Artist Name</p>
-        <p class="art-card-title">Untitled, 2025</p>
-        <p class="art-card-price">From $85</p>
-        <p class="art-card-edition">Ed. of 40 remaining</p>
+      <div class="art-img"><span>artwork here</span></div>
+      <div class="art-info">
+        <p class="artist">Artist Name</p>
+        <p class="title">Untitled, 2025</p>
+        <p class="price">From $85</p>
+        <p class="edition">Ed. of 40 — available now</p>
       </div>
     </div>
     <div class="art-card">
-      <div class="art-card-image">
-        <p class="placeholder-text">Artist work<br>goes here</p>
-      </div>
-      <div class="art-card-info">
-        <p class="art-card-artist">Artist Name</p>
-        <p class="art-card-title">Series Title, 2025</p>
-        <p class="art-card-price">From $65</p>
-        <p class="art-card-edition">Ed. of 25 — 18 remaining</p>
+      <div class="art-img"><span>artwork here</span></div>
+      <div class="art-info">
+        <p class="artist">Artist Name</p>
+        <p class="title">Series Title, 2025</p>
+        <p class="price">From $65</p>
+        <p class="edition">Ed. of 25 — 18 left</p>
       </div>
     </div>
     <div class="art-card">
-      <div class="art-card-image">
-        <p class="placeholder-text">Artist work<br>goes here</p>
-      </div>
-      <div class="art-card-info">
-        <p class="art-card-artist">Artist Name</p>
-        <p class="art-card-title">Work Title, 2024</p>
-        <p class="art-card-price">From $120</p>
-        <p class="art-card-edition">Ed. of 15 remaining</p>
+      <div class="art-img"><span>artwork here</span></div>
+      <div class="art-info">
+        <p class="artist">Artist Name</p>
+        <p class="title">Work Title, 2024</p>
+        <p class="price">From $120</p>
+        <p class="edition">Ed. of 15 — available now</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─────────────── ARTISTS ─────────────── -->
+<!-- ARTISTS -->
 <section id="artists">
-  <p class="section-label">The Roster</p>
-  <h2 class="section-title">Artists on the platform</h2>
-  <p class="section-body">Early-to-mid career artists with strong technical execution, cultural grounding, and a clear community lens. Curated by hand.</p>
+  <p class="section-tag">The People</p>
+  <h2>Artists on Cadence</h2>
+  <p class="body-text">Selected by hand. Early-to-mid career. Vermont-rooted. Making work that means something.</p>
 
   <div class="artist-grid">
-    <!-- Placeholder artist cards — replace with real artists -->
     <div class="artist-card">
-      <div class="artist-avatar"><span>MP</span></div>
+      <div class="artist-photo"><span>MP</span></div>
       <h3>Maple Perchlik</h3>
-      <p>Burlington, VT</p>
+      <p class="location">Burlington, VT</p>
       <p class="medium">Photography</p>
     </div>
     <div class="artist-card">
-      <div class="artist-avatar"><span>—</span></div>
+      <div class="artist-photo"><span>—</span></div>
       <h3>Artist Name</h3>
-      <p>Montpelier, VT</p>
-      <p class="medium">Painting / Mixed Media</p>
+      <p class="location">Montpelier, VT</p>
+      <p class="medium">Painting</p>
     </div>
     <div class="artist-card">
-      <div class="artist-avatar"><span>—</span></div>
+      <div class="artist-photo"><span>—</span></div>
       <h3>Artist Name</h3>
-      <p>Brattleboro, VT</p>
-      <p class="medium">Writing / Illustration</p>
+      <p class="location">Brattleboro, VT</p>
+      <p class="medium">Writing & Print</p>
     </div>
     <div class="artist-card">
-      <div class="artist-avatar"><span>—</span></div>
-      <h3>Your Name Here</h3>
-      <p>Vermont</p>
+      <div class="artist-photo"><span>+</span></div>
+      <h3>Your name here</h3>
+      <p class="location">Vermont</p>
       <p class="medium">Apply to join</p>
     </div>
   </div>
 </section>
 
-<!-- ─────────────── ECONOMICS ─────────────── -->
-<section id="economics">
-  <p class="section-label">Transparent Economics</p>
-  <h2 class="section-title">Here's exactly how the money works.</h2>
+<!-- MONEY / TRANSPARENCY -->
+<section id="money">
+  <p class="section-tag">The numbers</p>
+  <h2>Here's exactly how the money works.</h2>
+  <p class="body-text">
+    We think artists deserve to know this stuff up front. So here it is, plainly.
+  </p>
 
-  <div class="economics-grid">
-    <div class="econ-stat">
-      <p class="econ-number">65%</p>
-      <p class="econ-label">Of every sale goes<br>directly to the artist</p>
+  <div class="money-grid">
+    <div class="money-stat">
+      <p class="money-num">65%</p>
+      <p class="money-label">of every sale goes directly to the artist</p>
     </div>
-    <div class="econ-stat">
-      <p class="econ-number">$0</p>
-      <p class="econ-label">Listing fees —<br>ever</p>
+    <div class="money-stat">
+      <p class="money-num">$0</p>
+      <p class="money-label">listing fees — now and always</p>
     </div>
-    <div class="econ-stat">
-      <p class="econ-number">1</p>
-      <p class="econ-label">Tax form at year end.<br>We handle the rest.</p>
+    <div class="money-stat">
+      <p class="money-num">1×</p>
+      <p class="money-label">clean tax form at year end. we handle the rest.</p>
     </div>
-    <div class="econ-stat">
-      <p class="econ-number">No</p>
-      <p class="econ-label">Pay-to-play visibility.<br>Quality, not spend.</p>
+    <div class="money-stat">
+      <p class="money-num">No</p>
+      <p class="money-label">pay-to-play visibility. your work shows up on its own merits.</p>
     </div>
   </div>
-
-  <p class="economics-note">
-    We take a platform fee to cover fulfillment, shipping logistics, payment processing, marketing, and operational costs. As the platform grows, artists who've been with us longer pay lower effective rates. We publish our financial model publicly. No surprises.
-  </p>
 </section>
 
-<!-- ─────────────── JOIN (ARTIST APPLICATION) ─────────────── -->
-<section id="join">
-  <div class="join-inner">
+<!-- APPLY -->
+<section id="apply">
+  <div class="apply-grid">
     <div>
-      <p class="section-label">For Artists</p>
-      <h2 class="section-title">Apply to join the platform.</h2>
-      <p class="section-body">
-        We're actively building our founding cohort of Vermont-based artists. We're looking for early-to-mid career artists with strong work and a community or justice orientation. No galleries required. No follower counts required.
+      <p class="section-tag">For Artists</p>
+      <h2>Want to sell your work through Cadence?</h2>
+      <p class="body-text">
+        We're building a small founding group of Vermont artists right now. If your work is human-made, community-connected, and you're serious about selling it — we'd like to hear from you.
       </p>
 
-      <div class="pillars" style="margin-top:2rem;">
-        <div class="pillar">
-          <p class="pillar-icon">Criteria</p>
-          <h3>Human-made</h3>
-          <p>No AI-generated work. Independent and locally rooted.</p>
+      <div class="criteria">
+        <div class="criterion">
+          <div class="cmark"></div>
+          <p><strong>Human-made, no AI</strong>Made by you, with your hands and your time.</p>
         </div>
-        <div class="pillar">
-          <p class="pillar-icon">Focus</p>
-          <h3>Community lens</h3>
-          <p>Your work connects to something larger — a place, a cause, a people.</p>
+        <div class="criterion">
+          <div class="cmark"></div>
+          <p><strong>Independent and local</strong>Not gallery-represented. Rooted in Vermont or New England.</p>
         </div>
-        <div class="pillar">
-          <p class="pillar-icon">Stage</p>
-          <h3>Early–mid career</h3>
-          <p>Not hobbyists, not blue-chip. Capable but under-capitalized.</p>
+        <div class="criterion">
+          <div class="cmark"></div>
+          <p><strong>Early to mid-career</strong>Not a hobbyist, not a household name. Somewhere in the middle, doing real work.</p>
+        </div>
+        <div class="criterion">
+          <div class="cmark"></div>
+          <p><strong>Community or justice lens</strong>Your work connects to something beyond the canvas.</p>
         </div>
       </div>
     </div>
 
     <div>
-      <form class="join-form" onsubmit="handleApplication(event)">
+      <form onsubmit="submitApp(event)">
         <input type="text" placeholder="Your name" required />
         <input type="email" placeholder="Email address" required />
-        <input type="text" placeholder="Location (city, state)" />
+        <input type="text" placeholder="Where you're based" />
         <select>
           <option value="" disabled selected>Primary medium</option>
           <option>Painting</option>
@@ -933,57 +995,54 @@
           <option>Other</option>
         </select>
         <input type="url" placeholder="Instagram or portfolio link" />
-        <textarea placeholder="Tell us about your work and why you want to join (3–5 sentences)"></textarea>
-        <button type="submit" class="btn btn-primary" style="border:none;cursor:pointer;">Submit Application</button>
-        <p class="join-note">We review every application personally. You'll hear back within 2 weeks.</p>
+        <textarea placeholder="Tell us a little about your work and what you're trying to build — no need to be formal about it."></textarea>
+        <button type="submit" class="submit-btn">Send Application</button>
+        <p class="form-note">We read every application ourselves and get back to you within two weeks.</p>
       </form>
     </div>
   </div>
 </section>
 
-<!-- ─────────────── EMAIL SIGNUP (BUYERS) ─────────────── -->
-<section id="notify" style="background:var(--accent);color:var(--white);padding:4rem 2rem;">
-  <p class="section-label" style="color:rgba(255,255,255,0.6);">For Collectors</p>
-  <h2 class="section-title" style="color:var(--white);margin-bottom:0.75rem;">Get early access to every drop.</h2>
-  <p class="section-body" style="color:rgba(255,255,255,0.75);margin-bottom:2rem;">
-    Drops sell out. Collector list members get notified first — and sometimes get exclusive pricing. Join free.
+<!-- EMAIL -->
+<section id="notify" style="background:var(--sky);padding:4rem 2rem;">
+  <p class="section-tag" style="color:rgba(255,255,255,0.6);">For Collectors</p>
+  <h2 style="color:var(--cream);margin-bottom:0.75rem;">Get early access to every drop.</h2>
+  <p class="body-text" style="color:rgba(255,255,255,0.75);margin-bottom:2rem;">
+    Drops sell out. People on our list hear about them first — sometimes a week before they go public.
   </p>
-  <div class="signup-row">
+  <div class="email-row">
     <input type="email" placeholder="your@email.com" />
-    <button onclick="alert('Thanks! We\'ll be in touch.')">Join the List</button>
+    <button onclick="alert('You\'re on the list. Thanks.')">Join the List</button>
   </div>
 </section>
 
-<!-- ─────────────── FOOTER ─────────────── -->
+<!-- FOOTER -->
 <footer>
   <span class="footer-logo">Cadence</span>
   <ul class="footer-links">
     <li><a href="#about">About</a></li>
     <li><a href="#artists">Artists</a></li>
-    <li><a href="#join">Apply</a></li>
-    <li><a href="mailto:hello@cadencevt.com">Contact</a></li>
+    <li><a href="#apply">Apply</a></li>
+    <li><a href="mailto:hello@cadencevt.com">hello@cadencevt.com</a></li>
   </ul>
-  <p class="footer-copy">© 2025 Cadence — Vermont. Human-made art. Transparent economics. Community first. · cadencevt.com</p>
+  <p class="footer-copy">© 2025 Cadence — Vermont. Human-made. Community-rooted.</p>
 </footer>
 
 <script>
-  function handleApplication(e) {
+  function submitApp(e) {
     e.preventDefault();
-    alert("Thanks for applying! We'll be in touch within 2 weeks.");
+    alert("Thanks for reaching out. We'll be in touch within two weeks.");
     e.target.reset();
   }
 
-  // Smooth nav underline on scroll
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-
+  // highlight active nav link on scroll
+  const secs = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.nav-links a');
   window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(s => {
-      if (window.scrollY >= s.offsetTop - 100) current = s.id;
-    });
-    navLinks.forEach(a => {
-      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+    let cur = '';
+    secs.forEach(s => { if (window.scrollY >= s.offsetTop - 120) cur = s.id; });
+    links.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--pine)' : '';
     });
   });
 </script>
