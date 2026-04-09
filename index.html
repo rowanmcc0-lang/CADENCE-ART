@@ -8,23 +8,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --deep:      #192e22;
-      --forest:    #244535;
-      --pine:      #335c46;
-      --leaf:      #5aac80;
-      --sage:      #8cc9a2;
-      --mint:      #b8e0c8;
-      --sky-deep:  #2a6fa8;
-      --sky:       #4090c4;
-      --water:     #7bc0dc;
-      --mist:      #b4d8ea;
-      --earth:     #6b5540;
-      --clay:      #b87a52;
-      --cream:     #f6f1e7;
-      --warm:      #faf7f1;
-      --parch:     #ece6d8;
-      --display:   'Cormorant Garamond', Georgia, serif;
-      --body:      'Plus Jakarta Sans', 'Helvetica Neue', sans-serif;
+      --deep:     #192e22;
+      --forest:   #244535;
+      --pine:     #335c46;
+      --leaf:     #5aac80;
+      --sage:     #8cc9a2;
+      --mint:     #b8e0c8;
+      --sky-deep: #2a6fa8;
+      --sky:      #4090c4;
+      --water:    #7bc0dc;
+      --mist:     #b4d8ea;
+      --earth:    #6b5540;
+      --cream:    #f6f1e7;
+      --warm:     #faf7f1;
+      --parch:    #ece6d8;
+      --display:  'Cormorant Garamond', Georgia, serif;
+      --body:     'Plus Jakarta Sans', 'Helvetica Neue', sans-serif;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -36,18 +35,19 @@
       font-family: var(--body);
       font-size: 17px;
       line-height: 1.7;
+      overflow-x: hidden;
     }
 
     /* ── NAV ── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      z-index: 100;
+      z-index: 200;
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1rem 2rem;
-      background: rgba(250,247,241,0.96);
+      background: rgba(250,247,241,0.97);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--parch);
     }
@@ -63,28 +63,51 @@
       align-items: center;
       gap: 0.45rem;
       line-height: 1;
+      cursor: pointer;
     }
-
     .nav-logo svg { width: 18px; height: 18px; color: var(--leaf); flex-shrink: 0; }
 
-    .nav-links {
+    .nav-center {
       display: flex;
-      gap: 2rem;
+      gap: 0.25rem;
       list-style: none;
     }
 
-    .nav-links a {
+    .nav-center a {
+      display: block;
+      padding: 0.5rem 1rem;
       font-size: 0.8rem;
       font-weight: 500;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--pine);
       text-decoration: none;
-      transition: color 0.2s;
+      border-radius: 100px;
+      transition: all 0.2s;
+      cursor: pointer;
     }
-    .nav-links a:hover { color: var(--leaf); }
+    .nav-center a:hover,
+    .nav-center a.active {
+      background: var(--forest);
+      color: var(--cream);
+    }
 
-    /* hamburger */
+    .nav-apply {
+      display: inline-block;
+      padding: 0.55rem 1.25rem;
+      background: var(--leaf);
+      color: var(--deep);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+    .nav-apply:hover { background: var(--sage); }
+
     .nav-toggle {
       display: none;
       flex-direction: column;
@@ -103,52 +126,56 @@
       transition: all 0.3s;
     }
 
-    /* ── HERO ── */
-    #hero {
+    /* ── PAGES ── */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ── HERO (home page) ── */
+    #page-home { background: var(--deep); }
+
+    .hero {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 9rem 2.5rem 6rem;
-      background: var(--deep);
-      color: var(--cream);
+      padding: 9rem 2.5rem 5rem;
       position: relative;
       overflow: hidden;
+      color: var(--cream);
     }
 
-    /* organic blob background decorations */
-    #hero::before {
+    .hero::before {
       content: '';
       position: absolute;
-      width: 700px;
-      height: 700px;
+      width: 700px; height: 700px;
       border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
       background: radial-gradient(ellipse, rgba(90,172,128,0.13) 0%, transparent 65%);
-      top: -200px;
-      right: -150px;
+      top: -200px; right: -150px;
       pointer-events: none;
     }
-
-    #hero::after {
+    .hero::after {
       content: '';
       position: absolute;
-      width: 450px;
-      height: 450px;
+      width: 450px; height: 450px;
       border-radius: 40% 60% 30% 70% / 60% 40% 60% 40%;
       background: radial-gradient(ellipse, rgba(64,144,196,0.10) 0%, transparent 70%);
-      bottom: -50px;
-      left: -80px;
+      bottom: -50px; left: -80px;
       pointer-events: none;
     }
 
-    .hero-inner {
-      position: relative;
-      max-width: 960px;
+    .hero-branch {
+      position: absolute;
+      right: -40px; top: 50%;
+      transform: translateY(-55%);
+      width: 260px;
+      opacity: 0.13;
+      pointer-events: none;
     }
 
+    .hero-inner { position: relative; max-width: 960px; }
+
     .hero-place {
-      font-family: var(--body);
-      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      font-size: clamp(0.9rem, 2vw, 1.05rem);
       font-weight: 600;
       letter-spacing: 0.45em;
       text-transform: uppercase;
@@ -158,25 +185,12 @@
       align-items: center;
       gap: 1rem;
     }
-
     .hero-place::before {
       content: '';
       display: block;
-      width: 40px;
-      height: 2px;
+      width: 40px; height: 2px;
       background: var(--leaf);
       border-radius: 2px;
-    }
-
-    /* decorative branch — right side of hero */
-    .hero-branch {
-      position: absolute;
-      right: -40px;
-      top: 50%;
-      transform: translateY(-55%);
-      width: 260px;
-      opacity: 0.14;
-      pointer-events: none;
     }
 
     h1 {
@@ -188,12 +202,7 @@
       margin-bottom: 1.5rem;
       color: var(--cream);
     }
-
-    h1 em {
-      font-style: italic;
-      color: var(--water);
-      display: block;
-    }
+    h1 em { font-style: italic; color: var(--water); display: block; }
 
     .hero-sub {
       font-size: clamp(1rem, 2.5vw, 1.15rem);
@@ -204,16 +213,13 @@
       font-weight: 300;
     }
 
-    .hero-cta {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
 
+    /* ── BUTTONS ── */
     .btn {
       display: inline-block;
       padding: 0.9rem 2rem;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -226,27 +232,86 @@
       cursor: pointer;
       font-family: var(--body);
     }
-    .btn:hover {
-      background: var(--cream);
-      color: var(--forest);
-      border-color: var(--cream);
-    }
+    .btn:hover { background: var(--cream); color: var(--forest); border-color: var(--cream); }
+
     .btn-solid {
       background: var(--leaf);
       border-color: var(--leaf);
       color: var(--deep);
     }
-    .btn-solid:hover {
-      background: var(--sage);
+    .btn-solid:hover { background: var(--sage); border-color: var(--sage); }
+
+    /* artistic drop button */
+    .btn-drop {
+      font-family: var(--display);
+      font-size: 1.1rem;
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      text-transform: none;
+      padding: 0.85rem 2.25rem;
+      background: transparent;
+      border: 1.5px solid rgba(184,224,200,0.5);
+      color: var(--mint);
+      border-radius: 100px;
+    }
+    .btn-drop:hover {
+      background: rgba(90,172,128,0.15);
       border-color: var(--sage);
+      color: var(--sage);
     }
 
-    /* organic wave divider */
+    /* home page entry cards */
+    .home-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      padding: 0 2.5rem 5rem;
+      background: var(--deep);
+      position: relative;
+      z-index: 1;
+    }
+
+    .home-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 20px;
+      padding: 2rem;
+      cursor: pointer;
+      transition: all 0.25s;
+      text-decoration: none;
+      color: var(--cream);
+      display: block;
+    }
+    .home-card:hover {
+      background: rgba(255,255,255,0.09);
+      transform: translateY(-3px);
+    }
+    .home-card svg { width: 28px; height: 28px; color: var(--leaf); margin-bottom: 1rem; }
+    .home-card h3 {
+      font-family: var(--display);
+      font-size: 1.4rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: var(--cream);
+    }
+    .home-card p { font-size: 0.9rem; color: var(--mint); font-weight: 300; line-height: 1.7; }
+    .home-card .card-link {
+      display: inline-block;
+      margin-top: 1.25rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--leaf);
+    }
+
+    /* wave */
     .wave { display: block; line-height: 0; overflow: hidden; }
     .wave svg { display: block; width: 100%; }
 
-    /* ── SECTIONS ── */
-    section { padding: 5.5rem 2.5rem; }
+    /* ── SHARED SECTION STYLES ── */
+    .section { padding: 5rem 2.5rem; }
 
     .section-tag {
       font-size: 0.72rem;
@@ -273,121 +338,25 @@
 
     .body-text {
       color: var(--earth);
-      max-width: 540px;
+      max-width: 560px;
       line-height: 1.9;
       font-size: 1.02rem;
       font-weight: 300;
     }
 
-    /* ── ABOUT ── */
-    #about {
-      background: var(--forest);
-      color: var(--cream);
-      position: relative;
-      overflow: hidden;
+    /* leaf icon */
+    .leaf-icon { display: inline-block; }
+
+    /* ── BROWSE PAGE ── */
+    #page-browse { background: var(--warm); }
+
+    /* drop section */
+    .drop-header {
+      padding: 5rem 2.5rem 3rem;
+      background: var(--warm);
     }
 
-    #about::before {
-      content: '';
-      position: absolute;
-      width: 550px; height: 550px;
-      border-radius: 50%;
-      border: 1px solid rgba(90,172,128,0.1);
-      top: -220px; right: -80px;
-      pointer-events: none;
-    }
-    #about::after {
-      content: '';
-      position: absolute;
-      width: 320px; height: 320px;
-      border-radius: 50%;
-      border: 1px solid rgba(90,172,128,0.07);
-      bottom: -120px; left: 80px;
-      pointer-events: none;
-    }
-
-    #about h2 { color: var(--cream); }
-    #about .section-tag { color: var(--sage); }
-    #about .body-text { color: var(--mint); }
-
-    .values-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-      gap: 1.25rem;
-      margin-top: 3.5rem;
-      position: relative;
-    }
-
-    .value {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 20px;
-      padding: 1.85rem;
-      transition: background 0.2s;
-    }
-    .value:hover { background: rgba(255,255,255,0.08); }
-
-    .value svg { width: 26px; height: 26px; color: var(--leaf); margin-bottom: 1rem; }
-
-    .value h3 {
-      font-family: var(--display);
-      font-size: 1.3rem;
-      font-weight: 500;
-      color: var(--cream);
-      margin-bottom: 0.5rem;
-    }
-    .value p { font-size: 0.93rem; color: var(--mint); line-height: 1.75; font-weight: 300; }
-
-    /* ── HOW IT WORKS ── */
-    #how { background: var(--cream); }
-
-    .how-cols {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      margin-top: 3.5rem;
-    }
-
-    .how-group h3 {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--sky);
-      margin-bottom: 2rem;
-    }
-
-    .steps { display: flex; flex-direction: column; gap: 1.75rem; }
-
-    .step { display: flex; gap: 1.25rem; align-items: flex-start; }
-
-    .step-num {
-      font-family: var(--display);
-      font-size: 2.25rem;
-      font-style: italic;
-      font-weight: 400;
-      color: var(--mint);
-      line-height: 1;
-      flex-shrink: 0;
-      width: 2rem;
-    }
-
-    .step-text h4 { font-size: 1rem; font-weight: 600; color: var(--forest); margin-bottom: 0.35rem; }
-    .step-text p { font-size: 0.9rem; color: var(--earth); line-height: 1.75; font-weight: 300; }
-
-    /* ── DROP ── */
-    #drop { background: var(--warm); }
-
-    .drop-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      margin-bottom: 3rem;
-    }
-
-    .drop-tag {
+    .drop-badge {
       display: inline-block;
       background: var(--sky);
       color: var(--warm);
@@ -397,13 +366,15 @@
       text-transform: uppercase;
       padding: 0.45rem 1.1rem;
       border-radius: 100px;
-      margin-bottom: 0.9rem;
+      margin-bottom: 1rem;
     }
 
     .art-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 1.75rem;
+      padding: 0 2.5rem 5rem;
+      background: var(--warm);
     }
 
     .art-card {
@@ -418,14 +389,13 @@
       box-shadow: 0 14px 36px rgba(25,46,34,0.12);
     }
 
-    /* ── ART IMAGE — swap src="images/YOUR-FILE.jpg" ── */
+    /* swap src="images/YOUR-FILE.jpg" */
     .art-img {
       width: 100%;
       aspect-ratio: 4/5;
       object-fit: cover;
       display: block;
     }
-    /* shown as fallback when image not found */
     .art-placeholder {
       width: 100%;
       aspect-ratio: 4/5;
@@ -462,179 +432,37 @@
       margin-top: 0.25rem;
     }
 
-    /* ── ARTISTS ── */
-    #artists {
-      background: var(--parch);
-      position: relative;
-      overflow: hidden;
-    }
-    #artists::before {
-      content: '';
-      position: absolute;
-      width: 450px; height: 450px;
-      border-radius: 50%;
-      background: radial-gradient(ellipse, rgba(90,172,128,0.07) 0%, transparent 70%);
-      top: -180px; right: -100px;
-      pointer-events: none;
+    /* how it works — buyers only */
+    .how-section {
+      background: var(--cream);
+      padding: 5rem 2.5rem;
     }
 
-    .artist-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 2.25rem;
-      margin-top: 3rem;
-    }
+    .steps { display: flex; flex-direction: column; gap: 1.75rem; max-width: 600px; margin-top: 2.5rem; }
 
-    .artist-card { text-decoration: none; color: var(--deep); }
+    .step { display: flex; gap: 1.25rem; align-items: flex-start; }
 
-    /* circular artist photo — swap src="images/YOUR-FILE.jpg" */
-    .artist-photo {
-      width: 100%;
-      aspect-ratio: 1;
-      border-radius: 50%;
-      overflow: hidden;
-      margin-bottom: 1rem;
-      background: linear-gradient(135deg, var(--pine), var(--sky-deep));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .artist-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .artist-photo .initials {
+    .step-num {
       font-family: var(--display);
-      font-size: 1.85rem;
-      font-style: italic;
-      color: rgba(255,255,255,0.45);
-    }
-
-    .artist-card h3 { font-family: var(--display); font-size: 1.2rem; font-weight: 400; margin-bottom: 0.2rem; }
-    .artist-card .location { font-size: 0.85rem; color: var(--earth); }
-    .artist-card .medium {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--leaf);
-      margin-top: 0.2rem;
-    }
-
-    /* ── MONEY ── */
-    #money {
-      background: var(--deep);
-      color: var(--cream);
-      position: relative;
-      overflow: hidden;
-    }
-    #money::before {
-      content: '';
-      position: absolute;
-      width: 600px; height: 600px;
-      border-radius: 40% 60% 50% 50% / 60% 40% 60% 40%;
-      background: radial-gradient(ellipse, rgba(64,144,196,0.09) 0%, transparent 70%);
-      bottom: -250px; right: -100px;
-      pointer-events: none;
-    }
-
-    #money h2 { color: var(--cream); }
-    #money .section-tag { color: var(--sage); }
-    #money .body-text { color: var(--mint); margin-top: 1rem; margin-bottom: 3.5rem; }
-
-    .money-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-      gap: 1.25rem;
-    }
-
-    .money-stat {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 20px;
-      padding: 2.5rem 2rem;
-    }
-
-    .money-num {
-      font-family: var(--display);
-      font-size: 3.75rem;
+      font-size: 2.25rem;
       font-style: italic;
       font-weight: 400;
-      color: var(--water);
+      color: var(--mint);
       line-height: 1;
-      margin-bottom: 0.6rem;
+      flex-shrink: 0;
+      width: 2rem;
     }
+    .step-text h4 { font-size: 1rem; font-weight: 600; color: var(--forest); margin-bottom: 0.35rem; }
+    .step-text p { font-size: 0.9rem; color: var(--earth); line-height: 1.75; font-weight: 300; }
 
-    .money-label { font-size: 0.9rem; color: var(--mint); line-height: 1.6; font-weight: 300; }
-
-    /* ── APPLY ── */
-    #apply { background: var(--cream); }
-
-    .apply-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: start;
-    }
-
-    .criteria { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.25rem; }
-
-    .criterion { display: flex; gap: 1rem; align-items: flex-start; }
-    .criterion svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 0.2rem; color: var(--leaf); }
-    .criterion p { font-size: 0.97rem; color: var(--earth); line-height: 1.65; font-weight: 300; }
-    .criterion strong { display: block; color: var(--forest); font-size: 0.97rem; font-weight: 600; margin-bottom: 0.2rem; }
-
-    form { display: flex; flex-direction: column; gap: 0.9rem; }
-
-    form input,
-    form textarea,
-    form select {
-      width: 100%;
-      padding: 0.95rem 1.25rem;
-      border: 1.5px solid var(--parch);
-      border-radius: 14px;
-      background: var(--warm);
-      font-family: var(--body);
-      font-size: 0.97rem;
-      color: var(--deep);
-      outline: none;
-      appearance: none;
-      transition: border-color 0.2s;
-    }
-    form input:focus,
-    form textarea:focus,
-    form select:focus { border-color: var(--leaf); }
-
-    form textarea { height: 120px; resize: vertical; }
-
-    .form-note { font-size: 0.8rem; color: var(--earth); line-height: 1.55; font-weight: 300; }
-
-    .submit-btn {
-      padding: 1rem 2rem;
-      background: var(--forest);
-      color: var(--cream);
-      border: none;
-      border-radius: 100px;
-      font-family: var(--body);
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .submit-btn:hover { background: var(--deep); }
-
-    /* ── EMAIL STRIP ── */
-    #notify {
+    /* email strip */
+    .notify-strip {
       background: var(--sky-deep);
-      padding: 5rem 2.5rem;
+      padding: 4.5rem 2.5rem;
       position: relative;
       overflow: hidden;
     }
-    #notify::before {
+    .notify-strip::before {
       content: '';
       position: absolute;
       width: 500px; height: 500px;
@@ -643,10 +471,9 @@
       top: -200px; right: 5%;
       pointer-events: none;
     }
-
-    #notify h2 { color: var(--cream); margin-bottom: 0.75rem; }
-    #notify .section-tag { color: rgba(255,255,255,0.65); }
-    #notify .body-text { color: rgba(255,255,255,0.8); margin-bottom: 2rem; }
+    .notify-strip h2 { color: var(--cream); margin-bottom: 0.75rem; }
+    .notify-strip .section-tag { color: rgba(255,255,255,0.65); }
+    .notify-strip .body-text { color: rgba(255,255,255,0.8); margin-bottom: 2rem; }
 
     .email-row {
       display: flex;
@@ -685,94 +512,360 @@
     }
     .email-row button:hover { background: var(--sage); }
 
+    /* ── ARTISTS PAGE ── */
+    #page-artists { background: var(--warm); }
+
+    /* value prop — reframed */
+    .pitch-section {
+      background: var(--forest);
+      padding: 5rem 2.5rem;
+      color: var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+    .pitch-section::before {
+      content: '';
+      position: absolute;
+      width: 550px; height: 550px;
+      border-radius: 50%;
+      border: 1px solid rgba(90,172,128,0.1);
+      top: -220px; right: -80px;
+      pointer-events: none;
+    }
+    .pitch-section h2 { color: var(--cream); max-width: 720px; }
+    .pitch-section .section-tag { color: var(--sage); }
+
+    .pitch-lead {
+      font-family: var(--display);
+      font-size: clamp(1.3rem, 3vw, 1.75rem);
+      font-weight: 400;
+      color: var(--mint);
+      max-width: 680px;
+      line-height: 1.5;
+      margin: 1.5rem 0 3rem;
+    }
+
+    .pitch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 3rem;
+    }
+
+    .pitch-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 18px;
+      padding: 1.75rem;
+    }
+    .pitch-card svg { width: 24px; height: 24px; color: var(--leaf); margin-bottom: 0.85rem; }
+    .pitch-card h4 {
+      font-family: var(--display);
+      font-size: 1.2rem;
+      color: var(--cream);
+      margin-bottom: 0.4rem;
+    }
+    .pitch-card p { font-size: 0.9rem; color: var(--mint); line-height: 1.7; font-weight: 300; }
+
+    .pitch-bottom {
+      background: rgba(90,172,128,0.12);
+      border: 1px solid rgba(90,172,128,0.25);
+      border-radius: 18px;
+      padding: 2rem;
+      max-width: 640px;
+    }
+    .pitch-bottom p {
+      font-family: var(--display);
+      font-size: 1.25rem;
+      color: var(--cream);
+      line-height: 1.55;
+    }
+    .pitch-bottom strong { color: var(--leaf); }
+
+    /* what we look for */
+    .criteria-section {
+      background: var(--cream);
+      padding: 5rem 2.5rem;
+    }
+
+    .criteria { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.25rem; max-width: 600px; }
+    .criterion { display: flex; gap: 1rem; align-items: flex-start; }
+    .criterion svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 0.25rem; color: var(--leaf); }
+    .criterion p { font-size: 0.97rem; color: var(--earth); line-height: 1.65; font-weight: 300; }
+    .criterion strong { display: block; color: var(--forest); font-size: 0.97rem; font-weight: 600; margin-bottom: 0.15rem; }
+
+    /* apply form */
+    .apply-section {
+      background: var(--parch);
+      padding: 5rem 2.5rem;
+    }
+
+    form { display: flex; flex-direction: column; gap: 0.9rem; max-width: 560px; }
+
+    form input,
+    form textarea,
+    form select {
+      width: 100%;
+      padding: 0.95rem 1.25rem;
+      border: 1.5px solid var(--parch);
+      border-radius: 14px;
+      background: var(--warm);
+      font-family: var(--body);
+      font-size: 0.97rem;
+      color: var(--deep);
+      outline: none;
+      appearance: none;
+      transition: border-color 0.2s;
+    }
+    form input:focus, form textarea:focus, form select:focus { border-color: var(--leaf); }
+    form textarea { height: 120px; resize: vertical; }
+
+    .form-note { font-size: 0.8rem; color: var(--earth); line-height: 1.55; font-weight: 300; }
+
+    .submit-btn {
+      padding: 1rem 2rem;
+      background: var(--forest);
+      color: var(--cream);
+      border: none;
+      border-radius: 100px;
+      font-family: var(--body);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+      width: fit-content;
+    }
+    .submit-btn:hover { background: var(--deep); }
+
+    /* no AI blurb */
+    .no-ai-strip {
+      background: var(--deep);
+      padding: 3rem 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .no-ai-strip svg { width: 36px; height: 36px; color: var(--leaf); flex-shrink: 0; }
+    .no-ai-strip p {
+      font-family: var(--display);
+      font-size: 1.2rem;
+      color: var(--cream);
+      line-height: 1.5;
+      max-width: 600px;
+    }
+    .no-ai-strip p em { color: var(--leaf); font-style: italic; }
+
+    /* artist roster */
+    .roster-section {
+      background: var(--warm);
+      padding: 5rem 2.5rem;
+    }
+
+    .artist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 2.25rem;
+      margin-top: 3rem;
+    }
+
+    .artist-card { text-decoration: none; color: var(--deep); }
+
+    .artist-photo {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--pine), var(--sky-deep));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* swap src="images/ARTIST-1.jpg" */
+    .artist-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .artist-photo .initials { font-family: var(--display); font-size: 1.85rem; font-style: italic; color: rgba(255,255,255,0.45); }
+
+    .artist-card h3 { font-family: var(--display); font-size: 1.2rem; font-weight: 400; margin-bottom: 0.2rem; }
+    .artist-card .location { font-size: 0.85rem; color: var(--earth); }
+    .artist-card .medium { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--leaf); margin-top: 0.2rem; }
+
+    /* ── ABOUT PAGE ── */
+    #page-about { background: var(--warm); }
+
+    .about-cadence {
+      background: var(--forest);
+      padding: 5rem 2.5rem;
+      color: var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+    .about-cadence::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      border: 1px solid rgba(90,172,128,0.1);
+      top: -200px; right: -80px;
+      pointer-events: none;
+    }
+    .about-cadence h2 { color: var(--cream); }
+    .about-cadence .section-tag { color: var(--sage); }
+    .about-cadence .body-text { color: var(--mint); max-width: 680px; }
+
+    .about-facts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-top: 3.5rem;
+    }
+    .fact {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 18px;
+      padding: 1.75rem;
+    }
+    .fact h4 { font-family: var(--display); font-size: 1.15rem; color: var(--cream); margin-bottom: 0.4rem; }
+    .fact p { font-size: 0.9rem; color: var(--mint); line-height: 1.7; font-weight: 300; }
+
+    /* founder section */
+    .founder-section {
+      background: var(--cream);
+      padding: 5rem 2.5rem;
+    }
+
+    .founder-grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 4rem;
+      align-items: start;
+      margin-top: 2.5rem;
+    }
+
+    .founder-photo {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--pine), var(--sky-deep));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* swap src="images/FOUNDER-PHOTO.jpg" */
+    .founder-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .founder-photo .initials { font-family: var(--display); font-size: 3rem; font-style: italic; color: rgba(255,255,255,0.35); }
+
+    .founder-text h3 {
+      font-family: var(--display);
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 400;
+      color: var(--deep);
+      margin-bottom: 0.35rem;
+    }
+    .founder-text .founder-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--leaf);
+      margin-bottom: 1.5rem;
+    }
+    .founder-text .founder-bio {
+      font-size: 1rem;
+      color: var(--earth);
+      line-height: 1.9;
+      font-weight: 300;
+      font-style: italic;
+      border-left: 2px solid var(--mint);
+      padding-left: 1.5rem;
+      color: var(--pine);
+    }
+
     /* ── FOOTER ── */
     footer {
       background: var(--deep);
-      padding: 2.5rem 2.5rem;
+      padding: 2.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       gap: 1.25rem;
     }
-
-    .footer-logo {
-      font-family: var(--display);
-      font-size: 1.75rem;
-      font-weight: 600;
-      color: var(--cream);
-      letter-spacing: 0.05em;
-    }
-
+    .footer-logo { font-family: var(--display); font-size: 1.75rem; font-weight: 600; color: var(--cream); letter-spacing: 0.05em; }
     .footer-links { list-style: none; display: flex; gap: 2rem; flex-wrap: wrap; }
-    .footer-links a {
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      color: var(--sage);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
+    .footer-links a { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--sage); text-decoration: none; transition: color 0.2s; cursor: pointer; }
     .footer-links a:hover { color: var(--cream); }
     .footer-copy { width: 100%; font-size: 0.72rem; font-weight: 300; color: rgba(140,201,162,0.4); margin-top: 0.2rem; }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 960px) {
+    @media (max-width: 900px) {
       .hero-branch { display: none; }
+      .home-cards { grid-template-columns: 1fr; }
+      .founder-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .founder-photo { max-width: 200px; }
     }
 
     @media (max-width: 720px) {
       nav { padding: 1rem 1.5rem; }
+      .nav-center { display: none; }
+      .nav-apply { display: none; }
       .nav-toggle { display: flex; }
-      .nav-links {
+
+      .mobile-nav {
         display: none;
         position: absolute;
         top: 100%;
         left: 0; right: 0;
         background: var(--warm);
-        flex-direction: column;
-        gap: 0;
         border-bottom: 1px solid var(--parch);
-        padding: 0.5rem 0;
-      }
-      .nav-links.open { display: flex; }
-      .nav-links li a { display: block; padding: 1rem 2rem; border-bottom: 1px solid var(--parch); }
-
-      section { padding: 4rem 1.5rem; }
-      #hero { padding: 7rem 1.5rem 4rem; }
-      #notify { padding: 4rem 1.5rem; }
-      footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
-
-      .how-cols { grid-template-columns: 1fr; gap: 2.5rem; }
-      .apply-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .drop-top { flex-direction: column; align-items: flex-start; }
-
-      .art-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
-      .artist-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-      .money-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
-      .values-grid { grid-template-columns: 1fr; }
-
-      .email-row {
         flex-direction: column;
-        border-radius: 18px;
-        max-width: 100%;
+        padding: 0.5rem 0;
+        z-index: 199;
       }
-      .email-row button {
-        border-radius: 14px;
-        margin: 0 4px 4px;
-        padding: 0.9rem 1.25rem;
+      .mobile-nav.open { display: flex; }
+      .mobile-nav a {
+        display: block;
+        padding: 1rem 2rem;
+        font-size: 0.85rem;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--pine);
+        text-decoration: none;
+        border-bottom: 1px solid var(--parch);
+        cursor: pointer;
+      }
+      .mobile-nav a.apply-mob {
+        color: var(--leaf);
+        font-weight: 700;
       }
 
+      .hero { padding: 7rem 1.5rem 4rem; }
+      .home-cards { padding: 0 1.5rem 4rem; gap: 1rem; }
+
+      .section, .drop-header, .how-section, .notify-strip,
+      .pitch-section, .criteria-section, .apply-section,
+      .roster-section, .about-cadence, .founder-section { padding: 4rem 1.5rem; }
+
+      .art-grid { padding: 0 1.5rem 4rem; grid-template-columns: 1fr 1fr; gap: 1rem; }
+      .artist-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+      .pitch-grid { grid-template-columns: 1fr; }
+      .about-facts { grid-template-columns: 1fr; }
+
+      .email-row { flex-direction: column; border-radius: 18px; max-width: 100%; }
+      .email-row button { border-radius: 14px; margin: 0 4px 4px; }
+
+      footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
       .footer-links { gap: 1.25rem; }
-      .money-stat { padding: 1.75rem 1.25rem; }
-      .money-num { font-size: 2.75rem; }
+
+      .no-ai-strip { padding: 2.5rem 1.5rem; }
     }
 
     @media (max-width: 420px) {
       .art-grid { grid-template-columns: 1fr; }
-      .money-grid { grid-template-columns: 1fr; }
-      .artist-grid { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
@@ -780,221 +873,129 @@
 
 <!-- ── NAV ── -->
 <nav>
-  <a class="nav-logo" href="#">
-    <!-- leaf icon -->
+  <span class="nav-logo" onclick="showPage('home')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
       <path d="M12 22C12 22 4 16 4 9.5a8 8 0 0 1 16 0C20 16 12 22 12 22z"/>
       <path d="M12 22V11" stroke-dasharray="2 2"/>
     </svg>
     Cadence
-  </a>
-  <button class="nav-toggle" aria-label="Menu" onclick="this.nextElementSibling.classList.toggle('open')">
+  </span>
+
+  <ul class="nav-center">
+    <li><a onclick="showPage('browse')" id="nav-browse">Browse the Work</a></li>
+    <li><a onclick="showPage('artists')" id="nav-artists">For Artists</a></li>
+    <li><a onclick="showPage('about')" id="nav-about">About</a></li>
+  </ul>
+
+  <span class="nav-apply" onclick="showPage('artists')">Apply</span>
+
+  <button class="nav-toggle" aria-label="Menu" onclick="document.querySelector('.mobile-nav').classList.toggle('open')">
     <span></span><span></span><span></span>
   </button>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#drop">Current Drop</a></li>
-    <li><a href="#artists">Artists</a></li>
-    <li><a href="#apply">Apply</a></li>
-  </ul>
 </nav>
 
-<!-- ── HERO ── -->
-<section id="hero">
-  <!-- decorative branch SVG -->
-  <svg class="hero-branch" viewBox="0 0 260 520" fill="none" stroke="var(--leaf)" stroke-linecap="round">
-    <!-- main stem -->
-    <path d="M130,500 C125,430 110,360 105,270 C98,180 115,100 130,30" stroke-width="2"/>
-    <!-- left branches -->
-    <path d="M108,290 C80,268 48,260 20,248" stroke-width="1.2"/>
-    <path d="M107,340 C78,328 50,332 24,322" stroke-width="1"/>
-    <path d="M110,390 C85,380 62,385 38,375" stroke-width="1"/>
-    <!-- right branches -->
-    <path d="M112,230 C140,210 168,205 196,194" stroke-width="1.2"/>
-    <path d="M115,180 C142,162 166,155 192,145" stroke-width="1"/>
-    <!-- leaves — left -->
-    <ellipse cx="16" cy="243" rx="16" ry="8" transform="rotate(-25 16 243)" fill="rgba(90,172,128,0.25)" stroke-width="0.8"/>
-    <ellipse cx="20" cy="318" rx="14" ry="7" transform="rotate(-18 20 318)" fill="rgba(90,172,128,0.2)" stroke-width="0.8"/>
-    <ellipse cx="34" cy="370" rx="13" ry="6" transform="rotate(-15 34 370)" fill="rgba(90,172,128,0.18)" stroke-width="0.8"/>
-    <!-- leaves — right -->
-    <ellipse cx="200" cy="190" rx="16" ry="8" transform="rotate(20 200 190)" fill="rgba(90,172,128,0.25)" stroke-width="0.8"/>
-    <ellipse cx="196" cy="141" rx="14" ry="7" transform="rotate(18 196 141)" fill="rgba(90,172,128,0.2)" stroke-width="0.8"/>
-    <!-- small flower buds -->
-    <circle cx="20" cy="243" r="3" fill="rgba(90,172,128,0.4)"/>
-    <circle cx="200" cy="190" r="3" fill="rgba(90,172,128,0.4)"/>
-  </svg>
-
-  <div class="hero-inner">
-    <p class="hero-place">Vermont</p>
-    <h1>Art made<br>by hand.<br><em>Sold with care.</em></h1>
-    <p class="hero-sub">
-      Cadence is a small platform for Vermont artists who are serious about their work. We take care of the selling so you can keep making things.
-    </p>
-    <div class="hero-cta">
-      <a class="btn btn-solid" href="#drop">See the Current Drop</a>
-      <a class="btn" href="#apply">Apply as an Artist</a>
-    </div>
-  </div>
-</section>
-
-<!-- wave divider -->
-<div class="wave" style="background:var(--deep)">
-  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" height="60">
-    <path d="M0,0 C360,60 1080,60 1440,0 L1440,60 L0,60 Z" fill="var(--forest)"/>
-  </svg>
+<!-- mobile nav -->
+<div class="mobile-nav">
+  <a onclick="showPage('browse');closeMobileNav()">Browse the Work</a>
+  <a onclick="showPage('artists');closeMobileNav()">For Artists</a>
+  <a onclick="showPage('about');closeMobileNav()">About</a>
+  <a class="apply-mob" onclick="showPage('artists');closeMobileNav()">Apply →</a>
 </div>
 
-<!-- ── ABOUT ── -->
-<section id="about">
-  <p class="section-tag">
-    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
-    What we are
-  </p>
-  <h2>Not a gallery. Not Etsy.<br>Something that actually works for artists.</h2>
-  <p class="body-text">
-    A shared storefront — a small, curated group of Vermont artists selling together. You get real pricing support, no hidden fees, and a platform that doesn't make you fight ten thousand strangers for attention.
-  </p>
+<!-- ══════════════════════════════════
+     HOME PAGE
+══════════════════════════════════ -->
+<div id="page-home" class="page active">
 
-  <div class="values-grid">
-    <div class="value">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
-      <h3>No listing fees. Ever.</h3>
-      <p>You don't pay to be here. We only make money when you do.</p>
-    </div>
-    <div class="value">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12h20M12 2v20"/><circle cx="12" cy="12" r="3"/></svg>
-      <h3>Open books.</h3>
-      <p>You always know exactly what we take and what you keep. No fine print, no surprises.</p>
-    </div>
-    <div class="value">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-      <h3>Human-made only.</h3>
-      <p>No AI art. Every piece here came from someone's hands and real time spent making something.</p>
-    </div>
-    <div class="value">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      <h3>Your work stays yours.</h3>
-      <p>Full ownership, always. You can pull your work anytime, no questions asked.</p>
-    </div>
-    <div class="value">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-      <h3>Fair prices, held firm.</h3>
-      <p>We set minimum price floors together. No race to the bottom. Your work is worth what it's worth.</p>
-    </div>
-    <div class="value">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      <h3>Rooted in community.</h3>
-      <p>We work with local printers and focus on artists who are actually embedded in Vermont life.</p>
+  <div class="hero">
+    <!-- decorative branch -->
+    <svg class="hero-branch" viewBox="0 0 260 520" fill="none" stroke="var(--leaf)" stroke-linecap="round">
+      <path d="M130,500 C125,430 110,360 105,270 C98,180 115,100 130,30" stroke-width="2"/>
+      <path d="M108,290 C80,268 48,260 20,248" stroke-width="1.2"/>
+      <path d="M107,340 C78,328 50,332 24,322" stroke-width="1"/>
+      <path d="M110,390 C85,380 62,385 38,375" stroke-width="1"/>
+      <path d="M112,230 C140,210 168,205 196,194" stroke-width="1.2"/>
+      <path d="M115,180 C142,162 166,155 192,145" stroke-width="1"/>
+      <ellipse cx="16" cy="243" rx="16" ry="8" transform="rotate(-25 16 243)" fill="rgba(90,172,128,0.25)" stroke-width="0.8"/>
+      <ellipse cx="20" cy="318" rx="14" ry="7" transform="rotate(-18 20 318)" fill="rgba(90,172,128,0.2)" stroke-width="0.8"/>
+      <ellipse cx="34" cy="370" rx="13" ry="6" transform="rotate(-15 34 370)" fill="rgba(90,172,128,0.18)" stroke-width="0.8"/>
+      <ellipse cx="200" cy="190" rx="16" ry="8" transform="rotate(20 200 190)" fill="rgba(90,172,128,0.25)" stroke-width="0.8"/>
+      <ellipse cx="196" cy="141" rx="14" ry="7" transform="rotate(18 196 141)" fill="rgba(90,172,128,0.2)" stroke-width="0.8"/>
+      <circle cx="20" cy="243" r="3" fill="rgba(90,172,128,0.4)"/>
+      <circle cx="200" cy="190" r="3" fill="rgba(90,172,128,0.4)"/>
+    </svg>
+
+    <div class="hero-inner">
+      <p class="hero-place">Vermont</p>
+      <h1>Art made<br>by hand.<br><em>Sold with care.</em></h1>
+      <p class="hero-sub">
+        A small, curated platform for Vermont artists. Real work, made by hand, sold honestly.
+      </p>
+      <div class="hero-cta">
+        <span class="btn btn-solid" onclick="showPage('browse')">Open the Drop</span>
+        <span class="btn btn-drop" onclick="showPage('artists')">Are you an artist? →</span>
+      </div>
     </div>
   </div>
-</section>
 
-<!-- wave divider -->
-<div class="wave" style="background:var(--forest)">
-  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" height="60">
-    <path d="M0,60 C480,0 960,0 1440,60 L1440,60 L0,60 Z" fill="var(--cream)"/>
-  </svg>
-</div>
+  <!-- entry cards -->
+  <div class="home-cards">
+    <span class="home-card" onclick="showPage('browse')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+        <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+      </svg>
+      <h3>Browse the Work</h3>
+      <p>Vermont artists, making things by hand. Limited runs. Ships within two weeks.</p>
+      <span class="card-link">Open the Drop →</span>
+    </span>
 
-<!-- ── HOW IT WORKS ── -->
-<section id="how">
-  <p class="section-tag">
-    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
-    How it works
-  </p>
-  <h2>You make the work.<br>We handle the rest.</h2>
-  <p class="body-text">Simple enough to get started in a week. Solid enough to build real income over time.</p>
-
-  <div class="how-cols">
-    <div class="how-group">
+    <span class="home-card" onclick="showPage('artists')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+      </svg>
       <h3>For Artists</h3>
-      <div class="steps">
-        <div class="step">
-          <span class="step-num">1</span>
-          <div class="step-text">
-            <h4>Apply and get selected</h4>
-            <p>We read every application ourselves. We're looking for strong work and a real connection to community.</p>
-          </div>
-        </div>
-        <div class="step">
-          <span class="step-num">2</span>
-          <div class="step-text">
-            <h4>We set up your profile</h4>
-            <p>We help you price your work, write your listing copy, and get everything looking right before it goes live.</p>
-          </div>
-        </div>
-        <div class="step">
-          <span class="step-num">3</span>
-          <div class="step-text">
-            <h4>Your work goes live</h4>
-            <p>In a curated drop or the ongoing storefront. We market it across all our channels.</p>
-          </div>
-        </div>
-        <div class="step">
-          <span class="step-num">4</span>
-          <div class="step-text">
-            <h4>You get paid monthly</h4>
-            <p>One clean payment. One tax form at year end. We deal with shipping and any customer questions.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="how-group">
-      <h3>For Buyers</h3>
-      <div class="steps">
-        <div class="step">
-          <span class="step-num">1</span>
-          <div class="step-text">
-            <h4>Browse work you can trust</h4>
-            <p>Every artist here was personally selected. You're not digging through a marketplace of thousands.</p>
-          </div>
-        </div>
-        <div class="step">
-          <span class="step-num">2</span>
-          <div class="step-text">
-            <h4>Know who made it</h4>
-            <p>Artist profiles tell you the person behind the work — where they live, what they make, why it matters to them.</p>
-          </div>
-        </div>
-        <div class="step">
-          <span class="step-num">3</span>
-          <div class="step-text">
-            <h4>Buy knowing where your money goes</h4>
-            <p>We're public about what artists earn. Most of it goes to them, and we'll always tell you exactly how much.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+      <p>Zero cost. Zero risk. You keep your work until it sells. We handle everything else.</p>
+      <span class="card-link">See how it works →</span>
+    </span>
 
-<!-- ── CURRENT DROP ── -->
-<section id="drop">
-  <div class="drop-top">
-    <div>
-      <span class="drop-tag">Open Now</span>
-      <p class="section-tag">
-        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
-        Drop No. 1
-      </p>
-      <h2>Land &amp; Labor</h2>
-      <p class="body-text" style="margin-top:0.75rem;">
-        Five Vermont artists making work about where they live — the land, the seasons, the people holding things together. Limited edition prints. Numbered runs. Ships within two weeks.
-      </p>
-    </div>
-    <a class="btn" style="border-color:var(--sky);color:var(--sky);flex-shrink:0;" href="#notify">Get Early Access</a>
+    <span class="home-card" onclick="showPage('about')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M12 22C12 22 4 16 4 9.5a8 8 0 0 1 16 0C20 16 12 22 12 22z"/>
+      </svg>
+      <h3>About Cadence</h3>
+      <p>Why we exist, who's behind it, and what we're trying to build in Vermont.</p>
+      <span class="card-link">Learn more →</span>
+    </span>
+  </div>
+
+</div><!-- end home -->
+
+
+<!-- ══════════════════════════════════
+     BROWSE PAGE
+══════════════════════════════════ -->
+<div id="page-browse" class="page">
+
+  <!-- current drop -->
+  <div class="drop-header">
+    <span class="drop-badge">Open Now</span>
+    <p class="section-tag">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
+      Drop No. 1
+    </p>
+    <h2>Land &amp; Labor</h2>
+    <p class="body-text" style="margin-top:0.75rem;">
+      Five Vermont artists making work about where they live — the land, the seasons, the people holding things together. Limited edition prints, numbered runs. Ships within two weeks.
+    </p>
   </div>
 
   <div class="art-grid">
 
-    <!-- ART CARD 1 — swap "images/ARTWORK-1.jpg" with your file -->
+    <!-- ART CARD 1 — swap "images/ARTWORK-1.jpg" -->
     <div class="art-card">
-      <img
-        src="images/ARTWORK-1.jpg"
-        alt="Artwork title by Artist Name"
-        class="art-img"
-        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
-      />
+      <img src="images/ARTWORK-1.jpg" alt="Artwork title" class="art-img"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
       <div class="art-placeholder" style="display:none"><span>artwork here</span></div>
       <div class="art-info">
         <p class="artist">Artist Name</p>
@@ -1004,14 +1005,10 @@
       </div>
     </div>
 
-    <!-- ART CARD 2 — swap "images/ARTWORK-2.jpg" with your file -->
+    <!-- ART CARD 2 — swap "images/ARTWORK-2.jpg" -->
     <div class="art-card">
-      <img
-        src="images/ARTWORK-2.jpg"
-        alt="Artwork title by Artist Name"
-        class="art-img"
-        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
-      />
+      <img src="images/ARTWORK-2.jpg" alt="Artwork title" class="art-img"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
       <div class="art-placeholder" style="display:none"><span>artwork here</span></div>
       <div class="art-info">
         <p class="artist">Artist Name</p>
@@ -1021,14 +1018,10 @@
       </div>
     </div>
 
-    <!-- ART CARD 3 — swap "images/ARTWORK-3.jpg" with your file -->
+    <!-- ART CARD 3 — swap "images/ARTWORK-3.jpg" -->
     <div class="art-card">
-      <img
-        src="images/ARTWORK-3.jpg"
-        alt="Artwork title by Artist Name"
-        class="art-img"
-        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
-      />
+      <img src="images/ARTWORK-3.jpg" alt="Artwork title" class="art-img"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
       <div class="art-placeholder" style="display:none"><span>artwork here</span></div>
       <div class="art-info">
         <p class="artist">Artist Name</p>
@@ -1039,231 +1032,382 @@
     </div>
 
   </div>
-</section>
 
-<!-- ── ARTISTS ── -->
-<section id="artists">
-  <p class="section-tag">
-    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
-    The People
-  </p>
-  <h2>Artists on Cadence</h2>
-  <p class="body-text">Selected by hand. Early-to-mid career. Vermont-rooted. Making work that means something.</p>
-
-  <div class="artist-grid">
-
-    <!-- ARTIST 1 — swap "images/ARTIST-1.jpg" with your file -->
-    <a class="artist-card" href="#">
-      <div class="artist-photo">
-        <img
-          src="images/ARTIST-1.jpg"
-          alt="Maple Perchlik"
-          onerror="this.style.display='none';this.nextElementSibling.style.display='block'"
-        />
-        <span class="initials" style="display:none">MP</span>
-      </div>
-      <h3>Maple Perchlik</h3>
-      <p class="location">Burlington, VT</p>
-      <p class="medium">Photography</p>
-    </a>
-
-    <!-- ARTIST 2 — swap "images/ARTIST-2.jpg" with your file -->
-    <a class="artist-card" href="#">
-      <div class="artist-photo">
-        <img
-          src="images/ARTIST-2.jpg"
-          alt="Artist Name"
-          onerror="this.style.display='none';this.nextElementSibling.style.display='block'"
-        />
-        <span class="initials" style="display:none">—</span>
-      </div>
-      <h3>Artist Name</h3>
-      <p class="location">Montpelier, VT</p>
-      <p class="medium">Painting</p>
-    </a>
-
-    <!-- ARTIST 3 — swap "images/ARTIST-3.jpg" with your file -->
-    <a class="artist-card" href="#">
-      <div class="artist-photo">
-        <img
-          src="images/ARTIST-3.jpg"
-          alt="Artist Name"
-          onerror="this.style.display='none';this.nextElementSibling.style.display='block'"
-        />
-        <span class="initials" style="display:none">—</span>
-      </div>
-      <h3>Artist Name</h3>
-      <p class="location">Brattleboro, VT</p>
-      <p class="medium">Writing &amp; Print</p>
-    </a>
-
-    <a class="artist-card" href="#apply">
-      <div class="artist-photo" style="background:linear-gradient(135deg,var(--sage),var(--water));">
-        <span class="initials">+</span>
-      </div>
-      <h3>Your name here</h3>
-      <p class="location">Vermont</p>
-      <p class="medium">Apply to join</p>
-    </a>
-
+  <!-- wave -->
+  <div class="wave" style="background:var(--warm)">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" height="60">
+      <path d="M0,0 C360,60 1080,60 1440,0 L1440,60 L0,60 Z" fill="var(--cream)"/>
+    </svg>
   </div>
-</section>
 
-<!-- wave divider -->
-<div class="wave" style="background:var(--parch)">
-  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" height="60">
-    <path d="M0,0 C360,60 1080,60 1440,0 L1440,60 L0,60 Z" fill="var(--deep)"/>
-  </svg>
-</div>
+  <!-- how it works — buyer side only -->
+  <div class="how-section">
+    <p class="section-tag">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
+      How it works
+    </p>
+    <h2>Find something you love.<br>Know exactly where your money goes.</h2>
+    <p class="body-text">Every artist here was personally selected. You're not digging through a marketplace of thousands.</p>
 
-<!-- ── MONEY ── -->
-<section id="money">
-  <p class="section-tag">
-    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
-    The Numbers
-  </p>
-  <h2>Here's exactly how<br>the money works.</h2>
-  <p class="body-text">
-    We think artists deserve to know this stuff up front. So here it is, plainly.
-  </p>
-
-  <div class="money-grid">
-    <div class="money-stat">
-      <p class="money-num">60%</p>
-      <p class="money-label">of every sale goes directly to the artist</p>
-    </div>
-    <div class="money-stat">
-      <p class="money-num">$0</p>
-      <p class="money-label">listing fees — now and always</p>
-    </div>
-    <div class="money-stat">
-      <p class="money-num">1×</p>
-      <p class="money-label">clean tax form at year end — we handle the rest</p>
-    </div>
-    <div class="money-stat">
-      <p class="money-num">No</p>
-      <p class="money-label">pay-to-play visibility — your work shows up on its own merits</p>
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">1</span>
+        <div class="step-text">
+          <h4>Browse curated work</h4>
+          <p>A small, hand-picked group of Vermont artists. Every piece is human-made — no AI, no mass production.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">2</span>
+        <div class="step-text">
+          <h4>Know who made it</h4>
+          <p>Each artist profile tells you who they are, where they live, and what drives their work. You're buying from a real person.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">3</span>
+        <div class="step-text">
+          <h4>Buy with confidence</h4>
+          <p>Limited runs, fair prices. Most of what you spend goes directly to the artist. We'll always tell you exactly how much.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">4</span>
+        <div class="step-text">
+          <h4>It arrives at your door</h4>
+          <p>We handle printing, packaging, and shipping. You just wait for something good to show up.</p>
+        </div>
+      </div>
     </div>
   </div>
-</section>
 
-<!-- wave divider -->
-<div class="wave" style="background:var(--deep)">
-  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" height="60">
-    <path d="M0,60 C480,0 960,0 1440,60 L1440,60 L0,60 Z" fill="var(--cream)"/>
-  </svg>
-</div>
+  <!-- email strip -->
+  <div class="notify-strip">
+    <p class="section-tag">
+      <svg viewBox="0 0 16 16" fill="currentColor" style="width:14px;height:14px"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
+      Don't miss a drop
+    </p>
+    <h2>Get early access to every drop.</h2>
+    <p class="body-text">Drops sell out. People on our list hear about them first — sometimes a week before they go public.</p>
+    <div class="email-row" style="margin-top:2rem">
+      <input type="email" placeholder="your@email.com" />
+      <button onclick="alert('You\'re on the list. Thanks.')">Join the List</button>
+    </div>
+  </div>
 
-<!-- ── APPLY ── -->
-<section id="apply">
-  <div class="apply-grid">
-    <div>
-      <p class="section-tag">
+</div><!-- end browse -->
+
+
+<!-- ══════════════════════════════════
+     ARTISTS PAGE
+══════════════════════════════════ -->
+<div id="page-artists" class="page">
+
+  <!-- value prop — reframed -->
+  <div class="pitch-section">
+    <p class="section-tag">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
+      For Artists
+    </p>
+    <h2>Why wouldn't you?</h2>
+    <p class="pitch-lead">
+      Send us photos of your work. That's the whole job. We do the rest — and it costs you nothing to try.
+    </p>
+
+    <div class="pitch-grid">
+      <div class="pitch-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/>
+        </svg>
+        <h4>Zero cost to list</h4>
+        <p>No listing fees, no monthly charges, no pay-to-play. We only make money when you do.</p>
+      </div>
+      <div class="pitch-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <h4>Your art stays home</h4>
+        <p>You keep the physical work right where it is until someone actually buys it. Nothing leaves your hands until there's money involved.</p>
+      </div>
+      <div class="pitch-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+        <h4>We handle everything</h4>
+        <p>Listing copy, pricing, marketing, customer questions, shipping, tax forms at year end. You make the work. We do the business.</p>
+      </div>
+      <div class="pitch-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+        <h4>Free exposure either way</h4>
+        <p>Even if nothing sells, your work has been seen. You get a real online presence and a professional listing — at no cost to you.</p>
+      </div>
+    </div>
+
+    <div class="pitch-bottom">
+      <p>
+        If something sells, <strong>you get paid</strong>.<br>
+        If nothing sells, <strong>you've lost nothing</strong>.<br>
+        There is no downside.
+      </p>
+    </div>
+  </div>
+
+  <!-- no AI blurb -->
+  <div class="no-ai-strip">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M12 22C12 22 4 16 4 9.5a8 8 0 0 1 16 0C20 16 12 22 12 22z"/>
+      <path d="M12 22V11" stroke-dasharray="2 2"/>
+    </svg>
+    <p>
+      Every piece on Cadence is <em>human-made</em>. No AI-generated work, ever.
+      If it's here, someone's hands made it.
+    </p>
+  </div>
+
+  <!-- wave -->
+  <div class="wave" style="background:var(--deep)">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" height="60">
+      <path d="M0,60 C480,0 960,0 1440,60 L1440,60 L0,60 Z" fill="var(--cream)"/>
+    </svg>
+  </div>
+
+  <!-- what we look for -->
+  <div class="criteria-section">
+    <p class="section-tag">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
+      Who we work with
+    </p>
+    <h2>We're looking for artists who are serious about their work.</h2>
+    <p class="body-text">We're selective — not because we want to be exclusive, but because curation is what makes this worth anything to buyers.</p>
+
+    <div class="criteria">
+      <div class="criterion">
         <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
-        For Artists
-      </p>
-      <h2>Want to sell your work through Cadence?</h2>
-      <p class="body-text">
-        We're building a small founding group of Vermont artists right now. If your work is human-made, community-connected, and you're serious about selling it — we'd like to hear from you.
-      </p>
-
-      <div class="criteria">
-        <div class="criterion">
-          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
-          <p><strong>Human-made, no AI</strong>Made by you, with your hands and your time.</p>
-        </div>
-        <div class="criterion">
-          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
-          <p><strong>Independent and local</strong>Not gallery-represented. Rooted in Vermont or New England.</p>
-        </div>
-        <div class="criterion">
-          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
-          <p><strong>Early to mid-career</strong>Not a hobbyist, not a household name. Somewhere in the middle, doing real work.</p>
-        </div>
-        <div class="criterion">
-          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
-          <p><strong>Community or justice lens</strong>Your work connects to something beyond the canvas.</p>
-        </div>
+        <p><strong>Human-made, no AI</strong>Made by you, with your hands and your time. That's the whole bar.</p>
+      </div>
+      <div class="criterion">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
+        <p><strong>Independent and local</strong>Not gallery-represented. Rooted in Vermont or New England.</p>
+      </div>
+      <div class="criterion">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
+        <p><strong>Early to mid-career</strong>Not a hobbyist, not a household name. Somewhere in the middle, doing real work.</p>
+      </div>
+      <div class="criterion">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
+        <p><strong>Connected to community</strong>Your work says something about where you live or who you're around. That's it — no manifesto required.</p>
       </div>
     </div>
+  </div>
 
-    <div>
-      <form onsubmit="submitApp(event)">
-        <input type="text" placeholder="Your name" required />
-        <input type="email" placeholder="Email address" required />
-        <input type="text" placeholder="Where you're based" />
-        <select>
-          <option value="" disabled selected>Primary medium</option>
-          <option>Painting</option>
-          <option>Photography</option>
-          <option>Drawing / Illustration</option>
-          <option>Mixed Media</option>
-          <option>Writing / Print</option>
-          <option>Design</option>
-          <option>Film / Video</option>
-          <option>Other</option>
-        </select>
-        <input type="url" placeholder="Instagram or portfolio link" />
-        <textarea placeholder="Tell us a little about your work and what you're trying to build — no need to be formal about it."></textarea>
-        <button type="submit" class="submit-btn">Send Application</button>
-        <p class="form-note">We read every application ourselves and get back to you within two weeks.</p>
-      </form>
+  <!-- apply form -->
+  <div class="apply-section">
+    <p class="section-tag">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
+      Apply
+    </p>
+    <h2>Reach out. It costs nothing.</h2>
+    <p class="body-text" style="margin-bottom:2.5rem;">We're building a small founding group right now. Send us your work and we'll take it from there.</p>
+
+    <form onsubmit="submitApp(event)">
+      <input type="text" placeholder="Your name" required />
+      <input type="email" placeholder="Email address" required />
+      <input type="text" placeholder="Where you're based" />
+      <select>
+        <option value="" disabled selected>Primary medium</option>
+        <option>Painting</option>
+        <option>Photography</option>
+        <option>Drawing / Illustration</option>
+        <option>Mixed Media</option>
+        <option>Writing / Print</option>
+        <option>Design</option>
+        <option>Film / Video</option>
+        <option>Other</option>
+      </select>
+      <input type="url" placeholder="Instagram or portfolio link" />
+      <textarea placeholder="Tell us a little about your work — no need to be formal."></textarea>
+      <button type="submit" class="submit-btn">Send it over</button>
+      <p class="form-note">We read every application ourselves and get back to you within two weeks.</p>
+    </form>
+  </div>
+
+  <!-- artist roster -->
+  <div class="roster-section">
+    <p class="section-tag">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
+      On the platform
+    </p>
+    <h2>Artists on Cadence</h2>
+    <p class="body-text">Selected by hand. Vermont-rooted. Making real work.</p>
+
+    <div class="artist-grid">
+
+      <!-- ARTIST 1 — swap "images/ARTIST-1.jpg" -->
+      <a class="artist-card" href="#">
+        <div class="artist-photo">
+          <img src="images/ARTIST-1.jpg" alt="Maple Perchlik"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+          <span class="initials" style="display:none">MP</span>
+        </div>
+        <h3>Maple Perchlik</h3>
+        <p class="location">Burlington, VT</p>
+        <p class="medium">Photography</p>
+      </a>
+
+      <!-- ARTIST 2 — swap "images/ARTIST-2.jpg" -->
+      <a class="artist-card" href="#">
+        <div class="artist-photo">
+          <img src="images/ARTIST-2.jpg" alt="Artist Name"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+          <span class="initials" style="display:none">—</span>
+        </div>
+        <h3>Artist Name</h3>
+        <p class="location">Montpelier, VT</p>
+        <p class="medium">Painting</p>
+      </a>
+
+      <!-- ARTIST 3 — swap "images/ARTIST-3.jpg" -->
+      <a class="artist-card" href="#">
+        <div class="artist-photo">
+          <img src="images/ARTIST-3.jpg" alt="Artist Name"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+          <span class="initials" style="display:none">—</span>
+        </div>
+        <h3>Artist Name</h3>
+        <p class="location">Brattleboro, VT</p>
+        <p class="medium">Writing &amp; Print</p>
+      </a>
+
+      <span class="artist-card" onclick="document.getElementById('page-artists').querySelector('form input').focus()" style="cursor:pointer">
+        <div class="artist-photo" style="background:linear-gradient(135deg,var(--sage),var(--water));">
+          <span class="initials">+</span>
+        </div>
+        <h3>Your name here</h3>
+        <p class="location">Vermont</p>
+        <p class="medium">Apply to join</p>
+      </span>
+
     </div>
   </div>
-</section>
 
-<!-- ── EMAIL ── -->
-<section id="notify" style="background:var(--sky-deep);padding:5rem 2.5rem;position:relative;overflow:hidden;">
-  <p class="section-tag" style="color:rgba(255,255,255,0.65);">
-    <svg viewBox="0 0 16 16" fill="currentColor" style="width:14px;height:14px"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
-    For Collectors
-  </p>
-  <h2 style="color:var(--cream);margin-bottom:0.75rem;">Get early access to every drop.</h2>
-  <p class="body-text" style="color:rgba(255,255,255,0.8);margin-bottom:2rem;">
-    Drops sell out. People on our list hear about them first — sometimes a week before they go public.
-  </p>
-  <div class="email-row">
-    <input type="email" placeholder="your@email.com" />
-    <button onclick="alert('You\'re on the list. Thanks.')">Join the List</button>
+</div><!-- end artists -->
+
+
+<!-- ══════════════════════════════════
+     ABOUT PAGE
+══════════════════════════════════ -->
+<div id="page-about" class="page">
+
+  <!-- about cadence -->
+  <div class="about-cadence">
+    <p class="section-tag">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
+      About Cadence
+    </p>
+    <h2>A platform built for Vermont artists, by someone who lives here.</h2>
+    <p class="body-text">
+      Cadence is a small, curated art platform rooted in Vermont. The idea is simple: most artists who make good work don't have the time, the tools, or the interest to run an online storefront. We do that part. Artists send us their work, we handle everything else, and buyers get access to real, handmade art from people actually living and working in this state.
+    </p>
+    <p class="body-text" style="margin-top:1.25rem;">
+      We work as a shared storefront — not a marketplace where you compete for attention, and not a gallery with gatekeepers. A cooperative structure where artists keep most of what they earn and know exactly where every dollar goes.
+    </p>
+
+    <div class="about-facts">
+      <div class="fact">
+        <h4>Vermont-made</h4>
+        <p>Every artist on Cadence is based in Vermont or the surrounding region. This is intentionally local.</p>
+      </div>
+      <div class="fact">
+        <h4>Human hands only</h4>
+        <p>No AI-generated work. No mass production. If it's listed here, a person made it.</p>
+      </div>
+      <div class="fact">
+        <h4>No listing fees</h4>
+        <p>Artists pay nothing to be on the platform. We take a percentage only when something sells.</p>
+      </div>
+      <div class="fact">
+        <h4>Fair and transparent</h4>
+        <p>Prices are set fairly and held firm. We don't do race-to-the-bottom discounting.</p>
+      </div>
+    </div>
   </div>
-</section>
 
-<!-- ── FOOTER ── -->
+  <!-- wave -->
+  <div class="wave" style="background:var(--forest)">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" height="60">
+      <path d="M0,60 C480,0 960,0 1440,60 L1440,60 L0,60 Z" fill="var(--cream)"/>
+    </svg>
+  </div>
+
+  <!-- founder section -->
+  <div class="founder-section">
+    <p class="section-tag">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
+      The person behind it
+    </p>
+
+    <div class="founder-grid">
+      <div>
+        <!-- swap src="images/FOUNDER-PHOTO.jpg" with your photo -->
+        <div class="founder-photo">
+          <img src="images/FOUNDER-PHOTO.jpg" alt="Founder"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+          <span class="initials" style="display:none">—</span>
+        </div>
+      </div>
+      <div class="founder-text">
+        <h3>Your Name Here</h3>
+        <p class="founder-title">Founder, Cadence</p>
+        <!-- fill this in when you're ready -->
+        <p class="founder-bio">
+          This is where your story goes. Where you're from, why you started this, what Vermont means to you, what you've seen that made you think the art world needed something different. Write it however feels natural — people buy from people, and this is where they meet you.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end about -->
+
+
+<!-- ── FOOTER (always visible) ── -->
 <footer>
   <span class="footer-logo">Cadence</span>
   <ul class="footer-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#artists">Artists</a></li>
-    <li><a href="#apply">Apply</a></li>
+    <li><a onclick="showPage('browse')">Browse</a></li>
+    <li><a onclick="showPage('artists')">For Artists</a></li>
+    <li><a onclick="showPage('about')">About</a></li>
     <li><a href="mailto:hello@cadencevt.com">hello@cadencevt.com</a></li>
   </ul>
   <p class="footer-copy">© 2025 Cadence — Vermont. Human-made. Community-rooted.</p>
 </footer>
 
 <script>
+  function showPage(id) {
+    // hide all pages
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    // show target
+    const target = document.getElementById('page-' + id);
+    if (target) {
+      target.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    // update nav highlight
+    document.querySelectorAll('.nav-center a').forEach(a => a.classList.remove('active'));
+    const navLink = document.getElementById('nav-' + id);
+    if (navLink) navLink.classList.add('active');
+  }
+
+  function closeMobileNav() {
+    document.querySelector('.mobile-nav').classList.remove('open');
+  }
+
   function submitApp(e) {
     e.preventDefault();
     alert("Thanks for reaching out. We'll be in touch within two weeks.");
     e.target.reset();
   }
-
-  // highlight active nav link on scroll
-  const secs = document.querySelectorAll('section[id]');
-  const links = document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll', () => {
-    let cur = '';
-    secs.forEach(s => { if (window.scrollY >= s.offsetTop - 120) cur = s.id; });
-    links.forEach(a => {
-      a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--leaf)' : '';
-    });
-  });
-
-  // close mobile nav on link click
-  document.querySelectorAll('.nav-links a').forEach(a => {
-    a.addEventListener('click', () => {
-      document.querySelector('.nav-links').classList.remove('open');
-    });
-  });
 </script>
 </body>
 </html>
