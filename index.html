@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<script defer src="/_vercel/insights/script.js"></script>
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -8,20 +9,31 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
+      /* greens */
       --deep:     #192e22;
       --forest:   #244535;
       --pine:     #335c46;
       --leaf:     #5aac80;
       --sage:     #8cc9a2;
       --mint:     #b8e0c8;
+      /* blues */
       --sky-deep: #2a6fa8;
       --sky:      #4090c4;
       --water:    #7bc0dc;
       --mist:     #b4d8ea;
-      --earth:    #6b5540;
-      --cream:    #f6f1e7;
-      --warm:     #faf7f1;
-      --parch:    #ece6d8;
+      /* earth tones — new */
+      --umber:    #2a1608;
+      --clay:     #7a4520;
+      --terracotta: #b85c2e;
+      --ochre:    #c49520;
+      --rust:     #8c3618;
+      --earth:    #6b4530;
+      --sand:     #c8b49a;
+      /* neutrals */
+      --bone:     #ede0c8;
+      --cream:    #f5ede0;
+      --warm:     #faf5ec;
+      --parch:    #ede3d2;
       --display:  'Cormorant Garamond', Georgia, serif;
       --body:     'Plus Jakarta Sans', 'Helvetica Neue', sans-serif;
     }
@@ -95,8 +107,8 @@
     .nav-apply {
       display: inline-block;
       padding: 0.55rem 1.25rem;
-      background: var(--leaf);
-      color: var(--deep);
+      background: var(--terracotta);
+      color: var(--cream);
       font-size: 0.78rem;
       font-weight: 700;
       letter-spacing: 0.08em;
@@ -106,7 +118,7 @@
       transition: background 0.2s;
       cursor: pointer;
     }
-    .nav-apply:hover { background: var(--sage); }
+    .nav-apply:hover { background: var(--clay); }
 
     .nav-toggle {
       display: none;
@@ -131,35 +143,46 @@
     .page.active { display: block; }
 
     /* ── HERO (home page) ── */
-    #page-home { background: var(--deep); }
+    #page-home { background: var(--umber); }
 
     .hero {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 9rem 2.5rem 5rem;
+      padding: 9rem 2.5rem 6rem;
       position: relative;
       overflow: hidden;
       color: var(--cream);
+      background: linear-gradient(160deg, var(--umber) 0%, #1a0c04 50%, #0f1a12 100%);
     }
 
+    /* grain texture overlay */
     .hero::before {
       content: '';
       position: absolute;
-      width: 700px; height: 700px;
-      border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
-      background: radial-gradient(ellipse, rgba(90,172,128,0.13) 0%, transparent 65%);
-      top: -200px; right: -150px;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.07;
       pointer-events: none;
+      mix-blend-mode: overlay;
     }
+    /* warm atmospheric glow */
     .hero::after {
       content: '';
       position: absolute;
-      width: 450px; height: 450px;
-      border-radius: 40% 60% 30% 70% / 60% 40% 60% 40%;
-      background: radial-gradient(ellipse, rgba(64,144,196,0.10) 0%, transparent 70%);
-      bottom: -50px; left: -80px;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(196,149,32,0.12) 0%, transparent 65%);
+      bottom: -100px; right: -100px;
+      pointer-events: none;
+    }
+    /* terracotta left-edge accent line */
+    .hero-accent {
+      position: absolute;
+      left: 0; top: 15%; bottom: 15%;
+      width: 3px;
+      background: linear-gradient(to bottom, transparent, var(--terracotta), transparent);
       pointer-events: none;
     }
 
@@ -175,42 +198,44 @@
     .hero-inner { position: relative; max-width: 960px; }
 
     .hero-place {
-      font-size: clamp(0.9rem, 2vw, 1.05rem);
+      font-size: clamp(0.75rem, 1.5vw, 0.85rem);
       font-weight: 600;
-      letter-spacing: 0.45em;
+      letter-spacing: 0.5em;
       text-transform: uppercase;
-      color: var(--leaf);
-      margin-bottom: 1.75rem;
+      color: var(--terracotta);
+      margin-bottom: 2rem;
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 1.25rem;
     }
     .hero-place::before {
       content: '';
       display: block;
-      width: 40px; height: 2px;
-      background: var(--leaf);
-      border-radius: 2px;
+      width: 48px; height: 1px;
+      background: var(--terracotta);
+      opacity: 0.8;
     }
 
     h1 {
       font-family: var(--display);
-      font-size: clamp(3.8rem, 10vw, 7.5rem);
+      font-size: clamp(4rem, 11vw, 8.5rem);
       font-weight: 400;
-      line-height: 1.03;
-      letter-spacing: -0.01em;
-      margin-bottom: 1.5rem;
+      line-height: 0.97;
+      letter-spacing: -0.02em;
+      margin-bottom: 2rem;
       color: var(--cream);
     }
-    h1 em { font-style: italic; color: var(--water); display: block; }
+    h1 em { font-style: italic; color: var(--ochre); display: block; }
 
     .hero-sub {
       font-size: clamp(1rem, 2.5vw, 1.15rem);
-      color: var(--mint);
-      max-width: 480px;
-      line-height: 1.85;
-      margin-bottom: 3rem;
+      color: var(--sand);
+      max-width: 440px;
+      line-height: 1.9;
+      margin-bottom: 3.5rem;
       font-weight: 300;
+      border-left: 1px solid rgba(196,149,32,0.4);
+      padding-left: 1.5rem;
     }
 
     .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
@@ -235,11 +260,11 @@
     .btn:hover { background: var(--cream); color: var(--forest); border-color: var(--cream); }
 
     .btn-solid {
-      background: var(--leaf);
-      border-color: var(--leaf);
-      color: var(--deep);
+      background: var(--terracotta);
+      border-color: var(--terracotta);
+      color: var(--cream);
     }
-    .btn-solid:hover { background: var(--sage); border-color: var(--sage); }
+    .btn-solid:hover { background: var(--clay); border-color: var(--clay); }
 
     /* artistic drop button */
     .btn-drop {
@@ -251,14 +276,14 @@
       text-transform: none;
       padding: 0.85rem 2.25rem;
       background: transparent;
-      border: 1.5px solid rgba(184,224,200,0.5);
-      color: var(--mint);
+      border: 1px solid rgba(196,149,32,0.45);
+      color: var(--ochre);
       border-radius: 100px;
     }
     .btn-drop:hover {
-      background: rgba(90,172,128,0.15);
-      border-color: var(--sage);
-      color: var(--sage);
+      background: rgba(196,149,32,0.1);
+      border-color: var(--ochre);
+      color: var(--bone);
     }
 
     /* home page entry cards */
@@ -267,43 +292,46 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 1.25rem;
       padding: 0 2.5rem 5rem;
-      background: var(--deep);
+      background: linear-gradient(180deg, #0f1a12 0%, var(--umber) 100%);
       position: relative;
       z-index: 1;
     }
 
     .home-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 20px;
-      padding: 2rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(196,149,32,0.15);
+      border-top: 2px solid rgba(196,149,32,0.3);
+      border-radius: 4px;
+      padding: 2.25rem 2rem;
       cursor: pointer;
-      transition: all 0.25s;
+      transition: all 0.3s;
       text-decoration: none;
       color: var(--cream);
       display: block;
     }
     .home-card:hover {
-      background: rgba(255,255,255,0.09);
-      transform: translateY(-3px);
+      background: rgba(196,149,32,0.07);
+      border-color: rgba(196,149,32,0.35);
+      transform: translateY(-4px);
     }
-    .home-card svg { width: 28px; height: 28px; color: var(--leaf); margin-bottom: 1rem; }
+    .home-card svg { width: 24px; height: 24px; color: var(--ochre); margin-bottom: 1.25rem; opacity: 0.8; }
     .home-card h3 {
       font-family: var(--display);
-      font-size: 1.4rem;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-      color: var(--cream);
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 0.65rem;
+      color: var(--bone);
+      letter-spacing: 0.01em;
     }
-    .home-card p { font-size: 0.9rem; color: var(--mint); font-weight: 300; line-height: 1.7; }
+    .home-card p { font-size: 0.88rem; color: var(--sand); font-weight: 300; line-height: 1.75; }
     .home-card .card-link {
       display: inline-block;
-      margin-top: 1.25rem;
-      font-size: 0.75rem;
+      margin-top: 1.5rem;
+      font-size: 0.72rem;
       font-weight: 600;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--leaf);
+      color: var(--terracotta);
     }
 
     /* wave */
@@ -354,39 +382,59 @@
     .drop-header {
       padding: 5rem 2.5rem 3rem;
       background: var(--warm);
+      border-bottom: 1px solid var(--parch);
+      position: relative;
+      overflow: hidden;
+    }
+    /* large decorative roman numeral in background */
+    .drop-header::before {
+      content: 'I';
+      position: absolute;
+      right: 2rem; top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--display);
+      font-size: clamp(9rem, 22vw, 18rem);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--terracotta);
+      opacity: 0.055;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
     }
 
     .drop-badge {
       display: inline-block;
-      background: var(--sky);
-      color: var(--warm);
-      font-size: 0.65rem;
+      background: var(--terracotta);
+      color: var(--cream);
+      font-size: 0.6rem;
       font-weight: 700;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      padding: 0.45rem 1.1rem;
-      border-radius: 100px;
-      margin-bottom: 1rem;
+      padding: 0.4rem 1rem;
+      border-radius: 2px;
+      margin-bottom: 1.25rem;
     }
 
     .art-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.75rem;
-      padding: 0 2.5rem 5rem;
-      background: var(--warm);
+      gap: 2rem;
+      padding: 2.5rem 2.5rem 5rem;
+      background: var(--cream);
     }
 
     .art-card {
-      background: var(--cream);
-      border: 1px solid var(--parch);
-      border-radius: 20px;
+      background: var(--bone);
+      border: 1px solid rgba(122,69,32,0.12);
+      border-radius: 2px;
       overflow: hidden;
-      transition: transform 0.25s, box-shadow 0.25s;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 2px 12px rgba(42,22,8,0.08);
     }
     .art-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 14px 36px rgba(25,46,34,0.12);
+      transform: translateY(-6px);
+      box-shadow: 0 18px 48px rgba(42,22,8,0.16);
     }
 
     /* swap src="images/YOUR-FILE.jpg" */
@@ -399,7 +447,7 @@
     .art-placeholder {
       width: 100%;
       aspect-ratio: 4/5;
-      background: linear-gradient(160deg, var(--parch), var(--mint));
+      background: linear-gradient(160deg, #c8b49a, #ede0c8);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -407,73 +455,116 @@
     .art-placeholder span {
       font-family: var(--display);
       font-style: italic;
-      color: var(--sage);
+      color: var(--clay);
       font-size: 0.9rem;
-      opacity: 0.7;
+      opacity: 0.5;
     }
 
-    .art-info { padding: 1.4rem; }
+    .art-info { padding: 1.6rem 1.5rem 1.75rem; }
     .art-info .artist {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--earth);
-      margin-bottom: 0.35rem;
+      color: var(--terracotta);
+      margin-bottom: 0.4rem;
     }
-    .art-info .title { font-family: var(--display); font-size: 1.2rem; font-weight: 400; margin-bottom: 0.5rem; }
-    .art-info .price { font-size: 0.95rem; color: var(--forest); font-weight: 500; }
+    .art-info .title {
+      font-family: var(--display);
+      font-size: 1.3rem;
+      font-weight: 400;
+      margin-bottom: 0.65rem;
+      color: var(--umber);
+      line-height: 1.2;
+    }
+    .art-info .art-story {
+      font-family: var(--display);
+      font-style: italic;
+      font-size: 0.92rem;
+      color: var(--clay);
+      line-height: 1.55;
+      margin-bottom: 1rem;
+      font-weight: 400;
+      border-left: 2px solid rgba(184,92,46,0.3);
+      padding-left: 0.75rem;
+    }
+    .art-info .price {
+      font-size: 1rem;
+      color: var(--umber);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
     .art-info .edition {
-      font-size: 0.7rem;
-      color: var(--sky);
+      font-size: 0.65rem;
+      color: var(--clay);
       font-weight: 600;
-      letter-spacing: 0.07em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      margin-top: 0.25rem;
+      margin-top: 0.35rem;
+      opacity: 0.75;
     }
 
     /* how it works — buyers only */
     .how-section {
-      background: var(--cream);
+      background: var(--warm);
       padding: 5rem 2.5rem;
+      border-top: 3px solid var(--parch);
     }
 
-    .steps { display: flex; flex-direction: column; gap: 1.75rem; max-width: 600px; margin-top: 2.5rem; }
+    .steps { display: flex; flex-direction: column; gap: 0; max-width: 640px; margin-top: 3rem; }
 
-    .step { display: flex; gap: 1.25rem; align-items: flex-start; }
+    .step {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      padding: 1.75rem 0;
+      border-bottom: 1px solid var(--parch);
+      position: relative;
+    }
+    .step:last-child { border-bottom: none; }
 
     .step-num {
       font-family: var(--display);
-      font-size: 2.25rem;
+      font-size: 3.5rem;
       font-style: italic;
       font-weight: 400;
-      color: var(--mint);
-      line-height: 1;
+      color: var(--terracotta);
+      line-height: 0.85;
       flex-shrink: 0;
-      width: 2rem;
+      width: 2.5rem;
+      opacity: 0.4;
     }
-    .step-text h4 { font-size: 1rem; font-weight: 600; color: var(--forest); margin-bottom: 0.35rem; }
-    .step-text p { font-size: 0.9rem; color: var(--earth); line-height: 1.75; font-weight: 300; }
+    .step-text { padding-top: 0.25rem; }
+    .step-text h4 { font-size: 1rem; font-weight: 600; color: var(--umber); margin-bottom: 0.4rem; letter-spacing: 0.01em; }
+    .step-text p { font-size: 0.9rem; color: var(--clay); line-height: 1.8; font-weight: 300; }
 
     /* email strip */
     .notify-strip {
-      background: var(--sky-deep);
-      padding: 4.5rem 2.5rem;
+      background: var(--umber);
+      padding: 5rem 2.5rem;
       position: relative;
       overflow: hidden;
     }
     .notify-strip::before {
       content: '';
       position: absolute;
-      width: 500px; height: 500px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.04);
-      top: -200px; right: 5%;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.05;
       pointer-events: none;
     }
-    .notify-strip h2 { color: var(--cream); margin-bottom: 0.75rem; }
-    .notify-strip .section-tag { color: rgba(255,255,255,0.65); }
-    .notify-strip .body-text { color: rgba(255,255,255,0.8); margin-bottom: 2rem; }
+    .notify-strip::after {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(196,149,32,0.12) 0%, transparent 65%);
+      top: -100px; right: 0;
+      pointer-events: none;
+    }
+    .notify-strip h2 { color: var(--bone); margin-bottom: 0.75rem; }
+    .notify-strip .section-tag { color: var(--terracotta); }
+    .notify-strip .body-text { color: var(--sand); margin-bottom: 2rem; }
 
     .email-row {
       display: flex;
@@ -496,8 +587,8 @@
     .email-row input::placeholder { color: rgba(255,255,255,0.5); }
     .email-row button {
       padding: 0.9rem 1.75rem;
-      background: var(--leaf);
-      color: var(--deep);
+      background: var(--terracotta);
+      color: var(--cream);
       border: none;
       font-size: 0.78rem;
       font-weight: 700;
@@ -510,14 +601,14 @@
       margin: 4px;
       transition: background 0.2s;
     }
-    .email-row button:hover { background: var(--sage); }
+    .email-row button:hover { background: var(--clay); }
 
     /* ── ARTISTS PAGE ── */
     #page-artists { background: var(--warm); }
 
     /* value prop — reframed */
     .pitch-section {
-      background: var(--forest);
+      background: var(--umber);
       padding: 5rem 2.5rem;
       color: var(--cream);
       position: relative;
@@ -526,77 +617,96 @@
     .pitch-section::before {
       content: '';
       position: absolute;
-      width: 550px; height: 550px;
-      border-radius: 50%;
-      border: 1px solid rgba(90,172,128,0.1);
-      top: -220px; right: -80px;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.06;
       pointer-events: none;
     }
-    .pitch-section h2 { color: var(--cream); max-width: 720px; }
-    .pitch-section .section-tag { color: var(--sage); }
+    .pitch-section::after {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(184,92,46,0.15) 0%, transparent 65%);
+      top: -200px; right: -100px;
+      pointer-events: none;
+    }
+    .pitch-section h2 { color: var(--bone); max-width: 720px; }
+    .pitch-section .section-tag { color: var(--terracotta); }
 
     .pitch-lead {
       font-family: var(--display);
-      font-size: clamp(1.3rem, 3vw, 1.75rem);
+      font-size: clamp(1.3rem, 3vw, 1.85rem);
       font-weight: 400;
-      color: var(--mint);
+      color: var(--sand);
       max-width: 680px;
-      line-height: 1.5;
-      margin: 1.5rem 0 3rem;
+      line-height: 1.55;
+      margin: 1.5rem 0 3.5rem;
+      font-style: italic;
     }
 
     .pitch-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.25rem;
+      gap: 1rem;
       margin-bottom: 3rem;
     }
 
     .pitch-card {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(196,149,32,0.15);
+      border-top: 2px solid rgba(184,92,46,0.35);
+      border-radius: 2px;
       padding: 1.75rem;
     }
-    .pitch-card svg { width: 24px; height: 24px; color: var(--leaf); margin-bottom: 0.85rem; }
+    .pitch-card svg { width: 22px; height: 22px; color: var(--ochre); margin-bottom: 1rem; opacity: 0.8; }
     .pitch-card h4 {
       font-family: var(--display);
-      font-size: 1.2rem;
-      color: var(--cream);
-      margin-bottom: 0.4rem;
+      font-size: 1.25rem;
+      color: var(--bone);
+      margin-bottom: 0.5rem;
+      font-weight: 400;
     }
-    .pitch-card p { font-size: 0.9rem; color: var(--mint); line-height: 1.7; font-weight: 300; }
+    .pitch-card p { font-size: 0.88rem; color: var(--sand); line-height: 1.75; font-weight: 300; }
 
     .pitch-bottom {
-      background: rgba(90,172,128,0.12);
-      border: 1px solid rgba(90,172,128,0.25);
-      border-radius: 18px;
-      padding: 2rem;
+      background: rgba(196,149,32,0.08);
+      border: 1px solid rgba(196,149,32,0.2);
+      border-left: 3px solid var(--ochre);
+      border-radius: 2px;
+      padding: 2.25rem;
       max-width: 640px;
     }
     .pitch-bottom p {
       font-family: var(--display);
-      font-size: 1.25rem;
-      color: var(--cream);
-      line-height: 1.55;
+      font-size: 1.4rem;
+      color: var(--bone);
+      line-height: 1.6;
     }
-    .pitch-bottom strong { color: var(--leaf); }
+    .pitch-bottom strong { color: var(--ochre); }
 
     /* what we look for */
     .criteria-section {
-      background: var(--cream);
+      background: var(--bone);
       padding: 5rem 2.5rem;
     }
 
-    .criteria { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.25rem; max-width: 600px; }
-    .criterion { display: flex; gap: 1rem; align-items: flex-start; }
-    .criterion svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 0.25rem; color: var(--leaf); }
-    .criterion p { font-size: 0.97rem; color: var(--earth); line-height: 1.65; font-weight: 300; }
-    .criterion strong { display: block; color: var(--forest); font-size: 0.97rem; font-weight: 600; margin-bottom: 0.15rem; }
+    .criteria { margin-top: 3rem; display: flex; flex-direction: column; gap: 0; max-width: 600px; }
+    .criterion {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(122,69,32,0.12);
+    }
+    .criterion:last-child { border-bottom: none; }
+    .criterion svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 0.3rem; color: var(--terracotta); }
+    .criterion p { font-size: 0.97rem; color: var(--clay); line-height: 1.7; font-weight: 300; }
+    .criterion strong { display: block; color: var(--umber); font-size: 0.97rem; font-weight: 600; margin-bottom: 0.2rem; }
 
     /* apply form */
     .apply-section {
-      background: var(--parch);
+      background: var(--cream);
       padding: 5rem 2.5rem;
     }
 
@@ -617,50 +727,62 @@
       appearance: none;
       transition: border-color 0.2s;
     }
-    form input:focus, form textarea:focus, form select:focus { border-color: var(--leaf); }
+    form input:focus, form textarea:focus, form select:focus { border-color: var(--terracotta); }
     form textarea { height: 120px; resize: vertical; }
 
     .form-note { font-size: 0.8rem; color: var(--earth); line-height: 1.55; font-weight: 300; }
 
     .submit-btn {
       padding: 1rem 2rem;
-      background: var(--forest);
+      background: var(--terracotta);
       color: var(--cream);
       border: none;
-      border-radius: 100px;
+      border-radius: 2px;
       font-family: var(--body);
       font-size: 0.82rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       cursor: pointer;
       transition: background 0.2s;
       width: fit-content;
     }
-    .submit-btn:hover { background: var(--deep); }
+    .submit-btn:hover { background: var(--clay); }
 
     /* no AI blurb */
     .no-ai-strip {
-      background: var(--deep);
+      background: var(--terracotta);
       padding: 3rem 2.5rem;
       display: flex;
       align-items: center;
       gap: 2rem;
       flex-wrap: wrap;
+      position: relative;
+      overflow: hidden;
     }
-    .no-ai-strip svg { width: 36px; height: 36px; color: var(--leaf); flex-shrink: 0; }
+    .no-ai-strip::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.08;
+      pointer-events: none;
+      mix-blend-mode: multiply;
+    }
+    .no-ai-strip svg { width: 32px; height: 32px; color: rgba(255,255,255,0.7); flex-shrink: 0; }
     .no-ai-strip p {
       font-family: var(--display);
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       color: var(--cream);
       line-height: 1.5;
-      max-width: 600px;
+      max-width: 640px;
+      font-weight: 400;
     }
-    .no-ai-strip p em { color: var(--leaf); font-style: italic; }
+    .no-ai-strip p em { color: rgba(255,255,255,0.9); font-style: italic; font-weight: 600; }
 
     /* artist roster */
     .roster-section {
-      background: var(--warm);
+      background: var(--cream);
       padding: 5rem 2.5rem;
     }
 
@@ -679,7 +801,7 @@
       border-radius: 50%;
       overflow: hidden;
       margin-bottom: 1rem;
-      background: linear-gradient(135deg, var(--pine), var(--sky-deep));
+      background: linear-gradient(135deg, var(--clay), var(--umber));
       display: flex;
       align-items: center;
       justify-content: center;
@@ -690,13 +812,13 @@
 
     .artist-card h3 { font-family: var(--display); font-size: 1.2rem; font-weight: 400; margin-bottom: 0.2rem; }
     .artist-card .location { font-size: 0.85rem; color: var(--earth); }
-    .artist-card .medium { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--leaf); margin-top: 0.2rem; }
+    .artist-card .medium { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--terracotta); margin-top: 0.2rem; }
 
     /* ── ABOUT PAGE ── */
     #page-about { background: var(--warm); }
 
     .about-cadence {
-      background: var(--forest);
+      background: var(--umber);
       padding: 5rem 2.5rem;
       color: var(--cream);
       position: relative;
@@ -705,34 +827,43 @@
     .about-cadence::before {
       content: '';
       position: absolute;
-      width: 500px; height: 500px;
-      border-radius: 50%;
-      border: 1px solid rgba(90,172,128,0.1);
-      top: -200px; right: -80px;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.06;
       pointer-events: none;
     }
-    .about-cadence h2 { color: var(--cream); }
-    .about-cadence .section-tag { color: var(--sage); }
-    .about-cadence .body-text { color: var(--mint); max-width: 680px; }
+    .about-cadence::after {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(196,149,32,0.1) 0%, transparent 65%);
+      bottom: -100px; left: -80px;
+      pointer-events: none;
+    }
+    .about-cadence h2 { color: var(--bone); margin-top: 1.25rem; }
+    .about-cadence .section-tag { color: var(--terracotta); }
+    .about-cadence .body-text { color: var(--sand); max-width: 680px; }
 
     .about-facts {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.25rem;
+      gap: 1rem;
       margin-top: 3.5rem;
     }
     .fact {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(196,149,32,0.15);
+      border-top: 2px solid rgba(184,92,46,0.4);
+      border-radius: 2px;
       padding: 1.75rem;
     }
-    .fact h4 { font-family: var(--display); font-size: 1.15rem; color: var(--cream); margin-bottom: 0.4rem; }
-    .fact p { font-size: 0.9rem; color: var(--mint); line-height: 1.7; font-weight: 300; }
+    .fact h4 { font-family: var(--display); font-size: 1.2rem; color: var(--bone); margin-bottom: 0.45rem; font-weight: 400; }
+    .fact p { font-size: 0.88rem; color: var(--sand); line-height: 1.75; font-weight: 300; }
 
     /* founder section */
     .founder-section {
-      background: var(--cream);
+      background: var(--warm);
       padding: 5rem 2.5rem;
     }
 
@@ -766,39 +897,55 @@
       margin-bottom: 0.35rem;
     }
     .founder-text .founder-title {
-      font-size: 0.8rem;
+      font-size: 0.72rem;
       font-weight: 600;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--leaf);
+      color: var(--terracotta);
       margin-bottom: 1.5rem;
     }
     .founder-text .founder-bio {
-      font-size: 1rem;
-      color: var(--earth);
+      font-size: 1.05rem;
       line-height: 1.9;
       font-weight: 300;
       font-style: italic;
-      border-left: 2px solid var(--mint);
+      border-left: 2px solid var(--terracotta);
       padding-left: 1.5rem;
-      color: var(--pine);
+      color: var(--clay);
     }
 
     /* ── FOOTER ── */
     footer {
-      background: var(--deep);
-      padding: 2.5rem;
+      background: var(--umber);
+      padding: 3rem 2.5rem 2.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       gap: 1.25rem;
+      border-top: 3px solid var(--terracotta);
+      position: relative;
     }
-    .footer-logo { font-family: var(--display); font-size: 1.75rem; font-weight: 600; color: var(--cream); letter-spacing: 0.05em; }
+    footer::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.04;
+      pointer-events: none;
+    }
+    .footer-logo {
+      font-family: var(--display);
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--bone);
+      letter-spacing: 0.05em;
+      font-style: italic;
+    }
     .footer-links { list-style: none; display: flex; gap: 2rem; flex-wrap: wrap; }
-    .footer-links a { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; color: var(--sage); text-decoration: none; transition: color 0.2s; cursor: pointer; }
-    .footer-links a:hover { color: var(--cream); }
-    .footer-copy { width: 100%; font-size: 0.72rem; font-weight: 300; color: rgba(140,201,162,0.4); margin-top: 0.2rem; }
+    .footer-links a { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sand); text-decoration: none; transition: color 0.2s; cursor: pointer; }
+    .footer-links a:hover { color: var(--bone); }
+    .footer-copy { width: 100%; font-size: 0.7rem; font-weight: 300; color: rgba(200,180,154,0.35); margin-top: 0.2rem; }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
@@ -816,14 +963,15 @@
 
       .mobile-nav {
         display: none;
-        position: absolute;
-        top: 100%;
+        position: fixed;
+        top: 65px;
         left: 0; right: 0;
         background: var(--warm);
-        border-bottom: 1px solid var(--parch);
+        border-bottom: 2px solid var(--parch);
         flex-direction: column;
         padding: 0.5rem 0;
         z-index: 199;
+        box-shadow: 0 8px 24px rgba(25,46,34,0.12);
       }
       .mobile-nav.open { display: flex; }
       .mobile-nav a {
@@ -846,9 +994,13 @@
       .hero { padding: 7rem 1.5rem 4rem; }
       .home-cards { padding: 0 1.5rem 4rem; gap: 1rem; }
 
-      .section, .drop-header, .how-section, .notify-strip,
-      .pitch-section, .criteria-section, .apply-section,
-      .roster-section, .about-cadence, .founder-section { padding: 4rem 1.5rem; }
+      .section, .how-section, .notify-strip,
+      .criteria-section, .apply-section,
+      .roster-section, .founder-section { padding: 4rem 1.5rem; }
+      /* first sections on each page need extra top to clear fixed nav */
+      .drop-header { padding: 5.5rem 1.5rem 3rem; }
+      .pitch-section { padding: 5.5rem 1.5rem 4rem; }
+      .about-cadence { padding: 5.5rem 1.5rem 4rem; }
 
       .art-grid { padding: 0 1.5rem 4rem; grid-template-columns: 1fr 1fr; gap: 1rem; }
       .artist-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
@@ -908,21 +1060,21 @@
 <div id="page-home" class="page active">
 
   <div class="hero">
-    <!-- decorative branch -->
-    <svg class="hero-branch" viewBox="0 0 260 520" fill="none" stroke="var(--leaf)" stroke-linecap="round">
-      <path d="M130,500 C125,430 110,360 105,270 C98,180 115,100 130,30" stroke-width="2"/>
-      <path d="M108,290 C80,268 48,260 20,248" stroke-width="1.2"/>
-      <path d="M107,340 C78,328 50,332 24,322" stroke-width="1"/>
-      <path d="M110,390 C85,380 62,385 38,375" stroke-width="1"/>
-      <path d="M112,230 C140,210 168,205 196,194" stroke-width="1.2"/>
-      <path d="M115,180 C142,162 166,155 192,145" stroke-width="1"/>
-      <ellipse cx="16" cy="243" rx="16" ry="8" transform="rotate(-25 16 243)" fill="rgba(90,172,128,0.25)" stroke-width="0.8"/>
-      <ellipse cx="20" cy="318" rx="14" ry="7" transform="rotate(-18 20 318)" fill="rgba(90,172,128,0.2)" stroke-width="0.8"/>
-      <ellipse cx="34" cy="370" rx="13" ry="6" transform="rotate(-15 34 370)" fill="rgba(90,172,128,0.18)" stroke-width="0.8"/>
-      <ellipse cx="200" cy="190" rx="16" ry="8" transform="rotate(20 200 190)" fill="rgba(90,172,128,0.25)" stroke-width="0.8"/>
-      <ellipse cx="196" cy="141" rx="14" ry="7" transform="rotate(18 196 141)" fill="rgba(90,172,128,0.2)" stroke-width="0.8"/>
-      <circle cx="20" cy="243" r="3" fill="rgba(90,172,128,0.4)"/>
-      <circle cx="200" cy="190" r="3" fill="rgba(90,172,128,0.4)"/>
+    <div class="hero-accent"></div>
+
+    <!-- decorative branch — warm ochre tones -->
+    <svg class="hero-branch" viewBox="0 0 260 520" fill="none" stroke="rgba(196,149,32,0.6)" stroke-linecap="round">
+      <path d="M130,500 C125,430 110,360 105,270 C98,180 115,100 130,30" stroke-width="1.5"/>
+      <path d="M108,290 C80,268 48,260 20,248" stroke-width="1"/>
+      <path d="M107,340 C78,328 50,332 24,322" stroke-width="0.8"/>
+      <path d="M110,390 C85,380 62,385 38,375" stroke-width="0.8"/>
+      <path d="M112,230 C140,210 168,205 196,194" stroke-width="1"/>
+      <path d="M115,180 C142,162 166,155 192,145" stroke-width="0.8"/>
+      <ellipse cx="16" cy="243" rx="16" ry="8" transform="rotate(-25 16 243)" fill="rgba(184,92,46,0.2)" stroke-width="0.6"/>
+      <ellipse cx="20" cy="318" rx="14" ry="7" transform="rotate(-18 20 318)" fill="rgba(184,92,46,0.15)" stroke-width="0.6"/>
+      <ellipse cx="34" cy="370" rx="13" ry="6" transform="rotate(-15 34 370)" fill="rgba(196,149,32,0.18)" stroke-width="0.6"/>
+      <ellipse cx="200" cy="190" rx="16" ry="8" transform="rotate(20 200 190)" fill="rgba(184,92,46,0.2)" stroke-width="0.6"/>
+      <ellipse cx="196" cy="141" rx="14" ry="7" transform="rotate(18 196 141)" fill="rgba(196,149,32,0.18)" stroke-width="0.6"/>
     </svg>
 
     <div class="hero-inner">
@@ -986,13 +1138,13 @@
     </p>
     <h2>Land &amp; Labor</h2>
     <p class="body-text" style="margin-top:0.75rem;">
-      Five Vermont artists making work about where they live — the land, the seasons, the people holding things together. Limited edition prints, numbered runs. Ships within two weeks.
+      Five Vermont artists — painters, photographers, and makers — who live on this land and make work about it. The seasons, the people holding things together, what it costs to stay. Limited editions. Every piece ships within two weeks.
     </p>
   </div>
 
   <div class="art-grid">
 
-    <!-- ART CARD 1 — swap "images/ARTWORK-1.jpg" -->
+    <!-- ART CARD 1 — swap "images/ARTWORK-1.jpg" | fill in artist name, story, title, price -->
     <div class="art-card">
       <img src="images/ARTWORK-1.jpg" alt="Artwork title" class="art-img"
            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
@@ -1000,12 +1152,13 @@
       <div class="art-info">
         <p class="artist">Artist Name</p>
         <p class="title">Untitled, 2025</p>
+        <p class="art-story">Made during the first hard frost of the season, somewhere in the Northeast Kingdom.</p>
         <p class="price">From $85</p>
         <p class="edition">Ed. of 40 — available now</p>
       </div>
     </div>
 
-    <!-- ART CARD 2 — swap "images/ARTWORK-2.jpg" -->
+    <!-- ART CARD 2 — swap "images/ARTWORK-2.jpg" | fill in artist name, story, title, price -->
     <div class="art-card">
       <img src="images/ARTWORK-2.jpg" alt="Artwork title" class="art-img"
            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
@@ -1013,12 +1166,13 @@
       <div class="art-info">
         <p class="artist">Artist Name</p>
         <p class="title">Series Title, 2025</p>
+        <p class="art-story">This series started with a question about who gets to name a place, and who forgets it.</p>
         <p class="price">From $65</p>
         <p class="edition">Ed. of 25 — 18 left</p>
       </div>
     </div>
 
-    <!-- ART CARD 3 — swap "images/ARTWORK-3.jpg" -->
+    <!-- ART CARD 3 — swap "images/ARTWORK-3.jpg" | fill in artist name, story, title, price -->
     <div class="art-card">
       <img src="images/ARTWORK-3.jpg" alt="Artwork title" class="art-img"
            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
@@ -1026,6 +1180,7 @@
       <div class="art-info">
         <p class="artist">Artist Name</p>
         <p class="title">Work Title, 2024</p>
+        <p class="art-story">She built this over two winters in a barn. The material came from the same fields it's about.</p>
         <p class="price">From $120</p>
         <p class="edition">Ed. of 15 — available now</p>
       </div>
@@ -1034,9 +1189,9 @@
   </div>
 
   <!-- wave -->
-  <div class="wave" style="background:var(--warm)">
+  <div class="wave" style="background:var(--cream)">
     <svg viewBox="0 0 1440 60" preserveAspectRatio="none" height="60">
-      <path d="M0,0 C360,60 1080,60 1440,0 L1440,60 L0,60 Z" fill="var(--cream)"/>
+      <path d="M0,0 C360,60 1080,60 1440,0 L1440,60 L0,60 Z" fill="var(--warm)"/>
     </svg>
   </div>
 
@@ -1060,15 +1215,15 @@
       <div class="step">
         <span class="step-num">2</span>
         <div class="step-text">
-          <h4>Know who made it</h4>
-          <p>Each artist profile tells you who they are, where they live, and what drives their work. You're buying from a real person.</p>
+          <h4>Meet the person first</h4>
+          <p>Before you see the price, you know who made it, where they live, and why they made it. The story is part of what you're buying.</p>
         </div>
       </div>
       <div class="step">
         <span class="step-num">3</span>
         <div class="step-text">
-          <h4>Buy with confidence</h4>
-          <p>Limited runs, fair prices. Most of what you spend goes directly to the artist. We'll always tell you exactly how much.</p>
+          <h4>Buy with full transparency</h4>
+          <p>Limited runs, fair prices — and we'll always tell you exactly what percentage of your purchase goes directly to the artist. Right there on the listing.</p>
         </div>
       </div>
       <div class="step">
@@ -1143,6 +1298,13 @@
         <h4>Free exposure either way</h4>
         <p>Even if nothing sells, your work has been seen. You get a real online presence and a professional listing — at no cost to you.</p>
       </div>
+      <div class="pitch-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/><path d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z"/><path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z"/><path d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z"/><path d="M15.5 19H14v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"/><path d="M10 9.5C10 8.67 9.33 8 8.5 8h-5C2.67 8 2 8.67 2 9.5S2.67 11 3.5 11h5c.83 0 1.5-.67 1.5-1.5z"/><path d="M8.5 5H10V3.5C10 2.67 9.33 2 8.5 2S7 2.67 7 3.5 7.67 5 8.5 5z"/>
+        </svg>
+        <h4>Not just paintings</h4>
+        <p>Ceramics, fiber arts, woven goods, handmade objects — if you made it with your hands and your time, it's welcome here. We hold your price. No race to the bottom.</p>
+      </div>
     </div>
 
     <div class="pitch-bottom">
@@ -1161,15 +1323,15 @@
       <path d="M12 22V11" stroke-dasharray="2 2"/>
     </svg>
     <p>
-      Every piece on Cadence is <em>human-made</em>. No AI-generated work, ever.
-      If it's here, someone's hands made it.
+      Every piece on Cadence is <em>human-made</em>. No AI, no mass production, no factory goods with a Vermont label.
+      Paintings, photographs, ceramics, woven textiles — if it's here, someone's hands made it, and they took their time.
     </p>
   </div>
 
   <!-- wave -->
-  <div class="wave" style="background:var(--deep)">
+  <div class="wave" style="background:var(--terracotta)">
     <svg viewBox="0 0 1440 60" preserveAspectRatio="none" height="60">
-      <path d="M0,60 C480,0 960,0 1440,60 L1440,60 L0,60 Z" fill="var(--cream)"/>
+      <path d="M0,60 C480,0 960,0 1440,60 L1440,60 L0,60 Z" fill="var(--bone)"/>
     </svg>
   </div>
 
@@ -1199,6 +1361,10 @@
         <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
         <p><strong>Connected to community</strong>Your work says something about where you live or who you're around. That's it — no manifesto required.</p>
       </div>
+      <div class="criterion">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
+        <p><strong>All mediums welcome</strong>Paintings, prints, photographs, ceramics, woven goods, fiber arts, small objects. If it took real skill and real time, it belongs here.</p>
+      </div>
     </div>
   </div>
 
@@ -1220,6 +1386,9 @@
         <option>Painting</option>
         <option>Photography</option>
         <option>Drawing / Illustration</option>
+        <option>Ceramics / Pottery</option>
+        <option>Textiles / Fiber Arts</option>
+        <option>Woodworking / Objects</option>
         <option>Mixed Media</option>
         <option>Writing / Print</option>
         <option>Design</option>
@@ -1335,9 +1504,9 @@
   </div>
 
   <!-- wave -->
-  <div class="wave" style="background:var(--forest)">
+  <div class="wave" style="background:var(--umber)">
     <svg viewBox="0 0 1440 60" preserveAspectRatio="none" height="60">
-      <path d="M0,60 C480,0 960,0 1440,60 L1440,60 L0,60 Z" fill="var(--cream)"/>
+      <path d="M0,60 C480,0 960,0 1440,60 L1440,60 L0,60 Z" fill="var(--warm)"/>
     </svg>
   </div>
 
