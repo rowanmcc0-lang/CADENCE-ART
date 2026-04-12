@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<script defer src="/_vercel/insights/script.js"></script>
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cadence — Vermont Art</title>
+  <title>Cadence — Art Made by Hand</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
@@ -16,11 +15,11 @@
       --leaf:     #5aac80;
       --sage:     #8cc9a2;
       --mint:     #b8e0c8;
-      /* blues */
-      --sky-deep: #2a6fa8;
-      --sky:      #4090c4;
-      --water:    #7bc0dc;
-      --mist:     #b4d8ea;
+      /* blues — kept muted, used sparingly */
+      --sky-deep: #3a5a7a;
+      --sky:      #5a7e96;
+      --water:    #8aacbc;
+      --mist:     #c4d8e4;
       /* earth tones — new */
       --umber:    #2a1608;
       --clay:     #7a4520;
@@ -418,8 +417,8 @@
 
     .art-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.75rem;
       padding: 2.5rem 2.5rem 5rem;
       background: var(--cream);
     }
@@ -814,6 +813,168 @@
     .artist-card .location { font-size: 0.85rem; color: var(--earth); }
     .artist-card .medium { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--terracotta); margin-top: 0.2rem; }
 
+    /* ── COMMUNITY PAGE ── */
+    #page-community { background: var(--warm); }
+
+    .community-hero {
+      background: var(--umber);
+      padding: 5.5rem 2.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .community-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.06;
+      pointer-events: none;
+    }
+    /* decorative roman numeral ghost */
+    .community-hero::after {
+      content: 'II';
+      position: absolute;
+      right: -0.05em;
+      top: -0.1em;
+      font-family: var(--display);
+      font-size: clamp(12rem, 22vw, 20rem);
+      font-weight: 600;
+      color: rgba(255,255,255,0.025);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+    .community-hero .section-tag { color: var(--terracotta); position: relative; z-index: 1; }
+    .community-hero h1 {
+      font-family: var(--display);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 400;
+      color: var(--bone);
+      line-height: 1.15;
+      margin-top: 1.25rem;
+      max-width: 700px;
+      position: relative;
+      z-index: 1;
+    }
+    .community-hero h1 em { color: var(--terracotta); font-style: italic; }
+    .community-hero p {
+      color: var(--sand);
+      max-width: 600px;
+      margin-top: 1.25rem;
+      font-size: 1rem;
+      line-height: 1.75;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* roster section on community page */
+    .community-roster {
+      background: var(--cream);
+      padding: 5rem 2.5rem;
+    }
+    .community-roster h2 { margin-top: 1.25rem; }
+
+    /* how community works */
+    .community-values {
+      background: var(--warm);
+      padding: 5rem 2.5rem;
+      border-top: 1px solid var(--parch);
+    }
+    .community-values h2 { margin-top: 1.25rem; max-width: 600px; }
+    .community-values .body-text { max-width: 600px; margin-top: 1rem; }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+    .value-card {
+      background: var(--bone);
+      border-top: 3px solid var(--terracotta);
+      padding: 2rem 1.75rem;
+    }
+    .value-card .value-icon {
+      font-family: var(--display);
+      font-size: 2.5rem;
+      font-style: italic;
+      color: var(--terracotta);
+      line-height: 1;
+      margin-bottom: 1rem;
+      opacity: 0.7;
+    }
+    .value-card h4 {
+      font-family: var(--display);
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: var(--umber);
+      margin-bottom: 0.5rem;
+    }
+    .value-card p {
+      font-size: 0.88rem;
+      color: var(--earth);
+      line-height: 1.75;
+      font-weight: 300;
+    }
+
+    /* community CTA */
+    .community-cta {
+      background: var(--forest);
+      padding: 5rem 2.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .community-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.05;
+      pointer-events: none;
+    }
+    .community-cta h2 {
+      font-family: var(--display);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 400;
+      color: var(--mint);
+      position: relative;
+      z-index: 1;
+    }
+    .community-cta p {
+      color: var(--sage);
+      max-width: 520px;
+      margin: 1rem auto 2.5rem;
+      font-size: 0.95rem;
+      line-height: 1.75;
+      position: relative;
+      z-index: 1;
+    }
+    .community-cta .cta-btn {
+      display: inline-block;
+      background: var(--terracotta);
+      color: var(--bone);
+      padding: 0.85rem 2.25rem;
+      font-family: var(--body);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      position: relative;
+      z-index: 1;
+      transition: background 0.2s;
+    }
+    .community-cta .cta-btn:hover { background: var(--clay); }
+
+    @media (max-width: 720px) {
+      .community-hero { padding: 5.5rem 1.5rem 3.5rem; }
+      .community-roster,
+      .community-values,
+      .community-cta { padding: 4rem 1.5rem; }
+    }
+
     /* ── ABOUT PAGE ── */
     #page-about { background: var(--warm); }
 
@@ -880,7 +1041,7 @@
       aspect-ratio: 1;
       border-radius: 50%;
       overflow: hidden;
-      background: linear-gradient(135deg, var(--pine), var(--sky-deep));
+      background: linear-gradient(135deg, var(--clay), var(--forest));
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1036,10 +1197,11 @@
   <ul class="nav-center">
     <li><a onclick="showPage('browse')" id="nav-browse">Browse the Work</a></li>
     <li><a onclick="showPage('artists')" id="nav-artists">For Artists</a></li>
+    <li><a onclick="showPage('community')" id="nav-community">Community</a></li>
     <li><a onclick="showPage('about')" id="nav-about">About</a></li>
   </ul>
 
-  <span class="nav-apply" onclick="showPage('artists')">Apply</span>
+  <span class="nav-apply" onclick="showPage('artists');setTimeout(()=>document.getElementById('apply-section').scrollIntoView({behavior:'smooth'}),80)">Apply</span>
 
   <button class="nav-toggle" aria-label="Menu" onclick="document.querySelector('.mobile-nav').classList.toggle('open')">
     <span></span><span></span><span></span>
@@ -1050,8 +1212,9 @@
 <div class="mobile-nav">
   <a onclick="showPage('browse');closeMobileNav()">Browse the Work</a>
   <a onclick="showPage('artists');closeMobileNav()">For Artists</a>
+  <a onclick="showPage('community');closeMobileNav()">Community</a>
   <a onclick="showPage('about');closeMobileNav()">About</a>
-  <a class="apply-mob" onclick="showPage('artists');closeMobileNav()">Apply →</a>
+  <a class="apply-mob" onclick="showPage('artists');closeMobileNav();setTimeout(()=>document.getElementById('apply-section').scrollIntoView({behavior:'smooth'}),80)">Apply →</a>
 </div>
 
 <!-- ══════════════════════════════════
@@ -1081,7 +1244,7 @@
       <p class="hero-place">Vermont</p>
       <h1>Art made<br>by hand.<br><em>Sold with care.</em></h1>
       <p class="hero-sub">
-        A small, curated platform for Vermont artists. Real work, made by hand, sold honestly.
+        A curated platform for independent artists. Real work, made by hand, sold honestly.
       </p>
       <div class="hero-cta">
         <span class="btn btn-solid" onclick="showPage('browse')">Open the Drop</span>
@@ -1098,7 +1261,7 @@
         <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
       </svg>
       <h3>Browse the Work</h3>
-      <p>Vermont artists, making things by hand. Limited runs. Ships within two weeks.</p>
+      <p>Artists making things by hand. Limited runs. Ships within two weeks.</p>
       <span class="card-link">Open the Drop →</span>
     </span>
 
@@ -1116,7 +1279,7 @@
         <path d="M12 22C12 22 4 16 4 9.5a8 8 0 0 1 16 0C20 16 12 22 12 22z"/>
       </svg>
       <h3>About Cadence</h3>
-      <p>Why we exist, who's behind it, and what we're trying to build in Vermont.</p>
+      <p>Why we exist, who's behind it, and what we're building.</p>
       <span class="card-link">Learn more →</span>
     </span>
   </div>
@@ -1138,7 +1301,7 @@
     </p>
     <h2>Land &amp; Labor</h2>
     <p class="body-text" style="margin-top:0.75rem;">
-      Five Vermont artists — painters, photographers, and makers — who live on this land and make work about it. The seasons, the people holding things together, what it costs to stay. Limited editions. Every piece ships within two weeks.
+      Painters, photographers, and makers who live on this land and make work about it. The seasons, the people holding things together, what it costs to stay. Limited editions. Every piece ships within two weeks.
     </p>
   </div>
 
@@ -1209,28 +1372,28 @@
         <span class="step-num">1</span>
         <div class="step-text">
           <h4>Browse curated work</h4>
-          <p>A small, hand-picked group of Vermont artists. Every piece is human-made — no AI, no mass production.</p>
+          <p>A small, hand-picked group of artists. Every piece is human-made — no AI, no mass production.</p>
         </div>
       </div>
       <div class="step">
         <span class="step-num">2</span>
         <div class="step-text">
-          <h4>Meet the person first</h4>
-          <p>Before you see the price, you know who made it, where they live, and why they made it. The story is part of what you're buying.</p>
+          <h4>Meet the person behind it</h4>
+          <p>Each listing is anchored to an artist — who they are, where they work, what they're thinking about. The object and the person come together.</p>
         </div>
       </div>
       <div class="step">
         <span class="step-num">3</span>
         <div class="step-text">
-          <h4>Buy with full transparency</h4>
-          <p>Limited runs, fair prices — and we'll always tell you exactly what percentage of your purchase goes directly to the artist. Right there on the listing.</p>
+          <h4>Buy with confidence</h4>
+          <p>Limited runs, fair prices, no manufactured scarcity. What you see is what it is — honest work at an honest number.</p>
         </div>
       </div>
       <div class="step">
         <span class="step-num">4</span>
         <div class="step-text">
           <h4>It arrives at your door</h4>
-          <p>We handle printing, packaging, and shipping. You just wait for something good to show up.</p>
+          <p>We handle printing, packaging, and shipping. Everything arrives carefully packed and ready to live in your space.</p>
         </div>
       </div>
     </div>
@@ -1243,7 +1406,7 @@
       Don't miss a drop
     </p>
     <h2>Get early access to every drop.</h2>
-    <p class="body-text">Drops sell out. People on our list hear about them first — sometimes a week before they go public.</p>
+    <p class="body-text">People on our list hear about new drops first — sometimes a week before they go public.</p>
     <div class="email-row" style="margin-top:2rem">
       <input type="email" placeholder="your@email.com" />
       <button onclick="alert('You\'re on the list. Thanks.')">Join the List</button>
@@ -1264,9 +1427,9 @@
       <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
       For Artists
     </p>
-    <h2>Why wouldn't you?</h2>
+    <h2>Make the work.<br>We'll handle the rest.</h2>
     <p class="pitch-lead">
-      Send us photos of your work. That's the whole job. We do the rest — and it costs you nothing to try.
+      Most artists who make good work don't want to run a business. They want to make things. We built Cadence for that.
     </p>
 
     <div class="pitch-grid">
@@ -1288,8 +1451,8 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
         </svg>
-        <h4>We handle everything</h4>
-        <p>Listing copy, pricing, marketing, customer questions, shipping, tax forms at year end. You make the work. We do the business.</p>
+        <h4>We do the business side</h4>
+        <p>Listings, marketing, customer questions, shipping, tax forms at year end. The parts that eat your time and don't touch the work — those are ours.</p>
       </div>
       <div class="pitch-card">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -1302,8 +1465,8 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/><path d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z"/><path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z"/><path d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z"/><path d="M15.5 19H14v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"/><path d="M10 9.5C10 8.67 9.33 8 8.5 8h-5C2.67 8 2 8.67 2 9.5S2.67 11 3.5 11h5c.83 0 1.5-.67 1.5-1.5z"/><path d="M8.5 5H10V3.5C10 2.67 9.33 2 8.5 2S7 2.67 7 3.5 7.67 5 8.5 5z"/>
         </svg>
-        <h4>Not just paintings</h4>
-        <p>Ceramics, fiber arts, woven goods, handmade objects — if you made it with your hands and your time, it's welcome here. We hold your price. No race to the bottom.</p>
+        <h4>Not just fine art</h4>
+        <p>Ceramics, fiber arts, woven goods, handmade objects — if you made it with your hands and your time, it belongs here. We hold your price. No race to the bottom.</p>
       </div>
     </div>
 
@@ -1311,7 +1474,7 @@
       <p>
         If something sells, <strong>you get paid</strong>.<br>
         If nothing sells, <strong>you've lost nothing</strong>.<br>
-        There is no downside.
+        Your work has been seen. That's not nothing either.
       </p>
     </div>
   </div>
@@ -1323,7 +1486,7 @@
       <path d="M12 22V11" stroke-dasharray="2 2"/>
     </svg>
     <p>
-      Every piece on Cadence is <em>human-made</em>. No AI, no mass production, no factory goods with a Vermont label.
+      Every piece on Cadence is <em>human-made</em>. No AI, no mass production, no factory goods with a handmade label.
       Paintings, photographs, ceramics, woven textiles — if it's here, someone's hands made it, and they took their time.
     </p>
   </div>
@@ -1351,7 +1514,7 @@
       </div>
       <div class="criterion">
         <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
-        <p><strong>Independent and local</strong>Not gallery-represented. Rooted in Vermont or New England.</p>
+        <p><strong>Independent</strong>Not gallery-represented. Rooted in a community, making work that means something to them.</p>
       </div>
       <div class="criterion">
         <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
@@ -1369,7 +1532,7 @@
   </div>
 
   <!-- apply form -->
-  <div class="apply-section">
+  <div class="apply-section" id="apply-section">
     <p class="section-tag">
       <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
       Apply
@@ -1377,11 +1540,12 @@
     <h2>Reach out. It costs nothing.</h2>
     <p class="body-text" style="margin-bottom:2.5rem;">We're building a small founding group right now. Send us your work and we'll take it from there.</p>
 
-    <form onsubmit="submitApp(event)">
-      <input type="text" placeholder="Your name" required />
-      <input type="email" placeholder="Email address" required />
-      <input type="text" placeholder="Where you're based" />
-      <select>
+    <!-- Formspree: https://formspree.io/f/mzdypvgb -->
+    <form id="apply-form" action="https://formspree.io/f/mzdypvgb" method="POST">
+      <input type="text" name="name" placeholder="Your name" required />
+      <input type="email" name="email" placeholder="Email address" required />
+      <input type="text" name="location" placeholder="Where you're based" />
+      <select name="medium">
         <option value="" disabled selected>Primary medium</option>
         <option>Painting</option>
         <option>Photography</option>
@@ -1395,21 +1559,47 @@
         <option>Film / Video</option>
         <option>Other</option>
       </select>
-      <input type="url" placeholder="Instagram or portfolio link" />
-      <textarea placeholder="Tell us a little about your work — no need to be formal."></textarea>
+      <input type="url" name="portfolio" placeholder="Instagram or portfolio link" />
+      <textarea name="message" placeholder="Tell us a little about your work — no need to be formal."></textarea>
+      <!-- hidden field so Formspree knows where to send it -->
+      <input type="hidden" name="_replyto" value="rowan@cadenceart.com" />
+      <input type="hidden" name="_subject" value="New Cadence Artist Application" />
       <button type="submit" class="submit-btn">Send it over</button>
       <p class="form-note">We read every application ourselves and get back to you within two weeks.</p>
     </form>
   </div>
 
+
+</div><!-- end artists -->
+
+
+<!-- ══════════════════════════════════
+     COMMUNITY PAGE
+══════════════════════════════════ -->
+<div id="page-community" class="page">
+
+  <!-- hero -->
+  <div class="community-hero">
+    <p class="section-tag">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
+      The people behind the work
+    </p>
+    <h1>Not a marketplace.<br><em>A community of makers.</em></h1>
+    <p>
+      Every artist on Cadence was invited because their work and their practice earned it.
+      We keep the roster small on purpose — small enough that everyone knows each other,
+      shares a drop, and shows up at the table when it matters.
+    </p>
+  </div>
+
   <!-- artist roster -->
-  <div class="roster-section">
+  <div class="community-roster">
     <p class="section-tag">
       <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
       On the platform
     </p>
     <h2>Artists on Cadence</h2>
-    <p class="body-text">Selected by hand. Vermont-rooted. Making real work.</p>
+    <p class="body-text">Selected by hand. Making real work, across every medium.</p>
 
     <div class="artist-grid">
 
@@ -1449,19 +1639,87 @@
         <p class="medium">Writing &amp; Print</p>
       </a>
 
-      <span class="artist-card" onclick="document.getElementById('page-artists').querySelector('form input').focus()" style="cursor:pointer">
-        <div class="artist-photo" style="background:linear-gradient(135deg,var(--sage),var(--water));">
+      <!-- "join" card links to apply form -->
+      <span class="artist-card" onclick="showPage('artists');setTimeout(()=>document.getElementById('apply-section').scrollIntoView({behavior:'smooth'}),80)" style="cursor:pointer">
+        <div class="artist-photo" style="background:linear-gradient(135deg,var(--sand),var(--clay));">
           <span class="initials">+</span>
         </div>
         <h3>Your name here</h3>
-        <p class="location">Vermont</p>
+        <p class="location">Anywhere</p>
         <p class="medium">Apply to join</p>
       </span>
 
     </div>
   </div>
 
-</div><!-- end artists -->
+  <!-- how community works -->
+  <div class="community-values">
+    <p class="section-tag">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
+      How it works
+    </p>
+    <h2>What we mean when we say community</h2>
+    <p class="body-text">
+      Artist-to-artist relationships don't need a platform feature — they need real structure and consistent contact. Here's what that looks like at Cadence.
+    </p>
+
+    <div class="values-grid">
+
+      <div class="value-card">
+        <div class="value-icon">I</div>
+        <h4>Shared drops</h4>
+        <p>
+          Each release is a group effort. Artists on the same drop see each other's work,
+          give feedback before it goes live, and show up for each other's openings.
+          A rising tide.
+        </p>
+      </div>
+
+      <div class="value-card">
+        <div class="value-icon">II</div>
+        <h4>Process notes</h4>
+        <p>
+          Artists are invited to share what's behind the work — the material, the method,
+          the decision. Buyers see it. Other artists learn from it. It keeps craft
+          at the center.
+        </p>
+      </div>
+
+      <div class="value-card">
+        <div class="value-icon">III</div>
+        <h4>Artist-invite-artist</h4>
+        <p>
+          New artists come in through introductions, not cold applications alone.
+          If you're already on Cadence and know someone who belongs here, tell us.
+          That's how trust stays high.
+        </p>
+      </div>
+
+      <div class="value-card">
+        <div class="value-icon">IV</div>
+        <h4>Gatherings</h4>
+        <p>
+          Open studios, annual in-person events, a group chat that's actually used.
+          The analog infrastructure that makes a community feel like a community.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="community-cta">
+    <h2>Think you belong here?</h2>
+    <p>
+      We're selective for a reason. If your work is handmade, your practice is serious,
+      and you'd rather be in the studio than managing a storefront — we'd like to hear from you.
+    </p>
+    <span class="cta-btn" onclick="showPage('artists');setTimeout(()=>document.getElementById('apply-section').scrollIntoView({behavior:'smooth'}),80)">
+      Apply to join Cadence
+    </span>
+  </div>
+
+</div><!-- end community -->
 
 
 <!-- ══════════════════════════════════
@@ -1475,9 +1733,9 @@
       <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
       About Cadence
     </p>
-    <h2>A platform built for Vermont artists, by someone who lives here.</h2>
+    <h2>A platform built for artists who'd rather be making.</h2>
     <p class="body-text">
-      Cadence is a small, curated art platform rooted in Vermont. The idea is simple: most artists who make good work don't have the time, the tools, or the interest to run an online storefront. We do that part. Artists send us their work, we handle everything else, and buyers get access to real, handmade art from people actually living and working in this state.
+      Cadence is a small, curated art platform. The idea is simple: most artists who make good work don't have the time, the tools, or the interest to run an online storefront. We do that part. Artists send us their work, we handle everything else, and buyers get access to real, handmade art from people who take what they make seriously.
     </p>
     <p class="body-text" style="margin-top:1.25rem;">
       We work as a shared storefront — not a marketplace where you compete for attention, and not a gallery with gatekeepers. A cooperative structure where artists keep most of what they earn and know exactly where every dollar goes.
@@ -1485,8 +1743,8 @@
 
     <div class="about-facts">
       <div class="fact">
-        <h4>Vermont-made</h4>
-        <p>Every artist on Cadence is based in Vermont or the surrounding region. This is intentionally local.</p>
+        <h4>Rooted and local</h4>
+        <p>We start local, on purpose. Artists here are embedded in a community — the work comes from somewhere real.</p>
       </div>
       <div class="fact">
         <h4>Human hands only</h4>
@@ -1546,10 +1804,11 @@
   <ul class="footer-links">
     <li><a onclick="showPage('browse')">Browse</a></li>
     <li><a onclick="showPage('artists')">For Artists</a></li>
+    <li><a onclick="showPage('community')">Community</a></li>
     <li><a onclick="showPage('about')">About</a></li>
-    <li><a href="mailto:hello@cadencevt.com">hello@cadencevt.com</a></li>
+    <li><a href="mailto:rowan@cadenceart.com">rowan@cadenceart.com</a></li>
   </ul>
-  <p class="footer-copy">© 2025 Cadence — Vermont. Human-made. Community-rooted.</p>
+  <p class="footer-copy">© 2025 Cadence — Human-made. Community-rooted.</p>
 </footer>
 
 <script>
@@ -1572,11 +1831,9 @@
     document.querySelector('.mobile-nav').classList.remove('open');
   }
 
-  function submitApp(e) {
-    e.preventDefault();
-    alert("Thanks for reaching out. We'll be in touch within two weeks.");
-    e.target.reset();
-  }
+  // Form submission handled by Formspree — https://formspree.io/f/mzdypvgb
 </script>
+<!-- Vercel Analytics -->
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
