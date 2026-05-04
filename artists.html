@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cadence — For Artists</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --umber:      #2a1608;
+      --clay:       #7a4520;
+      --terracotta: #b85c2e;
+      --ochre:      #c49520;
+      --bone:       #ede0c8;
+      --cream:      #f5ede0;
+      --warm:       #faf5ec;
+      --parch:      #ede3d2;
+      --sand:       #c8b49a;
+      --forest:     #244535;
+      --leaf:       #5aac80;
+      --sage:       #8cc9a2;
+      --display:    'Cormorant Garamond', Georgia, serif;
+      --body:       'Plus Jakarta Sans', 'Helvetica Neue', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--umber);
+      color: var(--bone);
+      font-family: var(--body);
+      font-size: 17px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(42,22,8,0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-logo {
+      font-family: var(--display); font-size: 1.8rem;
+      font-style: italic; font-weight: 600;
+      color: var(--bone); text-decoration: none; letter-spacing: 0.04em;
+    }
+    .nav-right { display: flex; align-items: center; gap: 1.25rem; }
+    .nav-link {
+      font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--sand); text-decoration: none; transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--bone); }
+    .nav-apply {
+      padding: 0.5rem 1.2rem;
+      background: var(--terracotta); color: var(--bone);
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      border-radius: 100px; text-decoration: none;
+      transition: background 0.2s;
+    }
+    .nav-apply:hover { background: var(--clay); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 9rem 2.5rem 7rem;
+      position: relative; overflow: hidden;
+      background: linear-gradient(160deg, var(--umber) 0%, #1a0c04 55%, #0f1508 100%);
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.06; pointer-events: none;
+    }
+    .hero-accent {
+      position: absolute; left: 0; top: 10%; bottom: 10%; width: 3px;
+      background: linear-gradient(to bottom, transparent, var(--terracotta), transparent);
+    }
+    .hero-inner { position: relative; z-index: 2; max-width: 860px; }
+    .hero-tag {
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--terracotta); margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .hero-tag::before {
+      content: ''; display: block; width: 40px; height: 1px;
+      background: var(--terracotta); opacity: 0.8;
+    }
+    h1 {
+      font-family: var(--display);
+      font-size: clamp(3.5rem, 9vw, 7.5rem);
+      font-weight: 400; line-height: 0.97;
+      letter-spacing: -0.02em; color: var(--bone); margin-bottom: 2rem;
+    }
+    h1 em { font-style: italic; color: var(--ochre); display: block; }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.1rem);
+      color: var(--sand); max-width: 460px;
+      line-height: 1.9; font-weight: 300;
+      border-left: 1px solid rgba(196,149,32,0.35);
+      padding-left: 1.5rem; margin-bottom: 3.5rem;
+    }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 0.9rem 2rem;
+      font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      border: none; cursor: pointer; text-decoration: none; transition: all 0.2s;
+    }
+    .btn-solid { background: var(--terracotta); color: var(--bone); }
+    .btn-solid:hover { background: var(--clay); }
+    .btn-ghost {
+      background: transparent; color: var(--sand);
+      border: 1.5px solid rgba(200,180,154,0.3);
+    }
+    .btn-ghost:hover { color: var(--bone); border-color: rgba(200,180,154,0.65); }
+
+    /* WHY JOIN */
+    .why {
+      background: var(--cream); color: var(--umber);
+      padding: 7rem 2.5rem;
+    }
+    .section-tag {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--terracotta); margin-bottom: 1.25rem;
+    }
+    .section-tag svg { width: 12px; height: 12px; }
+    h2 {
+      font-family: var(--display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 400; line-height: 1.1; color: var(--umber);
+      margin-bottom: 1.5rem;
+    }
+    h2 em { font-style: italic; color: var(--terracotta); }
+    .body-text {
+      font-size: 1rem; font-weight: 300;
+      color: var(--clay); line-height: 1.85; max-width: 600px;
+    }
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1px; background: var(--parch);
+      margin-top: 4rem;
+      border: 1px solid var(--parch);
+    }
+    .pillar {
+      background: var(--warm);
+      padding: 2.25rem 2rem 2.5rem;
+    }
+    .pillar-num {
+      font-family: var(--display); font-size: 2.5rem;
+      font-style: italic; color: var(--terracotta);
+      opacity: 0.5; line-height: 1; margin-bottom: 1rem;
+    }
+    .pillar h4 {
+      font-family: var(--display); font-size: 1.2rem;
+      font-style: italic; font-weight: 400;
+      color: var(--umber); margin-bottom: 0.5rem;
+    }
+    .pillar p {
+      font-size: 0.88rem; font-weight: 300;
+      color: var(--clay); line-height: 1.75;
+    }
+
+    /* ECONOMICS */
+    .economics {
+      background: var(--umber); color: var(--bone);
+      padding: 7rem 2.5rem; position: relative; overflow: hidden;
+    }
+    .economics::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.05; pointer-events: none;
+    }
+    .economics .section-tag { color: var(--terracotta); }
+    .economics h2 { color: var(--bone); }
+    .economics h2 em { color: var(--ochre); }
+    .economics .body-text { color: var(--sand); }
+    .payout-split {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0; margin-top: 4rem;
+    }
+    .payout-artist {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(196,149,32,0.2);
+      padding: 3rem 2.5rem;
+    }
+    .payout-platform {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-left: none;
+      padding: 3rem 2.5rem;
+    }
+    .payout-label {
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .payout-artist .payout-label { color: var(--ochre); }
+    .payout-platform .payout-label { color: rgba(237,224,200,0.4); }
+    .payout-num {
+      font-family: var(--display); font-style: italic;
+      font-size: clamp(3.5rem, 8vw, 6rem);
+      line-height: 1; margin-bottom: 0.75rem;
+    }
+    .payout-artist .payout-num { color: var(--ochre); }
+    .payout-platform .payout-num { color: rgba(237,224,200,0.25); }
+    .payout-desc {
+      font-size: 0.88rem; font-weight: 300; line-height: 1.75;
+    }
+    .payout-artist .payout-desc { color: var(--sand); }
+    .payout-platform .payout-desc { color: rgba(237,224,200,0.4); }
+
+    /* HOW IT WORKS */
+    .how {
+      background: var(--warm); color: var(--umber);
+      padding: 7rem 2.5rem;
+    }
+    .steps { margin-top: 3.5rem; display: flex; flex-direction: column; gap: 0; }
+    .step {
+      display: flex; gap: 2.5rem; align-items: flex-start;
+      padding: 2rem 0; border-bottom: 1px solid var(--parch);
+    }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+      font-family: var(--display); font-size: 2.5rem;
+      font-style: italic; color: var(--terracotta);
+      opacity: 0.5; line-height: 1; flex-shrink: 0; width: 2rem;
+    }
+    .step h4 {
+      font-family: var(--display); font-size: 1.25rem;
+      font-style: italic; font-weight: 400;
+      color: var(--umber); margin-bottom: 0.4rem;
+    }
+    .step p {
+      font-size: 0.9rem; font-weight: 300;
+      color: var(--clay); line-height: 1.75; max-width: 560px;
+    }
+
+    /* APPLY */
+    .apply-section {
+      background: var(--forest); padding: 7rem 2.5rem;
+      position: relative; overflow: hidden;
+    }
+    .apply-section::before {
+      content: 'Apply';
+      position: absolute; right: -0.05em; bottom: -0.15em;
+      font-family: var(--display); font-size: clamp(8rem, 18vw, 15rem);
+      font-style: italic; font-weight: 600;
+      color: rgba(255,255,255,0.03);
+      line-height: 1; pointer-events: none; user-select: none;
+    }
+    .apply-inner { position: relative; z-index: 1; max-width: 660px; }
+    .apply-section .section-tag { color: var(--sage); }
+    .apply-section h2 { color: var(--bone); }
+    .apply-section h2 em { color: var(--sage); }
+    .apply-section .body-text { color: var(--sage); }
+    .apply-form { margin-top: 3rem; display: flex; flex-direction: column; gap: 1.25rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.45rem; }
+    .form-group label {
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--sage);
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--bone); font-family: var(--body);
+      font-size: 0.95rem; padding: 0.85rem 1rem;
+      outline: none; transition: border 0.2s; -webkit-appearance: none;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(200,180,154,0.35); }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--terracotta); }
+    .form-group select option { background: var(--forest); color: var(--bone); }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-submit {
+      padding: 1rem 2.5rem;
+      background: var(--terracotta); color: var(--bone);
+      font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      border: none; cursor: pointer;
+      transition: background 0.2s; align-self: flex-start; margin-top: 0.5rem;
+    }
+    .form-submit:hover { background: var(--clay); }
+
+    /* FAQ */
+    .faq { background: var(--cream); color: var(--umber); padding: 6rem 2.5rem; }
+    .faq-list { margin-top: 3rem; max-width: 680px; }
+    .faq-item { border-bottom: 1px solid var(--parch); padding: 1.5rem 0; }
+    .faq-q {
+      font-family: var(--display); font-size: 1.1rem;
+      font-style: italic; font-weight: 400;
+      color: var(--umber); margin-bottom: 0.5rem;
+    }
+    .faq-a {
+      font-size: 0.9rem; font-weight: 300;
+      color: var(--clay); line-height: 1.8;
+    }
+
+    footer {
+      background: var(--umber); color: var(--sand);
+      padding: 3rem 2.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-logo {
+      font-family: var(--display); font-size: 1.5rem;
+      font-style: italic; color: var(--bone);
+    }
+    .footer-copy {
+      font-size: 0.8rem; font-weight: 300; color: rgba(200,180,154,0.45);
+    }
+
+    @media (max-width: 720px) {
+      .hero { padding: 8rem 1.5rem 5rem; }
+      .why, .economics, .how, .apply-section, .faq { padding: 5rem 1.5rem; }
+      .payout-split { grid-template-columns: 1fr; }
+      .payout-platform { border-left: 1px solid rgba(255,255,255,0.06); border-top: none; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">Cadence</a>
+  <div class="nav-right">
+    <a class="nav-link" href="/">See the Work</a>
+    <a class="nav-apply" href="#apply">Apply</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-accent"></div>
+  <div class="hero-inner">
+    <p class="hero-tag">Vermont artists</p>
+    <h1>A stage for<br>your work.<br><em>Nothing to lose.</em></h1>
+    <p class="hero-sub">
+      Sell without running a storefront. No upfront cost, no risk. Your work stays in your hands until it sells.
+    </p>
+    <div class="hero-cta">
+      <a class="btn btn-solid" href="#apply">Apply to Join</a>
+      <a class="btn btn-ghost" href="#how">How It Works</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY JOIN -->
+<section class="why">
+  <p class="section-tag">
+    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
+    What we provide
+  </p>
+  <h2>Everything except<br><em>the making.</em></h2>
+  <p class="body-text">You focus on the work. We handle the rest — storefront, fulfillment, marketing, community.</p>
+
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pillar-num">1</div>
+      <h4>No storefront to run</h4>
+      <p>We handle listing, photography (if needed), and the entire sales flow. You never touch a shopping cart.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">2</div>
+      <h4>Drops create real demand</h4>
+      <p>Timed, limited drops build collector attention and scarcity in a way a permanent listing never does.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">3</div>
+      <h4>Your work stays with you</h4>
+      <p>Nothing leaves your hands until it sells. Unsold work comes back to you, no strings attached.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">4</div>
+      <h4>A community, not just a platform</h4>
+      <p>Artist-invite-artist keeps the quality high. Open studios, shared resources, people who understand the work.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ECONOMICS -->
+<section class="economics" id="economics">
+  <p class="section-tag">
+    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
+    How it pays
+  </p>
+  <h2>Tell us what you<br><em>want to make.</em></h2>
+  <p class="body-text">You name the number — what you want to walk away with from each piece. We set the retail price from there. The only time we make money is when you do.</p>
+
+  <div class="payout-split">
+    <div class="payout-artist">
+      <p class="payout-label">You tell us</p>
+      <p class="payout-num">"I want<br>$X."</p>
+      <p class="payout-desc">Name what feels meaningful to you — per piece, for the drop, whatever the frame. We work backward from that number.</p>
+    </div>
+    <div class="payout-platform">
+      <p class="payout-label">We handle</p>
+      <p class="payout-num">The rest.</p>
+      <p class="payout-desc">We set the retail price, run the drop, handle fulfillment, and pay you within 10 business days of close. No listing fees, no upfront cost, nothing until a piece sells.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <p class="section-tag">
+    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
+    The process
+  </p>
+  <h2>Simple on<br><em>your end.</em></h2>
+
+  <div class="steps">
+    <div class="step">
+      <span class="step-num">1</span>
+      <div>
+        <h4>Apply — free, no commitment</h4>
+        <p>Fill out the form below. We review every application personally. Decisions within two weeks.</p>
+      </div>
+    </div>
+    <div class="step">
+      <span class="step-num">2</span>
+      <div>
+        <h4>Submit your work for the drop</h4>
+        <p>You propose the pieces, edition size, and price. Your work stays with you until it sells.</p>
+      </div>
+    </div>
+    <div class="step">
+      <span class="step-num">3</span>
+      <div>
+        <h4>We handle everything else</h4>
+        <p>Photography if needed, listing copy, fulfillment, shipping, and marketing to our collector list.</p>
+      </div>
+    </div>
+    <div class="step">
+      <span class="step-num">4</span>
+      <div>
+        <h4>Sold pieces ship; you get paid</h4>
+        <p>We arrange pickup of sold work only. You receive 60% of the sale price within 10 business days.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLY -->
+<section class="apply-section" id="apply">
+  <div class="apply-inner">
+    <p class="section-tag">
+      <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
+      Apply to join
+    </p>
+    <h2>Tell us about<br><em>your practice.</em></h2>
+    <p class="body-text">No portfolio requirements, no fee. We respond within two weeks.</p>
+
+    <form class="apply-form" action="https://formspree.io/f/mzdypvgb" method="POST">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required/>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="location">Where in Vermont?</label>
+          <input type="text" id="location" name="location" placeholder="Town or region"/>
+        </div>
+        <div class="form-group">
+          <label for="medium">Medium</label>
+          <select id="medium" name="medium">
+            <option value="">Select one</option>
+            <option>Photography</option>
+            <option>Printmaking</option>
+            <option>Painting / Drawing</option>
+            <option>Ceramics</option>
+            <option>Textiles / Fiber</option>
+            <option>Woodwork</option>
+            <option>Illustration / Mixed media</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="work-url">Link to your work</label>
+        <input type="url" id="work-url" name="work_url" placeholder="Website, Instagram, or portfolio"/>
+      </div>
+      <div class="form-group">
+        <label for="practice">Tell us about your practice</label>
+        <textarea id="practice" name="practice" placeholder="What do you make, and what would you want to sell through Cadence?"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="earnings">What would feel like meaningful earnings from a drop?</label>
+        <input type="text" id="earnings" name="earnings" placeholder="e.g. $200–$500, covers materials, not sure yet..."/>
+      </div>
+      <button type="submit" class="form-submit">Submit Application</button>
+    </form>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <p class="section-tag">
+    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
+    Questions
+  </p>
+  <h2>A few things<br><em>people ask.</em></h2>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <p class="faq-q">What if nothing sells?</p>
+      <p class="faq-a">You owe nothing. No fees, no listing charges. We only make money when you do.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">Do I give up my work upfront?</p>
+      <p class="faq-a">No. Your work stays with you until a piece sells. Unsold work never leaves your hands.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">How does pricing work?</p>
+      <p class="faq-a">You tell us what you want to make from each piece. We set the retail price from there. We might share what similar work has sold for to help you think it through, but the number starts with you.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">I've never sold before. Can I apply?</p>
+      <p class="faq-a">Yes. Career stage doesn't factor into selection. The work and your Vermont connection do.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q">How often are drops?</p>
+      <p class="faq-a">Two to three per year, seasonally. Drop II is this summer.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">Cadence</span>
+  <span class="footer-copy">© 2025 Cadence — Vermont. <a href="/" style="color:inherit;opacity:0.6;text-decoration:underline;">See the work →</a></span>
+</footer>
+
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
