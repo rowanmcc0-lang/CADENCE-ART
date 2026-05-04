@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Land & Labor — Cadence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --umber:      #2a1608;
+      --clay:       #7a4520;
+      --terracotta: #b85c2e;
+      --ochre:      #c49520;
+      --bone:       #ede0c8;
+      --cream:      #f5ede0;
+      --warm:       #faf5ec;
+      --parch:      #ede3d2;
+      --sand:       #c8b49a;
+      --forest:     #244535;
+      --pine:       #335c46;
+      --leaf:       #5aac80;
+      --sage:       #8cc9a2;
+      --display:    'Cormorant Garamond', Georgia, serif;
+      --body:       'Plus Jakarta Sans', 'Helvetica Neue', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--warm);
+      color: var(--umber);
+      font-family: var(--body);
+      font-size: 17px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(250,245,236,0.97);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--parch);
+    }
+    .nav-logo {
+      font-family: var(--display); font-size: 2rem;
+      font-weight: 600;
+      color: var(--forest); text-decoration: none;
+      letter-spacing: 0.05em;
+      display: flex; align-items: center; gap: 0.45rem; line-height: 1;
+    }
+    .nav-logo svg { width: 18px; height: 18px; color: var(--leaf); flex-shrink: 0; }
+    .nav-back {
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--clay); text-decoration: none;
+      display: flex; align-items: center; gap: 0.5rem;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--umber); }
+    .nav-back svg { width: 14px; height: 14px; }
+
+    /* DROP INDEX — shown when no ?work param */
+    .drop-index {
+      padding: 9rem 2.5rem 6rem;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .drop-kicker {
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--terracotta); margin-bottom: 0.75rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .drop-kicker::before {
+      content: ''; display: block; width: 36px; height: 1px;
+      background: var(--terracotta); opacity: 0.7;
+    }
+    .drop-index h1 {
+      font-family: var(--display);
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 400; line-height: 1.0;
+      letter-spacing: -0.02em; color: var(--umber);
+      margin-bottom: 1.25rem;
+    }
+    .drop-index h1 em { font-style: italic; color: var(--terracotta); }
+    .drop-index-sub {
+      font-size: 1rem; font-weight: 300;
+      color: var(--clay); max-width: 520px;
+      line-height: 1.8; margin-bottom: 4rem;
+      border-left: 1px solid rgba(184,92,46,0.25);
+      padding-left: 1.5rem;
+    }
+    .works-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .work-card {
+      background: var(--cream); border: 1px solid var(--parch);
+      overflow: hidden; cursor: pointer;
+      transition: transform 0.25s, box-shadow 0.25s;
+      text-decoration: none; display: block;
+    }
+    .work-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(42,22,8,0.1);
+    }
+    .work-card-img {
+      width: 100%; aspect-ratio: 1/1;
+      object-fit: cover; display: block;
+    }
+    .work-card-placeholder {
+      aspect-ratio: 1/1;
+      background: linear-gradient(135deg, var(--parch) 0%, var(--sand) 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--display); font-style: italic;
+      color: var(--clay); font-size: 0.9rem; opacity: 0.5;
+    }
+    .work-card-info { padding: 1.25rem 1.25rem 1.5rem; }
+    .work-card-status {
+      display: inline-block;
+      font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      padding: 0.3rem 0.65rem; margin-bottom: 0.75rem;
+    }
+    .status-available { background: rgba(90,172,128,0.12); color: var(--forest); }
+    .status-limited   { background: rgba(184,92,46,0.1);  color: var(--terracotta); }
+    .status-sold      { background: rgba(42,22,8,0.06);   color: var(--sand); }
+    .work-card-artist {
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--clay); margin-bottom: 0.25rem;
+    }
+    .work-card-title {
+      font-family: var(--display); font-size: 1.25rem;
+      font-style: italic; color: var(--umber);
+      margin-bottom: 0.75rem; line-height: 1.2;
+    }
+    .work-card-footer {
+      display: flex; justify-content: space-between; align-items: baseline;
+      border-top: 1px solid var(--parch); padding-top: 0.85rem;
+    }
+    .work-card-price {
+      font-family: var(--display); font-size: 1.25rem;
+      font-style: italic; color: var(--umber);
+    }
+    .work-card-edition {
+      font-size: 0.72rem; color: var(--clay); opacity: 0.55;
+    }
+
+    /* PRODUCT PAGE — shown when ?work param present */
+    .product-page { display: none; }
+
+    .product-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100vh;
+      padding-top: 64px; /* nav height */
+    }
+
+    /* LEFT — image */
+    .product-image-col {
+      position: sticky; top: 64px;
+      height: calc(100vh - 64px);
+      background: var(--parch);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .product-image-col img {
+      width: 100%; height: 100%;
+      object-fit: contain; padding: 3rem;
+    }
+    .product-image-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--display); font-style: italic;
+      color: var(--clay); opacity: 0.4; font-size: 1.1rem;
+    }
+
+    /* RIGHT — details */
+    .product-detail-col {
+      padding: 5rem 4rem 6rem;
+      display: flex; flex-direction: column; gap: 0;
+      background: var(--warm);
+    }
+    .product-drop-tag {
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--terracotta); margin-bottom: 2rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .product-drop-tag::before {
+      content: ''; display: block; width: 28px; height: 1px;
+      background: var(--terracotta); opacity: 0.7;
+    }
+    .product-artist-name {
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--clay); margin-bottom: 0.5rem;
+    }
+    .product-title {
+      font-family: var(--display);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 400; font-style: italic;
+      color: var(--umber); line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+    .product-medium {
+      font-size: 0.8rem; font-weight: 300;
+      color: var(--clay); margin-bottom: 2.5rem;
+      opacity: 0.7;
+    }
+
+    .product-divider {
+      width: 100%; height: 1px;
+      background: var(--parch); margin-bottom: 2.5rem;
+    }
+
+    .product-story {
+      font-size: 0.95rem; font-weight: 300;
+      color: var(--clay); line-height: 1.85;
+      margin-bottom: 2.5rem; max-width: 480px;
+    }
+
+    .product-meta {
+      display: flex; gap: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .product-meta-item { display: flex; flex-direction: column; gap: 0.2rem; }
+    .product-meta-label {
+      font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--clay); opacity: 0.5;
+    }
+    .product-meta-value {
+      font-family: var(--display); font-size: 1.15rem;
+      font-style: italic; color: var(--umber);
+    }
+
+    .product-price-row {
+      display: flex; align-items: baseline;
+      gap: 1rem; margin-bottom: 2rem;
+    }
+    .product-price {
+      font-family: var(--display);
+      font-size: clamp(2rem, 3vw, 2.5rem);
+      font-style: italic; color: var(--umber);
+    }
+    .product-status {
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      padding: 0.35rem 0.75rem;
+    }
+
+    .btn-buy {
+      display: block; width: 100%;
+      padding: 1.1rem 2rem;
+      background: var(--umber); color: var(--bone);
+      font-size: 0.82rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      border: none; cursor: pointer; text-decoration: none;
+      text-align: center; transition: background 0.2s;
+      margin-bottom: 1rem;
+    }
+    .btn-buy:hover { background: var(--clay); }
+    .btn-buy.sold-out {
+      background: var(--parch); color: var(--sand);
+      cursor: default; pointer-events: none;
+    }
+    .buy-note {
+      font-size: 0.78rem; font-weight: 300;
+      color: var(--clay); opacity: 0.6;
+      text-align: center; line-height: 1.6;
+    }
+
+    /* ARTIST BIO — below the fold on product page */
+    .product-artist-section {
+      background: var(--cream);
+      padding: 5rem 4rem;
+      border-top: 1px solid var(--parch);
+    }
+    .product-artist-section .artist-kicker {
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--terracotta); margin-bottom: 1rem;
+    }
+    .product-artist-section .artist-full-name {
+      font-family: var(--display);
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-style: italic; color: var(--umber);
+      margin-bottom: 0.35rem;
+    }
+    .product-artist-section .artist-location {
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--clay); opacity: 0.55; margin-bottom: 1.5rem;
+    }
+    .product-artist-section .artist-full-bio {
+      font-size: 0.95rem; font-weight: 300;
+      color: var(--clay); line-height: 1.85;
+      max-width: 640px;
+    }
+
+    /* NOT FOUND */
+    .not-found {
+      display: none;
+      padding: 10rem 2.5rem;
+      text-align: center;
+    }
+    .not-found h2 {
+      font-family: var(--display); font-size: 2rem;
+      font-style: italic; color: var(--clay);
+      margin-bottom: 1rem;
+    }
+    .not-found a {
+      font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--terracotta); text-decoration: none;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 860px) {
+      .product-layout { grid-template-columns: 1fr; }
+      .product-image-col {
+        position: relative; top: 0;
+        height: 60vw; min-height: 300px;
+      }
+      .product-detail-col { padding: 3rem 1.5rem 5rem; }
+      .product-artist-section { padding: 4rem 1.5rem; }
+    }
+    @media (max-width: 600px) {
+      .drop-index { padding: 8rem 1.5rem 5rem; }
+      nav { padding: 1rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M12 22C12 22 4 16 4 9.5a8 8 0 0 1 16 0C20 16 12 22 12 22z"/>
+      <path d="M12 22V11" stroke-dasharray="2 2"/>
+    </svg>
+    Cadence
+  </a>
+  <a class="nav-back" href="/" id="nav-back-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M19 12H5M12 5l-7 7 7 7"/>
+    </svg>
+    <span id="nav-back-label">All drops</span>
+  </a>
+</nav>
+
+<!-- ══════════════════════════════════
+     DROP INDEX (no ?work param)
+══════════════════════════════════ -->
+<div class="drop-index" id="view-index">
+  <p class="drop-kicker">Drop No. 1 — Open Now</p>
+  <h1>Land &amp; <em>Labor</em></h1>
+  <p class="drop-index-sub">
+    Painters, photographers, and makers who live on this land and make work about it. Limited editions. Ships within two weeks.
+  </p>
+
+  <div class="works-grid" id="works-grid">
+    <!-- populated by JS -->
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     PRODUCT PAGE (?work=slug)
+══════════════════════════════════ -->
+<div class="product-page" id="view-product">
+
+  <div class="product-layout">
+    <!-- IMAGE -->
+    <div class="product-image-col" id="product-image-col">
+      <div class="product-image-placeholder">artwork here</div>
+    </div>
+
+    <!-- DETAILS -->
+    <div class="product-detail-col">
+      <p class="product-drop-tag">Land &amp; Labor — Drop No. 1</p>
+      <p class="product-artist-name" id="product-artist-name"></p>
+      <h1 class="product-title" id="product-title"></h1>
+      <p class="product-medium" id="product-medium"></p>
+
+      <div class="product-divider"></div>
+
+      <p class="product-story" id="product-story"></p>
+
+      <div class="product-meta">
+        <div class="product-meta-item">
+          <span class="product-meta-label">Edition</span>
+          <span class="product-meta-value" id="product-edition"></span>
+        </div>
+        <div class="product-meta-item">
+          <span class="product-meta-label">Ships within</span>
+          <span class="product-meta-value">14 days</span>
+        </div>
+        <div class="product-meta-item">
+          <span class="product-meta-label">Medium</span>
+          <span class="product-meta-value" id="product-medium-short"></span>
+        </div>
+      </div>
+
+      <div class="product-price-row">
+        <span class="product-price" id="product-price"></span>
+        <span class="product-status" id="product-status"></span>
+      </div>
+
+      <a class="btn-buy" id="btn-buy" href="#">Purchase</a>
+      <p class="buy-note">Secure checkout via Stripe. Questions? <a href="mailto:rowan@cadenceart.com" style="color:var(--terracotta);text-decoration:none;">rowan@cadenceart.com</a></p>
+    </div>
+  </div>
+
+  <!-- ARTIST BIO -->
+  <div class="product-artist-section" id="product-artist-section">
+    <p class="artist-kicker">The artist</p>
+    <p class="artist-full-name" id="artist-full-name"></p>
+    <p class="artist-location" id="artist-location"></p>
+    <p class="artist-full-bio" id="artist-full-bio"></p>
+  </div>
+
+</div>
+
+<!-- NOT FOUND -->
+<div class="not-found" id="view-not-found">
+  <h2>Work not found.</h2>
+  <a href="/land-and-labor">← Back to Land &amp; Labor</a>
+</div>
+
+
+<script>
+  // ══════════════════════════════════
+  // ARTWORK DATA
+  // Add new pieces here. slug becomes the ?work= URL param.
+  // stripeLink: paste the Stripe payment link when ready.
+  // ══════════════════════════════════
+  const works = [
+    {
+      slug: "untitled-2025",
+      artist: "Artist Name",
+      medium: "Photography",
+      mediumShort: "Photo",
+      location: "Northeast Kingdom, VT",
+      title: "Untitled, 2025",
+      price: "$85",
+      edition: 40,
+      available: 40,
+      story: "Made during the first hard frost of the season, somewhere in the Northeast Kingdom. The light that morning lasted about twenty minutes before the clouds came back. This is from that twenty minutes.",
+      bio: "Working from a small farm in Orleans County. Their photographs are made on large format film — slow, deliberate, tied to one landscape returning across seasons. They have been working in this place for twelve years.",
+      image: "images/ARTWORK-1.jpg",
+      stripeLink: "" // paste Stripe link here
+    },
+    {
+      slug: "series-title-2025",
+      artist: "Artist Name",
+      medium: "Printmaking",
+      mediumShort: "Print",
+      location: "Burlington, VT",
+      title: "Series Title, 2025",
+      price: "$65",
+      edition: 25,
+      available: 18,
+      story: "This series started with a question about who gets to name a place, and who forgets it. The prints are built from field drawings made while walking — abstracted by the time they reach the press, but the landscape stays in them.",
+      bio: "Their prints begin as field drawings made while walking. By the time the work reaches the press it's abstracted, but the landscape stays in it — in the line weight, in what gets left out. Based in Burlington, working across Vermont.",
+      image: "images/ARTWORK-2.jpg",
+      stripeLink: "" // paste Stripe link here
+    },
+    {
+      slug: "work-title-2024",
+      artist: "Artist Name",
+      medium: "Ceramics",
+      mediumShort: "Ceramic",
+      location: "Montpelier, VT",
+      title: "Work Title, 2024",
+      price: "$120",
+      edition: 15,
+      available: 15,
+      story: "She built this over two winters in a barn. The material came from the same fields it depicts. Objects made for use — the form comes from thinking about what it means to make something functional that still holds a presence.",
+      bio: "She makes objects for use. Bowls, cups, vessels that hold things. The clay comes from Vermont when she can get it. Based in Montpelier, working in a studio she built herself.",
+      image: "images/ARTWORK-3.jpg",
+      stripeLink: "" // paste Stripe link here
+    }
+  ];
+
+  // ══════════════════════════════════
+  // ROUTING
+  // ══════════════════════════════════
+  const params  = new URLSearchParams(window.location.search);
+  const workSlug = params.get('work');
+
+  if (!workSlug) {
+    // Show drop index
+    renderIndex();
+  } else {
+    const work = works.find(w => w.slug === workSlug);
+    if (work) {
+      renderProduct(work);
+    } else {
+      document.getElementById('view-not-found').style.display = 'block';
+    }
+  }
+
+  function renderIndex() {
+    document.getElementById('view-index').style.display = 'block';
+    document.title = 'Land & Labor — Cadence';
+    document.getElementById('nav-back-label').textContent = 'All drops';
+    document.getElementById('nav-back-link').href = '/';
+
+    const grid = document.getElementById('works-grid');
+    works.forEach(w => {
+      const available = w.available;
+      const statusClass = available === 0 ? 'status-sold' : available <= 5 ? 'status-limited' : 'status-available';
+      const statusText  = available === 0 ? 'Sold out' : available <= 5 ? `${available} left` : 'Available';
+
+      grid.innerHTML += `
+        <a class="work-card" href="/land-and-labor?work=${w.slug}">
+          <img class="work-card-img" src="${w.image}" alt="${w.title}"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="work-card-placeholder" style="display:none">artwork here</div>
+          <div class="work-card-info">
+            <span class="work-card-status ${statusClass}">${statusText}</span>
+            <p class="work-card-artist">${w.artist}</p>
+            <p class="work-card-title">${w.title}</p>
+            <div class="work-card-footer">
+              <span class="work-card-price">${w.price}</span>
+              <span class="work-card-edition">Ed. of ${w.edition}</span>
+            </div>
+          </div>
+        </a>`;
+    });
+  }
+
+  function renderProduct(w) {
+    document.getElementById('view-product').style.display = 'block';
+    document.title = `${w.title} — Land & Labor — Cadence`;
+
+    // Nav
+    document.getElementById('nav-back-label').textContent = 'Land & Labor';
+    document.getElementById('nav-back-link').href = '/land-and-labor';
+
+    // Image
+    const imgCol = document.getElementById('product-image-col');
+    imgCol.innerHTML = `
+      <img src="${w.image}" alt="${w.title}"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+           style="width:100%;height:100%;object-fit:contain;padding:3rem;"/>
+      <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;font-family:var(--display);font-style:italic;color:var(--clay);opacity:0.4;">artwork here</div>`;
+
+    // Details
+    document.getElementById('product-artist-name').textContent = w.artist;
+    document.getElementById('product-title').textContent = w.title;
+    document.getElementById('product-medium').textContent = `${w.medium} · ${w.location}`;
+    document.getElementById('product-medium-short').textContent = w.mediumShort;
+    document.getElementById('product-story').textContent = w.story;
+    document.getElementById('product-price').textContent = w.price;
+
+    const editionEl = document.getElementById('product-edition');
+    editionEl.textContent = w.available === 0
+      ? `Sold out (Ed. of ${w.edition})`
+      : `${w.available} of ${w.edition} remaining`;
+
+    const statusEl = document.getElementById('product-status');
+    const buyBtn   = document.getElementById('btn-buy');
+    if (w.available === 0) {
+      statusEl.textContent = 'Sold out';
+      statusEl.className = 'product-status status-sold';
+      buyBtn.textContent = 'Sold Out';
+      buyBtn.classList.add('sold-out');
+    } else if (w.available <= 5) {
+      statusEl.textContent = `${w.available} left`;
+      statusEl.className = 'product-status status-limited';
+    } else {
+      statusEl.textContent = 'Available';
+      statusEl.className = 'product-status status-available';
+    }
+
+    if (w.stripeLink) {
+      buyBtn.href = w.stripeLink;
+    } else {
+      buyBtn.href = 'mailto:rowan@cadenceart.com?subject=Purchase inquiry — ' + encodeURIComponent(w.title);
+    }
+
+    // Artist bio
+    document.getElementById('artist-full-name').textContent = w.artist;
+    document.getElementById('artist-location').textContent = `${w.medium} · ${w.location}`;
+    document.getElementById('artist-full-bio').textContent  = w.bio;
+  }
+</script>
+
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
