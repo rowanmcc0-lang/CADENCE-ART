@@ -58,9 +58,10 @@
       justify-content: space-between;
       align-items: center;
       padding: 1rem 2rem;
-      background: rgba(250,247,241,0.97);
+      background: rgba(250,247,241,0.98);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--parch);
+      border-bottom: 2px solid var(--terracotta);
+      box-shadow: 0 2px 16px rgba(42,22,8,0.07);
     }
 
     .nav-logo {
@@ -944,10 +945,10 @@
     .about-cadence::after {
       content: '';
       position: absolute;
-      width: 400px; height: 400px;
+      width: 500px; height: 500px;
       border-radius: 50%;
       background: radial-gradient(ellipse, rgba(196,149,32,0.1) 0%, transparent 65%);
-      bottom: -100px; left: -80px;
+      top: -150px; right: -100px;
       pointer-events: none;
     }
     .about-cadence h2 { color: var(--bone); margin-top: 1.25rem; }
@@ -1129,6 +1130,61 @@
 
     @media (max-width: 420px) {
       .art-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── HOME EMAIL STRIP ── */
+    .home-email-strip {
+      background: var(--forest);
+      padding: 5rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .home-email-strip::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.05; pointer-events: none;
+    }
+    .home-email-strip::after {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(90,172,128,0.12) 0%, transparent 65%);
+      top: -150px; right: -100px;
+      pointer-events: none;
+    }
+    .home-email-inner { position: relative; z-index: 1; max-width: 680px; }
+    .home-email-kicker {
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--leaf); margin-bottom: 1.25rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .home-email-kicker::before {
+      content: ''; display: block; width: 28px; height: 1px;
+      background: var(--leaf); opacity: 0.6;
+    }
+    .home-email-heading {
+      font-family: var(--display);
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      font-weight: 400; font-style: italic;
+      color: var(--mint); line-height: 1.1;
+      margin-bottom: 0.9rem;
+    }
+    .home-email-sub {
+      font-size: 1rem; color: var(--sage);
+      font-weight: 300; line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+    .email-success-msg {
+      display: none;
+      font-family: var(--display);
+      font-size: 1.2rem; font-style: italic;
+      color: var(--mint); margin-top: 1.5rem;
+    }
+    @media (max-width: 720px) {
+      .home-email-strip { padding: 4rem 1.5rem; }
     }
 
     /* ── PATH CHOOSER (below hero) ── */
@@ -1542,6 +1598,21 @@
     </div>
   </div>
 
+  <!-- email list signup -->
+  <div class="home-email-strip">
+    <div class="home-email-inner">
+      <p class="home-email-kicker">Join the list</p>
+      <h2 class="home-email-heading">We release Vermont-made work in small drops.</h2>
+      <p class="home-email-sub">Join the list and we'll let you know when the next one goes live.</p>
+      <form id="home-email-form" action="https://formspree.io/f/mzdypvgb" method="POST">
+        <div class="email-row">
+          <input type="email" name="email" placeholder="your@email.com" required />
+          <button type="submit">Join the List</button>
+        </div>
+        <p class="email-success-msg" id="home-success">You're on the list. We'll be in touch before the next drop.</p>
+      </form>
+    </div>
+  </div>
 
 </div><!-- end home -->
 
@@ -1699,11 +1770,14 @@
       Don't miss a drop
     </p>
     <h2>Get early access to every drop.</h2>
-    <p class="body-text">People on our list hear about new drops first — sometimes a week before they go public.</p>
-    <div class="email-row" style="margin-top:2rem">
-      <input type="email" placeholder="your@email.com" />
-      <button onclick="alert('You\'re on the list. Thanks.')">Join the List</button>
-    </div>
+    <p class="body-text">New drops go to the list first. Sign up and we'll let you know when the next one is ready.</p>
+    <form id="browse-email-form" action="https://formspree.io/f/mzdypvgb" method="POST">
+      <div class="email-row" style="margin-top:2rem">
+        <input type="email" name="email" placeholder="your@email.com" required />
+        <button type="submit">Join the List</button>
+      </div>
+      <p class="email-success-msg" id="browse-success" style="color:var(--mist);margin-top:1.25rem">You're on the list. We'll be in touch before the next drop.</p>
+    </form>
   </div>
 
   <!-- Drop II teaser -->
@@ -1870,7 +1944,7 @@
         <option>Film / Video</option>
         <option>Other</option>
       </select>
-      <input type="url" name="portfolio" placeholder="Instagram or portfolio link" />
+      <input type="text" name="portfolio" placeholder="Instagram, website, or anywhere your work lives" />
       <textarea name="message" placeholder="Tell us a little about your work — no need to be formal."></textarea>
       <!-- hidden field so Formspree knows where to send it -->
       <input type="hidden" name="_replyto" value="rowan@cadenceart.com" />
@@ -1950,15 +2024,12 @@
         <p class="medium">Writing &amp; Print</p>
       </a>
 
-      <!-- "join" card links to apply form -->
-      <span class="artist-card" onclick="showPage('artists');setTimeout(()=>document.getElementById('apply-section').scrollIntoView({behavior:'smooth'}),80)" style="cursor:pointer">
-        <div class="artist-photo" style="background:linear-gradient(135deg,var(--sand),var(--clay));">
-          <span class="initials">+</span>
-        </div>
-        <h3>Your name here</h3>
-        <p class="location">Anywhere</p>
-        <p class="medium">Apply to join</p>
-      </span>
+      <!-- join CTA -->
+      <div style="display:flex;flex-direction:column;justify-content:center;padding:1rem 0;">
+        <p style="font-size:0.68rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--terracotta);margin-bottom:0.75rem;">Work with your hands?</p>
+        <p style="font-family:var(--display);font-size:1.2rem;font-weight:400;color:var(--umber);margin-bottom:1.25rem;line-height:1.4;">We're always looking for the next artist.</p>
+        <span onclick="showPage('artists');setTimeout(()=>document.getElementById('apply-section').scrollIntoView({behavior:'smooth'}),80)" style="font-size:0.75rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--clay);cursor:pointer;">Apply to join →</span>
+      </div>
 
     </div>
   </div>
@@ -2150,7 +2221,36 @@
     btn.querySelector('.drop-story-chevron').style.transform = isOpen ? 'rotate(180deg)' : '';
   }
 
-  // Form submission handled by Formspree — https://formspree.io/f/mzdypvgb
+  // Email signup via Formspree
+  function handleEmailForm(formId, successId) {
+    const form = document.getElementById(formId);
+    if (!form) return;
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]');
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.querySelector('.email-row').style.display = 'none';
+          document.getElementById(successId).style.display = 'block';
+        } else {
+          btn.textContent = 'Try again';
+          btn.disabled = false;
+        }
+      } catch(err) {
+        btn.textContent = 'Try again';
+        btn.disabled = false;
+      }
+    });
+  }
+  handleEmailForm('home-email-form', 'home-success');
+  handleEmailForm('browse-email-form', 'browse-success');
 </script>
 <!-- Vercel Analytics -->
 <script defer src="/_vercel/insights/script.js"></script>
