@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Artist Onboarding — Cadence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --umber:      #2a1608;
+      --clay:       #7a4520;
+      --terracotta: #b85c2e;
+      --ochre:      #c49520;
+      --bone:       #ede0c8;
+      --cream:      #f5ede0;
+      --warm:       #faf5ec;
+      --parch:      #ede3d2;
+      --sand:       #c8b49a;
+      --forest:     #244535;
+      --leaf:       #5aac80;
+      --display:    'Cormorant Garamond', Georgia, serif;
+      --body:       'Plus Jakarta Sans', 'Helvetica Neue', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--warm);
+      color: var(--umber);
+      font-family: var(--body);
+      font-size: 17px;
+      line-height: 1.7;
+    }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(250,247,241,0.98);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid var(--terracotta);
+      box-shadow: 0 2px 16px rgba(42,22,8,0.07);
+    }
+    .nav-logo {
+      font-family: var(--display); font-size: 2rem; font-weight: 600;
+      color: var(--forest); text-decoration: none; letter-spacing: 0.05em;
+      display: flex; align-items: center; gap: 0.45rem; line-height: 1;
+    }
+    .nav-logo svg { width: 18px; height: 18px; color: var(--leaf); flex-shrink: 0; }
+    .nav-back {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--clay); text-decoration: none;
+      display: flex; align-items: center; gap: 0.5rem; transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--umber); }
+
+    .header {
+      background: var(--umber);
+      padding: 7rem 2.5rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.06; pointer-events: none;
+    }
+    .header::after {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(196,149,32,0.12) 0%, transparent 65%);
+      top: -150px; right: -100px; pointer-events: none;
+    }
+    .header-inner { position: relative; z-index: 1; max-width: 640px; }
+    .kicker {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.28em;
+      text-transform: uppercase; color: var(--terracotta); margin-bottom: 1.25rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .kicker::before { content: ''; display: block; width: 28px; height: 1px; background: var(--terracotta); opacity: 0.7; }
+    .header h1 {
+      font-family: var(--display); font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 400; font-style: italic; color: var(--bone); line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .header p {
+      color: var(--sand); font-size: 1rem; font-weight: 300;
+      line-height: 1.8; max-width: 520px;
+    }
+
+    .form-section {
+      padding: 4rem 2.5rem 6rem;
+      max-width: 680px;
+    }
+
+    .field { margin-bottom: 2rem; }
+    .field label {
+      display: block;
+      font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--clay); margin-bottom: 0.5rem;
+    }
+    .field .hint {
+      font-size: 0.82rem; font-weight: 300;
+      color: var(--clay); opacity: 0.65;
+      margin-bottom: 0.6rem; line-height: 1.55;
+    }
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      padding: 0.95rem 1.25rem;
+      border: 1.5px solid var(--parch);
+      background: white;
+      font-family: var(--body);
+      font-size: 0.97rem;
+      color: var(--umber);
+      outline: none;
+      transition: border-color 0.2s;
+      border-radius: 2px;
+      appearance: none;
+    }
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus { border-color: var(--terracotta); }
+    .field textarea { min-height: 130px; resize: vertical; line-height: 1.65; }
+    .field textarea.tall { min-height: 200px; }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .section-break {
+      border: none;
+      border-top: 1px solid var(--parch);
+      margin: 2.5rem 0;
+    }
+
+    .section-label {
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--terracotta); margin-bottom: 1.75rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .section-label::after {
+      content: ''; flex: 1; height: 1px;
+      background: var(--terracotta); opacity: 0.2;
+    }
+
+    .drive-note {
+      background: var(--cream);
+      border-left: 3px solid var(--ochre);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+      font-size: 0.9rem; color: var(--clay);
+      font-weight: 300; line-height: 1.7;
+    }
+    .drive-note strong { font-weight: 600; color: var(--umber); }
+
+    .submit-btn {
+      display: block; width: 100%;
+      padding: 1.1rem 2rem;
+      background: var(--umber); color: var(--bone);
+      font-family: var(--body); font-size: 0.82rem;
+      font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; border: none;
+      cursor: pointer; transition: background 0.2s;
+      margin-top: 2.5rem;
+    }
+    .submit-btn:hover { background: var(--clay); }
+
+    .success-msg {
+      display: none;
+      background: var(--forest);
+      color: var(--bone);
+      padding: 2rem 2.5rem;
+      margin-top: 2rem;
+      font-family: var(--display);
+      font-size: 1.3rem; font-style: italic;
+      line-height: 1.5;
+    }
+
+    footer {
+      background: var(--umber); padding: 2rem 2.5rem;
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 1rem;
+      border-top: 2px solid var(--terracotta);
+    }
+    .footer-logo {
+      font-family: var(--display); font-size: 1.6rem;
+      font-weight: 600; color: var(--bone); letter-spacing: 0.05em;
+    }
+    .footer-copy { font-size: 0.7rem; color: rgba(200,180,154,0.4); }
+
+    @media (max-width: 600px) {
+      .header { padding: 6rem 1.5rem 3rem; }
+      .form-section { padding: 3rem 1.5rem 5rem; }
+      .field-row { grid-template-columns: 1fr; }
+      nav { padding: 1rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M12 22C12 22 4 16 4 9.5a8 8 0 0 1 16 0C20 16 12 22 12 22z"/>
+      <path d="M12 22V11" stroke-dasharray="2 2"/>
+    </svg>
+    Cadence
+  </a>
+  <a class="nav-back" href="/">← Back to site</a>
+</nav>
+
+<div class="header">
+  <div class="header-inner">
+    <p class="kicker">For Artists</p>
+    <h1>Welcome to Cadence.</h1>
+    <p>Fill this out once and we'll take it from there. There are no right answers — we're just trying to understand you and your work before we talk further.</p>
+  </div>
+</div>
+
+<div class="form-section">
+  <form id="onboarding-form" action="https://formspree.io/f/mzdypvgb" method="POST">
+    <input type="hidden" name="_subject" value="New Artist Onboarding Submission" />
+
+    <p class="section-label">About you</p>
+
+    <div class="field">
+      <label for="name">Full name</label>
+      <input type="text" id="name" name="name" required placeholder="Your name" />
+    </div>
+
+    <div class="field">
+      <label for="location">Where are you based?</label>
+      <input type="text" id="location" name="location" placeholder="Town, state" />
+    </div>
+
+    <div class="field">
+      <label for="medium">What do you make?</label>
+      <p class="hint">Medium, materials, format — however you'd describe it to someone who asked.</p>
+      <textarea id="medium" name="medium" placeholder="e.g. Glass blowing and mixed media, fiber arts and woven textiles, photography…"></textarea>
+    </div>
+
+    <div class="field">
+      <label for="bio">Short bio</label>
+      <p class="hint">2–4 sentences in your own words. Not a press bio — more like how you'd introduce yourself.</p>
+      <textarea id="bio" name="bio" placeholder="Where you're from, what you make, what your practice looks like day to day."></textarea>
+    </div>
+
+    <div class="field">
+      <label for="drives">What drives the work?</label>
+      <p class="hint">What keeps you making? What are you drawn to, thinking about, working through?</p>
+      <textarea id="drives" name="drives" class="tall" placeholder="No wrong answer here. Could be a material, a question, a place, a feeling."></textarea>
+    </div>
+
+    <hr class="section-break"/>
+    <p class="section-label">Finding your work</p>
+
+    <div class="field">
+      <label for="links">Where can we see your work?</label>
+      <p class="hint">Instagram handle, website, portfolio — anything works. A link, a handle, or just tell us where to look.</p>
+      <input type="text" id="links" name="links" placeholder="@yourhandle, yoursite.com, etc." />
+    </div>
+
+    <div class="field">
+      <label for="referral">How did you hear about Cadence?</label>
+      <input type="text" id="referral" name="referral" placeholder="Who mentioned it, or where you came across it" />
+    </div>
+
+    <hr class="section-break"/>
+    <p class="section-label">Files</p>
+
+    <div class="drive-note">
+      <strong>Headshot and work samples</strong> — send these separately. We'll share a Google Drive folder link with you after you submit this form. High-res is ideal but don't stress it for now.
+    </div>
+
+    <div class="field">
+      <label for="notes">Anything else?</label>
+      <p class="hint">Questions, context, things you want us to know. Optional.</p>
+      <textarea id="notes" name="notes" placeholder="Completely optional."></textarea>
+    </div>
+
+    <button type="submit" class="submit-btn">Submit</button>
+    <div class="success-msg" id="success-msg">
+      Got it — we'll be in touch soon. Thanks for sharing.
+    </div>
+  </form>
+</div>
+
+<footer>
+  <span class="footer-logo">Cadence</span>
+  <span class="footer-copy">© 2025 Cadence — Human-made. Community-rooted.</span>
+</footer>
+
+<script>
+  const form = document.getElementById('onboarding-form');
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = form.querySelector('.submit-btn');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        form.querySelector('.submit-btn').style.display = 'none';
+        document.getElementById('success-msg').style.display = 'block';
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      } else {
+        btn.textContent = 'Try again';
+        btn.disabled = false;
+      }
+    } catch(err) {
+      btn.textContent = 'Try again';
+      btn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>

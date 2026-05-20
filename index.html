@@ -924,6 +924,173 @@
       .community-cta { padding: 4rem 1.5rem; }
     }
 
+    /* ── ARTISTS SUB-TABS ── */
+    .artists-subtabs {
+      background: var(--cream);
+      border-bottom: 1px solid var(--parch);
+      display: flex;
+      padding: 0 2.5rem;
+      position: sticky;
+      top: 65px;
+      z-index: 100;
+    }
+    .artists-subtab {
+      padding: 1rem 0;
+      margin-right: 2.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--clay);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+    .artists-subtab:hover { color: var(--umber); }
+    .artists-subtab.active {
+      color: var(--umber);
+      border-bottom-color: var(--terracotta);
+    }
+    .artists-subpage { display: none; }
+    .artists-subpage.active { display: block; }
+
+    /* After Approval section */
+    .approval-section {
+      padding: 5rem 2.5rem;
+      max-width: 860px;
+    }
+    .approval-intro {
+      margin-bottom: 3.5rem;
+    }
+    .approval-intro h2 {
+      font-family: var(--display);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 400; color: var(--umber);
+      margin-bottom: 0.75rem;
+    }
+    .approval-intro p {
+      font-size: 1rem; font-weight: 300;
+      color: var(--clay); line-height: 1.8;
+      max-width: 560px;
+    }
+    .approval-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .approval-card {
+      background: var(--warm);
+      border: 1.5px solid var(--parch);
+      border-top: 3px solid var(--terracotta);
+      padding: 2.5rem 2rem;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .approval-card:hover {
+      border-color: var(--terracotta);
+      box-shadow: 0 4px 20px rgba(42,22,8,0.07);
+    }
+    .approval-card-num {
+      font-family: var(--display);
+      font-size: 2rem; font-style: italic;
+      color: var(--terracotta); opacity: 0.5;
+      line-height: 1; margin-bottom: 1.25rem;
+    }
+    .approval-card h3 {
+      font-family: var(--display);
+      font-size: 1.5rem; font-weight: 400;
+      color: var(--umber); margin-bottom: 0.5rem;
+    }
+    .approval-card p {
+      font-size: 0.9rem; font-weight: 300;
+      color: var(--clay); line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+    .approval-card-link {
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--terracotta);
+    }
+    @media (max-width: 640px) {
+      .approval-cards { grid-template-columns: 1fr; }
+      .approval-section { padding: 4rem 1.5rem; }
+      .artists-subtabs { padding: 0 1.5rem; }
+    }
+
+    /* ── ACCESS CODE MODAL ── */
+    .code-overlay {
+      display: none;
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(42,22,8,0.6);
+      backdrop-filter: blur(4px);
+      align-items: center; justify-content: center;
+      padding: 1.5rem;
+    }
+    .code-overlay.open { display: flex; }
+    .code-modal {
+      background: var(--warm);
+      border-top: 3px solid var(--terracotta);
+      padding: 2.75rem;
+      max-width: 420px; width: 100%;
+      box-shadow: 0 20px 60px rgba(42,22,8,0.25);
+    }
+    .code-modal-kicker {
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--terracotta); margin-bottom: 0.75rem;
+    }
+    .code-modal h3 {
+      font-family: var(--display); font-size: 1.6rem;
+      font-weight: 400; color: var(--umber);
+      margin-bottom: 0.5rem;
+    }
+    .code-modal p {
+      font-size: 0.88rem; font-weight: 300;
+      color: var(--clay); line-height: 1.7;
+      margin-bottom: 1.75rem;
+    }
+    .code-input-row {
+      display: flex; gap: 0.75rem;
+    }
+    .code-input {
+      flex: 1;
+      padding: 0.9rem 1.1rem;
+      border: 1.5px solid var(--parch);
+      background: white;
+      font-family: var(--body); font-size: 1rem;
+      color: var(--umber); outline: none;
+      border-radius: 2px;
+      letter-spacing: 0.08em;
+      transition: border-color 0.2s;
+    }
+    .code-input:focus { border-color: var(--terracotta); }
+    .code-submit {
+      padding: 0.9rem 1.5rem;
+      background: var(--umber); color: var(--bone);
+      font-family: var(--body); font-size: 0.8rem;
+      font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; border: none;
+      cursor: pointer; transition: background 0.2s;
+      border-radius: 2px; white-space: nowrap;
+    }
+    .code-submit:hover { background: var(--clay); }
+    .code-error {
+      display: none;
+      font-size: 0.82rem; color: var(--terracotta);
+      margin-top: 0.75rem; font-weight: 400;
+    }
+    .code-cancel {
+      display: block; margin-top: 1.25rem;
+      font-size: 0.75rem; font-weight: 500;
+      color: var(--clay); opacity: 0.6;
+      cursor: pointer; text-align: center;
+      transition: opacity 0.2s;
+    }
+    .code-cancel:hover { opacity: 1; }
+
     /* ── ABOUT PAGE ── */
     #page-about { background: var(--warm); }
 
@@ -1806,6 +1973,15 @@
 ══════════════════════════════════ -->
 <div id="page-artists" class="page">
 
+  <!-- sub-tab nav -->
+  <div class="artists-subtabs">
+    <span class="artists-subtab active" onclick="showArtistTab('main')">For Artists</span>
+    <span class="artists-subtab" onclick="showArtistTab('approved')">After Approval</span>
+  </div>
+
+  <!-- main artists content -->
+  <div id="artists-main" class="artists-subpage active">
+
   <!-- value prop — reframed -->
   <div class="pitch-section">
     <p class="section-tag">
@@ -1954,6 +2130,36 @@
     </form>
   </div>
 
+
+  </div><!-- end artists-main subpage -->
+
+  <!-- after approval subpage -->
+  <div id="artists-approved" class="artists-subpage">
+    <div class="approval-section">
+      <div class="approval-intro">
+        <p class="section-tag" style="margin-bottom:1rem;">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1C5.2 1 3 3.7 3 7c0 3.2 2.5 6 5 7.9C11.5 13 14 10.2 14 7c0-3.3-2.2-6-6-6z"/></svg>
+          After Approval
+        </p>
+        <h2>You're in. Here's what comes next.</h2>
+        <p>Fill out your artist profile so we have everything we need, then submit each piece you'd like to include in the drop. Do these in order — one first, then the other for each piece.</p>
+      </div>
+      <div class="approval-cards">
+        <a class="approval-card" href="/artist-onboarding">
+          <div class="approval-card-num">01</div>
+          <h3>Artist Profile</h3>
+          <p>Your bio, your practice, what drives the work, and where to find you. Fill this out once when you join. We use it for your listing and for how we talk about you publicly.</p>
+          <span class="approval-card-link">Fill out your profile →</span>
+        </a>
+        <a class="approval-card" href="/piece-submission">
+          <div class="approval-card-num">02</div>
+          <h3>Submit a Piece</h3>
+          <p>Title, medium, edition size, pricing range, and the story behind the work. Fill this out once per piece you're putting into the drop. Upload your image files to Drive separately.</p>
+          <span class="approval-card-link">Submit a piece →</span>
+        </a>
+      </div>
+    </div>
+  </div><!-- end artists-approved subpage -->
 
 </div><!-- end artists -->
 
@@ -2180,6 +2386,21 @@
 </div><!-- end about -->
 
 
+<!-- ── ACCESS CODE MODAL ── -->
+<div class="code-overlay" id="code-overlay">
+  <div class="code-modal">
+    <p class="code-modal-kicker">Approved Artists</p>
+    <h3>Enter your access code.</h3>
+    <p>You should have received this from Cadence when your application was approved. Get in touch if you've lost it.</p>
+    <div class="code-input-row">
+      <input class="code-input" id="code-input" type="text" placeholder="e.g. CADENCE-001" autocomplete="off" />
+      <button class="code-submit" onclick="submitCode()">Enter</button>
+    </div>
+    <p class="code-error" id="code-error">That code isn't recognised. Double-check and try again.</p>
+    <span class="code-cancel" onclick="closeCodeModal()">Cancel</span>
+  </div>
+</div>
+
 <!-- ── FOOTER (always visible) ── -->
 <footer>
   <span class="footer-logo">Cadence</span>
@@ -2220,6 +2441,67 @@
     btn.querySelector('.drop-story-btn-text').textContent = isOpen ? 'Hide the story' : 'Read the story';
     btn.querySelector('.drop-story-chevron').style.transform = isOpen ? 'rotate(180deg)' : '';
   }
+
+  // ── ACCESS CODE GATE ──
+  // Add or remove codes here as artists are approved.
+  // Format: plain strings, one per artist.
+  const ARTIST_CODES = ['001','002','003','004'];
+
+  function showArtistTab(tab) {
+    if (tab === 'approved') {
+      if (sessionStorage.getItem('cadence_approved') === 'true') {
+        openApprovedTab();
+      } else {
+        document.getElementById('code-overlay').classList.add('open');
+        setTimeout(() => document.getElementById('code-input').focus(), 100);
+      }
+      return;
+    }
+    openTab(tab);
+  }
+
+  function openApprovedTab() {
+    openTab('approved');
+  }
+
+  function openTab(tab) {
+    document.querySelectorAll('.artists-subpage').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.artists-subtab').forEach(t => t.classList.remove('active'));
+    document.getElementById('artists-' + tab).classList.add('active');
+    const tabs = document.querySelectorAll('.artists-subtab');
+    tabs.forEach(t => { if (t.textContent.trim().toLowerCase().includes(tab === 'main' ? 'artists' : 'approval')) t.classList.add('active'); });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function submitCode() {
+    const input = document.getElementById('code-input').value.trim().toUpperCase();
+    const valid = ARTIST_CODES.map(c => c.toUpperCase());
+    if (valid.includes(input)) {
+      sessionStorage.setItem('cadence_approved', 'true');
+      closeCodeModal();
+      openApprovedTab();
+    } else {
+      document.getElementById('code-error').style.display = 'block';
+      document.getElementById('code-input').focus();
+    }
+  }
+
+  function closeCodeModal() {
+    document.getElementById('code-overlay').classList.remove('open');
+    document.getElementById('code-input').value = '';
+    document.getElementById('code-error').style.display = 'none';
+  }
+
+  // Allow pressing Enter in the code input
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('code-input').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') submitCode();
+    });
+    // Close modal on overlay click
+    document.getElementById('code-overlay').addEventListener('click', function(e) {
+      if (e.target === this) closeCodeModal();
+    });
+  });
 
   // Email signup via Formspree
   function handleEmailForm(formId, successId) {
